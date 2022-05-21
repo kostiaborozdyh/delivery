@@ -19,13 +19,13 @@ ${sessionScope.user.login} <br>
 <text>Вага   </text>${sessionScope.infoOrder.weight}<br>
 <text>Об'єм   </text>${sessionScope.infoOrder.volume}<br>
 <text>Ціна   </text>${sessionScope.infoOrder.price}<br>
+<text>Місто відправки   </text>${sessionScope.infoOrder.cityFrom}<br>
+<text>Місто доставки   </text>${sessionScope.infoOrder.cityTo}<br>
 <text>Адреса   </text>${sessionScope.infoOrder.address}<br>
 <text>Дата створення заявки   </text>${sessionScope.infoOrder.dateCreate}<br>
 <text>Дата доставки вантажу   </text>${sessionScope.infoOrder.dateOfArrival}<br>
-<text>Замовник   </text>${sessionScope.infoOrder.userLogin}<br>
-<text>Місто відправки   </text>${sessionScope.infoOrder.cityFrom}<br>
-<text>Місто доставки   </text>${sessionScope.infoOrder.cityTo}<br>
 <text>Статус оплати   </text>${sessionScope.infoOrder.paymentStatus}<br>
+<text>Замовник   </text>${sessionScope.infoOrder.userLogin}<br>
 <c:if test = "${sessionScope.infoOrder.paymentStatus == 'На розгляді'}">
     <abbr title="Змінити статус оплати" >
         <a href="/confirmOrder?id=${sessionScope.infoOrder.id}">Підтвердити замовлення</a><br>

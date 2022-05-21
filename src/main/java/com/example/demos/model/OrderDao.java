@@ -23,19 +23,17 @@ public class OrderDao {
 
     public static final String GET_USER_ID = "SELECT * FROM delivery.order d WHERE d.id = ?";
     public static final String GET_ORDER_LIST = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
-            "do.address, do.date_create, do.date_of_arrival, du.login, \n" +
-            "  dcf.city_from_name, dct.city_to_name, dp.status\n" +
-            "  FROM delivery.order as do \n" +
-            "  join delivery.user as du on  do.user_id = du.id \n" +
-            "  join delivery.city_from as dcf on do.city_from_id = dcf.id\n" +
-            "  join delivery.city_to as dct on  do.city_to_id = dct.id\n" +
-            "  join delivery.payment_status as dp on  do.payment_status_id = dp.id order by dp.status";
+            "do.city_from, do.city_to, do.address, do.date_create, \n" +
+            "do.date_of_arrival, dp.status, du.login\n" +
+            "FROM delivery.order as do\n" +
+            "join delivery.user as du on  do.user_id = du.id \n" +
+            "join delivery.payment_status as dp  on  do.payment_status_id = dp.id";
     public static final String GET_ORDER = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
-            "do.city_from, do.city_to, do.address, do.date_create, du.login, \n" +
-            "do.date_of_arrival, dp.status\n" +
-            "  FROM delivery.order as do\n" +
-            "  join delivery.user as du on  do.user_id = du.id \n" +
-            "  join delivery.payment_status as dp  on  do.payment_status_id = dp.id  and do.id=?";
+            "do.city_from, do.city_to, do.address, do.date_create, \n" +
+            "do.date_of_arrival, dp.status, du.login\n" +
+            "FROM delivery.order as do\n" +
+            "join delivery.user as du on  do.user_id = du.id \n" +
+            "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.id=?";
     public static boolean createOrder(String info, String cityFrom, String cityTo, String address,Integer price,Integer volume,String weight, Integer distance,Integer id) {
         int count = 0;
         try( Connection connection = DBHelper.getInstance().getConnection();

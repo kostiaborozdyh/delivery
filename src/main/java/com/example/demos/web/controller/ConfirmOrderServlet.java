@@ -27,6 +27,7 @@ public class ConfirmOrderServlet extends HttpServlet {
            }
        }
         request.setAttribute("id",orderId);
+        request.getSession().removeAttribute("orderList");
         request.getRequestDispatcher("/info").forward(request,response);
     }
 

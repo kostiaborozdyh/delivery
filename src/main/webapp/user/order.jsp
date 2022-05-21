@@ -19,9 +19,9 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
     <label><input type="number" name="minPrice" min="0" value="${sessionScope.minPrice}" ></label>Ціна от<br>
     <label><input type="number" name="maxPrice" min="0" value="${sessionScope.maxPrice}"></label>Ціна до<br>
     <text>Статус</text><br>
-    <input type="checkbox" name="paymentStatus" value="На розгляді" <c:if test="${sessionScope.status1 != null}"> checked</c:if> >На розгляді<br>
-    <input type="checkbox" name="paymentStatus" value="Очікує оплату" <c:if test="${sessionScope.status2 != null}"> checked</c:if> >Очікує оплату<br>
-    <input type="checkbox" name="paymentStatus" value="Оплачено" <c:if test="${sessionScope.status3 != null}"> checked</c:if> >Оплачено<br>
+    <label> <input type="checkbox" name="paymentStatus" value="На розгляді" <c:if test="${sessionScope.status1 != null}"> checked</c:if> ></label>На розгляді<br>
+    <label> <input type="checkbox" name="paymentStatus" value="Очікує оплату" <c:if test="${sessionScope.status2 != null}"> checked</c:if> ></label>Очікує оплату<br>
+    <label> <input type="checkbox" name="paymentStatus" value="Оплачено" <c:if test="${sessionScope.status3 != null}"> checked</c:if> ></label>Оплачено<br>
     <text>Дата відправки</text><br>
     <label>от<input type="date" name="minDateCreate" value="${sessionScope.minDateCreate}"></label>
     <label>до<input type="date" name="maxDateCreate" value="${sessionScope.maxDateCreate}"><br></label>
