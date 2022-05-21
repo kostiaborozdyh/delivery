@@ -34,8 +34,7 @@ public class OrderDao {
             "FROM delivery.order as do\n" +
             "join delivery.user as du on  do.user_id = du.id \n" +
             "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.id=?";
-    public static boolean createOrder(String info, String cityFrom, String cityTo, String address,Integer price,Integer volume,String weight, Integer distance,Integer id) {
-        int count = 0;
+    public static void createOrder(String info, String cityFrom, String cityTo, String address, Integer price, Integer volume, String weight, Integer distance, Integer id) {
         try( Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement  st = connection.prepareStatement(INSERT_ORDER)) {
             st.setString(1,info);
@@ -49,12 +48,11 @@ public class OrderDao {
             st.setDate(9,Date.valueOf(Calculate.arrivalTime(distance)));
             st.setInt(10,id);
             st.setInt(11,1);
-            count = st.executeUpdate();
+            st.executeUpdate();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return count>0;
     }
 
     public static List<Order> getUserOrders(User user){
@@ -75,30 +73,25 @@ public class OrderDao {
         return list;
     }
 
-    public static boolean changePayStatus(Integer id, Integer value, Integer money){
-        int count = 0;
-
+    public static void changePayStatus(Integer id, Integer value, Integer money){
         try( Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement  st = connection.prepareStatement(CHANGE_PAY_STATUS)) {
             st.setInt(1,id);
             UserDao.changeMoney(id,value,money);
-            count = st.executeUpdate();
+            st.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return count>0;
     }
-    public static boolean changeOrderStatus(Integer id){
-        int count = 0;
+    public static void changeOrderStatus(Integer id){
 
         try( Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement  st = connection.prepareStatement(CHANGE_ORDER_STATUS)) {
             st.setInt(1,id);
-            count = st.executeUpdate();
+            st.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return count>0;
     }
     public static Integer getUserId(Integer orderId){
         int id = 0;

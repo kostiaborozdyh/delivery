@@ -2,7 +2,6 @@ package com.example.demos.web.filter;
 
 import com.example.demos.model.OrderDao;
 import com.example.demos.model.entity.Order;
-import com.example.demos.model.entity.User;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

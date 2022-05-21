@@ -1,6 +1,6 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.SendEmail;
+
 import com.example.demos.model.UserDao;
 import com.example.demos.model.entity.User;
 
@@ -15,7 +15,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final String login = request.getParameter("login");
         final String password = request.getParameter("password");
-        User user = null;
+        User user;
         try {
             user = UserDao.userValid(login, password);
         } catch (Exception e) {

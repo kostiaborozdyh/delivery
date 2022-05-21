@@ -8,7 +8,6 @@ import org.json.simple.parser.ParseException;
 import javax.mail.MessagingException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import java.io.DataInput;
 import java.io.IOException;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class CreateOrderServlet extends HttpServlet {
         }
 
         if(user.getNotify().equals("yes")){
-            String str[] = CreateMessage.messageCreateOrder(cityFrom,cityTo,distanceList.get(0).getDistance(),price);
+            String[] str = CreateMessage.messageCreateOrder(cityFrom,cityTo,distanceList.get(0).getDistance(),price);
             try {
                 SendEmail.send(user.getEmail(),str[0],str[1]);
             } catch (MessagingException e) {

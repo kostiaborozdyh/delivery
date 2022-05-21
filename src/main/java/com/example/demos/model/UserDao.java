@@ -66,6 +66,7 @@ public class UserDao {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        assert notify != null;
         return (notify.equals("yes"));
     }
     public static boolean loginIsValid(String login){
@@ -114,7 +115,7 @@ public class UserDao {
         return email.matches("^([a-z\\d_-]+\\.)*[a-z\\d_-]+@[a-z\\d_-]+(\\.[a-z\\d_-]+)*\\.[a-z]{2,6}$");
     }
     public static boolean passwordValid(String password){
-        return password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$");
+        return !password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$");
     }
 
 
@@ -215,6 +216,7 @@ public class UserDao {
         } catch (SQLException ex) {
             ex.printStackTrace();
             try {
+                assert st != null;
                 st.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -268,7 +270,7 @@ public class UserDao {
         if (UserDao.phoneNumberValid(user.getPhoneNumber()) || user.getPhoneNumber().equals("")) validList.setValidPhoneNumber(user.getPhoneNumber());
         else validList.setInvalidPhoneNumber(user.getPhoneNumber());
         if (user.getPassword().equals(password)) {
-            if(!UserDao.passwordValid(password)) validList.setInvalidPasswordName("InvalidPasswordName");
+            if(UserDao.passwordValid(password)) validList.setInvalidPasswordName("InvalidPasswordName");
         }
         else validList.setInvalidPassword("InvalidPassword");
         return validList;

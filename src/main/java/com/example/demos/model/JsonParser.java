@@ -42,17 +42,17 @@ public class JsonParser {
     }
 
 
-    private static ArrayList<String> parseCity(JSONArray city) throws ParseException {
+    private static ArrayList<String> parseCity(JSONArray city) {
         ArrayList<String> arrayList = new ArrayList<>();
-        for (int k = 0; k < city.size(); k++) {
-            arrayList.add(city.get(k).toString());
+        for (Object o : city) {
+            arrayList.add(o.toString());
         }
         return arrayList;
     }
     private static String cutName(String name){
         long count = name.chars().filter(ch -> ch == ',').count();
         if(count==1) return name;
-        StringBuffer sb =new StringBuffer(name);
+        StringBuilder sb =new StringBuilder(name);
         int lastIndex = name.lastIndexOf(',');
         sb.delete(lastIndex,sb.length());
         if (count == 2)

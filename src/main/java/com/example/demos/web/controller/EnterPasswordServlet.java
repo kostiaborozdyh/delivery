@@ -17,7 +17,7 @@ public class EnterPasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("password").equals(request.getParameter("secondPassword"))){
-            if (!UserDao.passwordValid(request.getParameter("password"))) {
+            if (UserDao.passwordValid(request.getParameter("password"))) {
                 request.getSession().setAttribute("passwordNameInvalid","pass");
                 response.sendRedirect("/restore/enterPassword.jsp");
             }

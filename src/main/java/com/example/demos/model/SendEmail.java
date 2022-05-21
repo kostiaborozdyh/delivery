@@ -1,14 +1,13 @@
 package com.example.demos.model;
 
 import javax.mail.*;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 public class SendEmail {
-    public static void send(String email, String subject, String message) throws AddressException, MessagingException, UnsupportedEncodingException, SendFailedException
+    public static void send(String email, String subject, String message) throws  MessagingException, UnsupportedEncodingException
     {
         //Set Mail properties
         Properties props = System.getProperties();
