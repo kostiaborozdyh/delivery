@@ -11,9 +11,9 @@ public class CreateMessage {
     public static final String DATE="Орієнтовна дата прибуття ";
     public static final String MONEY=". До сплати ";
     public static final String MANAGER="Ваша заявка передана на розгляд менеджеру.";
-    public static String[] messageCreateOrder(String cityFrom, String cityTo, Integer price){
+    public static String[] messageCreateOrder(String cityFrom, String cityTo, Integer distance,Integer price){
         String sb = TEXT + cityFrom + " в " + cityTo + ".\n" +
-                DATE + Calculate.arrivalTime(cityFrom, cityTo) + MONEY + price + ".\n" +
+                DATE + Calculate.arrivalTime(distance) + MONEY + price + ".\n" +
                 MANAGER;
         return new String[]{THEME_CREATE_ORDER, sb};
     }
@@ -26,12 +26,12 @@ public class CreateMessage {
               "Вага: " + order.getWeight() + "\n" +
               "Об'єм: " + order.getVolume() + "\n" +
               "Ціна: " + order.getPrice() + "\n" +
-              "Статус: " + order.getPaymentStatus() + "\n" +
-              "Адреса: " + order.getAddress() + "\n" +
               "Місто відправлення: " + order.getCityFrom() + "\n" +
               "Місто прибуття: " + order.getCityTo() + "\n" +
+              "Адреса: " + order.getAddress() + "\n" +
               "Дата створення: " + order.getDateCreate() + "\n" +
-              "Дата прибуття: " + order.getDateOfArrival() + "\n";
+              "Дата прибуття: " + order.getDateOfArrival() + "\n"+
+              "Статус: " + order.getPaymentStatus() + "\n";
         return new String[]{sbTheme, sb};
 
     }

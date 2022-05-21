@@ -29,6 +29,8 @@ public class ResetOrderServlet extends HttpServlet {
         session.removeAttribute("maxDateOfArrival");
         session.removeAttribute("cityFrom");
         session.removeAttribute("cityTo");
+        session.removeAttribute("cityFromSet");
+        session.removeAttribute("cityToSet");
         session.removeAttribute("sort");
         if(session.getAttribute("role").equals("user")) {
             session.setAttribute("orders", OrderDao.getUserOrders((User) request.getSession().getAttribute("user")));

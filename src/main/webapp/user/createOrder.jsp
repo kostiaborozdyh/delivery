@@ -30,3 +30,20 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
 </form>
 </body>
 </html>
+<%--
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+<script>
+    function initAutocomplete() {
+        new google.maps.places.Autocomplete(
+            (document.getElementById('autocomplete')),
+            {types: ['geocode']}
+        );
+        new google.maps.places.Autocomplete(
+            (document.getElementById('autocompleteSec')),
+            {types: ['geocode']}
+        );
+    }
+</script>
+--%>

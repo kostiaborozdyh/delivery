@@ -30,8 +30,8 @@ public class CalculateServlet extends HttpServlet {
         int price,volume;
         try {
             List<Distance> distanceList = GoogleMaps.getDistance(cityFrom,cityTo);
-            price = Calculate.deliveryPrice(distanceList.get(0).getDistance(),weight,height,length,width);
             volume = Calculate.volume(height,length,width);
+            price = Calculate.deliveryPrice(distanceList.get(0).getDistance(),volume,weight);
             InfoTable infoTable = new InfoTable(distanceList.get(0).getCityFrom(),distanceList.get(0).getCityTo(),distanceList.get(0).getDistance(),price,volume,Integer.parseInt(weight));
             request.getSession().setAttribute("calculateTable",infoTable);
         } catch (ParseException e) {

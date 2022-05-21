@@ -32,12 +32,12 @@ public class PdfUserOrderServlet extends HttpServlet {
                 "Вага: " + order.getWeight() + "\n" +
                 "Об'єм: " + order.getVolume() + "\n" +
                 "Ціна: " + order.getPrice() + "\n" +
-                "Статус: " + order.getPaymentStatus() + "\n" +
-                "Адреса: " + order.getAddress() + "\n" +
                 "Місто відправлення: " + order.getCityFrom() + "\n" +
                 "Місто прибуття: " + order.getCityTo() + "\n" +
+                "Адреса: " + order.getAddress() + "\n" +
                 "Дата створення: " + order.getDateCreate() + "\n" +
-                "Дата прибуття: " + order.getDateOfArrival() + "\n";
+                "Дата прибуття: " + order.getDateOfArrival() + "\n"+
+                "Статус: " + order.getPaymentStatus() + "\n";
         PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));

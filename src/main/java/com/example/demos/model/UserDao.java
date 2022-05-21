@@ -148,6 +148,7 @@ public class UserDao {
         {
             st.setInt(1,money-value);
             st.setInt(2,OrderDao.getUserId(orderId));
+            st.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

@@ -1,15 +1,16 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.Calculate;
-import com.example.demos.model.CreateMessage;
-import com.example.demos.model.OrderDao;
-import com.example.demos.model.SendEmail;
+import com.example.demos.model.*;
+import com.example.demos.model.entity.Distance;
 import com.example.demos.model.entity.User;
+import org.json.simple.parser.ParseException;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java.io.DataInput;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "CreateOrderServlet", value = "/createOrder")
 public class CreateOrderServlet extends HttpServlet {
@@ -29,15 +30,19 @@ public class CreateOrderServlet extends HttpServlet {
         final String length =  request.getParameter("length");
         final String width =  request.getParameter("width");
         User user = (User) request.getSession().getAttribute("user");
-        Integer volume = Integer.parseInt( height)*Integer.parseInt(length)*Integer.parseInt(width);
+        int volume = Calculate.volume(height,length,width);
         int price;
-        if(cityFrom.equals(cityTo))
-            price = Calculate.deliveryInOneCity(weight,height,length,width);
-        else
-            price = Calculate.delivery(cityFrom,cityTo,weight,height,length,width);
-         OrderDao.createOrder(info,cityFrom,cityTo,address,volume,price,weight,user.getId());
+        List<Distance> distanceList;
+        try {
+            distanceList = GoogleMaps.getDistance(cityFrom,cityTo);
+            price = Calculate.deliveryPrice(distanceList.get(0).getDistance(),volume,weight);
+            OrderDao.createOrder(info,distanceList.get(0).getCityFrom(),distanceList.get(0).getCityTo(),address,price,volume,weight,distanceList.get(0).getDistance(),user.getId());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
         if(user.getNotify().equals("yes")){
-            String str[] = CreateMessage.messageCreateOrder(cityFrom,cityTo,price);
+            String str[] = CreateMessage.messageCreateOrder(cityFrom,cityTo,distanceList.get(0).getDistance(),price);
             try {
                 SendEmail.send(user.getEmail(),str[0],str[1]);
             } catch (MessagingException e) {

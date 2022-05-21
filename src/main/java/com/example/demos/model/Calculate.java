@@ -43,8 +43,8 @@ public class Calculate {
         if (distance==0) return 60;
         return 6*distance/10;
     }
-    public static Integer deliveryPrice(Integer distance,String weight,String height,String length, String width){
-        return avgPrice(distance)*Integer.parseInt(weight)*volume(height, length, width);
+    public static Integer deliveryPrice(Integer distance,Integer volume, String weight){
+        return avgPrice(distance)*Integer.parseInt(weight)*volume/10;
     }
     public static Integer deliveryInOneCity(String weight,String height, String length,String width) {
         int result;
@@ -55,11 +55,10 @@ public class Calculate {
     public static Integer volume(String height,String length, String width){
         return Integer.parseInt(height)*Integer.parseInt(length)*Integer.parseInt(width);
     }
-    public static LocalDate arrivalTime(String cityFrom, String cityTo){
-        int distance;
-        if(cityFrom.equals(cityTo)) distance = 0;
-        else  distance = Calculate.distance(cityFrom,cityTo) / 100;
+    public static LocalDate arrivalTime(Integer distance){
+
         if(distance==0) distance=1;
+        else distance = distance / 100;
         return LocalDate.now().plusDays(distance);
     }
 }

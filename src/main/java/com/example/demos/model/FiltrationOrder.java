@@ -45,17 +45,17 @@ public class FiltrationOrder {
             order = order.stream().filter((x)->(x.getDateOfArrival().isAfter(LocalDate.parse(minDateOfArrival)) || x.getDateOfArrival().equals(LocalDate.parse(minDateOfArrival)))).collect(Collectors.toList());;
         return order;
     }
-    public static List<Order> cityFrom(String[] cityFrom,List<Order> order){
+    public static List<Order> cityFrom(Set<String> cityFrom,List<Order> order){
 
         if(cityFrom!=null)
-            order = order.stream().filter((x)->(Arrays.asList(cityFrom).contains(x.getCityFrom()))).collect(Collectors.toList());
+            order = order.stream().filter((x)->(cityFrom).contains(x.getCityFrom())).collect(Collectors.toList());
 
         return order;
     }
-    public static List<Order> cityTo(String[] cityTo,List<Order> order){
+    public static List<Order> cityTo(Set<String> cityTo,List<Order> order){
 
         if(cityTo!=null)
-            order = order.stream().filter((x)->(Arrays.asList(cityTo).contains(x.getCityTo()))).collect(Collectors.toList());
+            order = order.stream().filter((x)->(cityTo.contains(x.getCityTo()))).collect(Collectors.toList());
 
         return order;
     }

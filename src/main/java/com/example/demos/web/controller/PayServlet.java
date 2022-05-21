@@ -19,6 +19,7 @@ public class PayServlet extends HttpServlet {
         user.setMoney(money-value);
         OrderDao.changePayStatus(orderId,value,money);
         request.getSession().setAttribute("money",money-value);
+        request.getSession().removeAttribute("orders");
         response.sendRedirect("user/order.jsp");
     }
 

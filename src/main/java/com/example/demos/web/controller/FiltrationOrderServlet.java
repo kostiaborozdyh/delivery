@@ -10,17 +10,19 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet(name = "FiltrationOrderServlet", value = "/filtrationOrder")
 public class FiltrationOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String minPrice = request.getParameter("minPrice");
         String maxPrice = request.getParameter("maxPrice");
         String[] paymentStatus = request.getParameterValues("paymentStatus");
@@ -28,10 +30,15 @@ public class FiltrationOrderServlet extends HttpServlet {
         String maxDateCreate = request.getParameter("maxDateCreate");
         String minDateOfArrival = request.getParameter("minDateOfArrival");
         String maxDateOfArrival = request.getParameter("maxDateOfArrival");
-        String[] cityFrom = request.getParameterValues("cityFrom[]");
-        String[] cityTo = request.getParameterValues("cityTo[]");
+        Set<String> cityFrom = null;
+        Set<String> cityTo = null;
+        if(request.getParameterValues("cityFrom[]")!=null)
+             cityFrom = new HashSet<>(Arrays.asList(request.getParameterValues("cityFrom[]")));
+        if(request.getParameterValues("cityTo[]")!=null)
+            cityTo = new HashSet<>(Arrays.asList(request.getParameterValues("cityTo[]")));
+        if(cityFrom==null && session.getAttribute("cityFrom")!=null ) cityFrom = (Set<String>) session.getAttribute("cityFrom");
+        if(cityTo==null && session.getAttribute("cityTo")!=null) cityTo = (Set<String>) session.getAttribute("cityTo");
         String sort = request.getParameter("sort");
-        HttpSession session = request.getSession();
         session.setAttribute("minPrice",minPrice);
         session.setAttribute("maxPrice",maxPrice);
         if(paymentStatus!=null) {
