@@ -36,9 +36,18 @@ ${sessionScope.user.login} ${sessionScope.money}
   &mode=driving&language=uk&avoid=tolls|highways">
     </iframe><br>
 </c:if>
-
 <c:if test="${sessionScope.infoTable!=null}">
-    <table border="1">
+    <form method="post" action="/sortingTable">
+        <text>Сортування</text><br>
+        <label><input type="radio" name="sort" value="sortByMinPriceTable"  <c:if test="${sessionScope.sort == 'sortByMinPriceTable'}"> checked</c:if>>По ціні↑</label>
+        <label><input type="radio" name="sort" value="sortByMaxPriceTable" <c:if test="${sessionScope.sort == 'sortByMaxPriceTable'}"> checked</c:if>>По ціні↓</label><br>
+        <label><input type="radio" name="sort" value="sortByMinCityFromTable"  <c:if test="${sessionScope.sort == 'sortByMinCityFromTable'}"> checked</c:if>>По Місту відправлення(А-Я)</label>
+        <label><input type="radio" name="sort" value="sortByMaxCityFromTable"<c:if test="${sessionScope.sort == 'sortByMaxCityFromTable'}"> checked</c:if>>По Місту відправлення(Я-А)</label><br>
+        <label><input type="radio" name="sort" value="sortByMinCityToTable"<c:if test="${sessionScope.sort == 'sortByMinCityToTable'}"> checked</c:if>>По Місту прибуття(А-Я)</label>
+        <label><input type="radio" name="sort" value="sortByMaxCityToTable"<c:if test="${sessionScope.sort == 'sortByMaxCityToTable'}"> checked</c:if>>По Місту прибуття(Я-А)</label><br>
+        <input type="submit" value="Сортувати">
+    </form>
+  <table border="1">
         <caption>Інформація про доставку між містами: </caption>
         <tr>
             <th>Місто Відправлення</th>

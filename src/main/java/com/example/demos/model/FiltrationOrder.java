@@ -1,5 +1,6 @@
 package com.example.demos.model;
 
+import com.example.demos.model.entity.InfoTable;
 import com.example.demos.model.entity.Order;
 
 import java.time.LocalDate;
@@ -32,7 +33,7 @@ public class FiltrationOrder {
         if((Objects.equals(minDateCreate, "")) && (!Objects.equals(maxDateCreate, "")))
             order = order.stream().filter((x)->(x.getDateCreate().isBefore(LocalDate.parse(maxDateCreate)) || x.getDateCreate().equals(LocalDate.parse(maxDateCreate)))).collect(Collectors.toList());
         if((!Objects.equals(minDateCreate, "")) && (Objects.equals(maxDateCreate, "")))
-            order = order.stream().filter((x)->(x.getDateCreate().isAfter(LocalDate.parse(minDateCreate)) || x.getDateCreate().equals(LocalDate.parse(minDateCreate)))).collect(Collectors.toList());;
+            order = order.stream().filter((x)->(x.getDateCreate().isAfter(LocalDate.parse(minDateCreate)) || x.getDateCreate().equals(LocalDate.parse(minDateCreate)))).collect(Collectors.toList());
         return order;
     }
     public static List<Order> dateOfArrival(String minDateOfArrival, String maxDateOfArrival, List<Order> order){
@@ -42,7 +43,7 @@ public class FiltrationOrder {
         if((Objects.equals(minDateOfArrival, "")) && (!Objects.equals(maxDateOfArrival, "")))
             order = order.stream().filter((x)->(x.getDateOfArrival().isBefore(LocalDate.parse(maxDateOfArrival)) || x.getDateOfArrival().equals(LocalDate.parse(maxDateOfArrival)))).collect(Collectors.toList());
         if((!Objects.equals(minDateOfArrival, "")) && (Objects.equals(maxDateOfArrival, "")))
-            order = order.stream().filter((x)->(x.getDateOfArrival().isAfter(LocalDate.parse(minDateOfArrival)) || x.getDateOfArrival().equals(LocalDate.parse(minDateOfArrival)))).collect(Collectors.toList());;
+            order = order.stream().filter((x)->(x.getDateOfArrival().isAfter(LocalDate.parse(minDateOfArrival)) || x.getDateOfArrival().equals(LocalDate.parse(minDateOfArrival)))).collect(Collectors.toList());
         return order;
     }
     public static List<Order> cityFrom(Set<String> cityFrom,List<Order> order){
@@ -82,6 +83,23 @@ public class FiltrationOrder {
             order = order.stream().sorted((x,y)->(y.getCityTo().compareTo(x.getCityTo()))).collect(Collectors.toList());
 
         return order;
+    }
+
+    public static List<InfoTable> sortingTable(String sort, List<InfoTable> infoTable){
+        if(sort.equals("sortByMinPriceTable"))
+            infoTable = infoTable.stream().sorted(Comparator.comparingInt(InfoTable::getPrice)).collect(Collectors.toList());
+        if(sort.equals("sortByMaxPriceTable"))
+            infoTable = infoTable.stream().sorted((x,y)->(y.getPrice()-x.getPrice())).collect(Collectors.toList());
+        if(sort.equals("sortByMinCityFromTable"))
+            infoTable = infoTable.stream().sorted(Comparator.comparing(InfoTable::getCityFrom)).collect(Collectors.toList());
+        if(sort.equals("sortByMaxCityFromTable"))
+            infoTable = infoTable.stream().sorted((x,y)->(y.getCityFrom().compareTo(x.getCityFrom()))).collect(Collectors.toList());
+        if(sort.equals("sortByMinCityToTable"))
+            infoTable = infoTable.stream().sorted(Comparator.comparing(InfoTable::getCityTo)).collect(Collectors.toList());
+        if(sort.equals("sortByMaxCityToTable"))
+            infoTable = infoTable.stream().sorted((x,y)->(y.getCityTo().compareTo(x.getCityTo()))).collect(Collectors.toList());
+
+        return infoTable;
     }
 
 }

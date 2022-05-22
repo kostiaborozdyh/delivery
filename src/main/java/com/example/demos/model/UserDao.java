@@ -9,6 +9,7 @@ import java.sql.*;
 
 public class UserDao {
     public static final String SQL_GET_USER_VALID = "SELECT * FROM user u WHERE u.login=? AND u.password=?";
+    public static final String SQL_GET_USER_VALID_FROM_EMAIL = "SELECT * FROM user u WHERE u.email=? AND u.password=?";
     public static final String SQL_GET_USER = "SELECT * FROM user u WHERE u.login=?";
     public static final String SQL_GET_USER_FROM_ID = "SELECT * FROM user u WHERE u.id=?";
     public static final String SQL_GET_EMAIL = "SELECT * FROM user u WHERE u.email=?";
@@ -26,8 +27,10 @@ public class UserDao {
             "WHERE d.id=?";
     public static User userValid(String login, String password) {
         User user = null;
-        try (Connection con = DBHelper.getInstance().getConnection();
-             PreparedStatement pst = con.prepareStatement(SQL_GET_USER_VALID)) {
+        PreparedStatement pst;
+        try (Connection con = DBHelper.getInstance().getConnection()) {
+            if (emailNameValid(login)) pst = con.prepareStatement(SQL_GET_USER_VALID_FROM_EMAIL);
+            else pst = con.prepareStatement(SQL_GET_USER_VALID);
             pst.setString(1, login);
             pst.setString(2, Security.hashPassword(password));
             try (ResultSet rs = pst.executeQuery()) {

@@ -21,32 +21,40 @@ public class LoginServlet extends HttpServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        HttpSession session = request.getSession();
         if(user==null) {
-            request.getSession().setAttribute("invalid","invalid");
+            session.setAttribute("invalid","invalid");
             response.sendRedirect("/login.jsp");
         }
         else {
             if (user.getRole_id() == 2) {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-                session.setAttribute("role", "manager");
-                response.sendRedirect("/man/orderList.jsp");
-            } else {
-                if (user.getRole_id() == 1) {
-                    HttpSession session = request.getSession();
+
+                    session.setAttribute("user", user);
+                    session.setAttribute("role", "manager");
+                    response.sendRedirect("/man/orderList.jsp");
+            }
+            if (user.getRole_id() == 1) {
                     session.setAttribute("user", user);
                     session.setAttribute("money", user.getMoney());
                     session.setAttribute("role", "user");
                     response.sendRedirect("/index.jsp");
-                } else {
-                    response.sendRedirect("/problemEnter.jsp");
-                }
             }
+            if(user.getRole_id()==3){
+                    session.setAttribute("user",user);
+                    session.setAttribute("role","admin");
+                    response.sendRedirect("/adm/usersTable.jsp");
+            }
+            if(user.getRole_id()==4){
+                    session.setAttribute("user",user);
+                    session.setAttribute("role","employee");
+                    response.sendRedirect("/employee/ordersTable.jsp");
+            }
+
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("/index.jsp");
+        //response.sendRedirect("/index.jsp");
     }
 }

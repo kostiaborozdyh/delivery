@@ -14,7 +14,10 @@ public class PrintMapServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter("id"));
         List<InfoTable> infoTable = (List<InfoTable>) request.getSession().getAttribute("infoTable");
-        request.getSession().setAttribute("table",infoTable.get(id));
+        for (InfoTable table :
+                infoTable) {
+            if(table.getId()==id) request.getSession().setAttribute("table",table);
+        }
         response.sendRedirect("/index.jsp");
     }
 

@@ -11,9 +11,9 @@ import java.io.IOException;
 public class InfoOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        final Integer orderId = Integer.parseInt(request.getParameter("id"));
-        request.getSession().setAttribute("infoOrder", OrderDao.getOrder(orderId));
-        response.sendRedirect("/man/orderUser.jsp");
+            final Integer orderId = Integer.parseInt(request.getParameter("id"));
+            request.getSession().setAttribute("infoOrder", OrderDao.getOrder(orderId));
+            response.sendRedirect("/man/orderUser.jsp");
     }
 
     @Override

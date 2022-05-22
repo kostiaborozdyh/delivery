@@ -31,117 +31,118 @@ public class PdfOrderListServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         // Get the text that will be added to the PDF
-        PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
-        Document doc = new Document(pdfDoc);
-        doc.getPdfDocument().setDefaultPageSize(PageSize.A4.rotate());
-        Paragraph p = new Paragraph("Заявки на відправлення вантажу").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(14).setBold();
-        doc.add(p);
-        Table table = new Table(new float [] {1,1,1,1,2,2,2,2,3});
-        table.setWidth(UnitValue.createPercentValue(100));
-        Cell cell = new Cell();
-        cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
-        cell.add("Номер").setFont(font).setBold();
-        cell.setWidthPercent(5);
-        table.addCell(cell);
-         cell = new Cell();
-        cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
-        cell.add("Опис").setFont(font).setBold();
-        cell.setWidthPercent(20);
-        table.addCell(cell);
-        cell = new Cell();
-        cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
-        cell.add("Ціна").setFont(font).setBold();
-        cell.setWidthPercent(5);
-        table.addCell(cell);
-        cell = new Cell();
-        cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
-        cell.add("Замовник").setFont(font).setBold();
-        cell.setWidthPercent(10);
-        table.addCell(cell);
-        cell = new Cell();
-        cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
-        cell.add("Статус").setFont(font).setBold();
-        cell.setWidthPercent(10);
-        table.addCell(cell);
-        cell = new Cell();
-        cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
-        cell.add("Місто відправлення").setFont(font).setBold();
-        cell.setWidthPercent(15);
-        table.addCell(cell);
-        cell = new Cell();
-        cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
-        cell.add("Місто прибуття").setFont(font).setBold();
-        cell.setWidthPercent(15);
-        table.addCell(cell);
-        cell = new Cell();
-        cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
-        cell.add("Дата Створення").setFont(font).setBold();
-        cell.setWidthPercent(10);
-        table.addCell(cell);
-        cell = new Cell();
-        cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
-        cell.add("Дата прибуття").setFont(font).setBold();
-        cell.setWidthPercent(10);
-        table.addCell(cell);
-        List<Order> orderList = (List<Order>) request.getSession().getAttribute("orderList");
-        for (Order order :
-                orderList) {
-            cell = new Cell();
-            cell.add(order.getId().toString()).setFont(font);
+            PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
+            Document doc = new Document(pdfDoc);
+            doc.getPdfDocument().setDefaultPageSize(PageSize.A4.rotate());
+            Paragraph p = new Paragraph("Заявки на відправлення вантажу").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(14).setBold();
+            doc.add(p);
+            Table table = new Table(new float[]{1, 1, 1, 1, 2, 2, 2, 2, 3});
+            table.setWidth(UnitValue.createPercentValue(100));
+            Cell cell = new Cell();
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+            cell.add("Номер").setFont(font).setBold();
+            cell.setWidthPercent(5);
             table.addCell(cell);
             cell = new Cell();
-            cell.add(order.getDescription()).setFont(font);
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+            cell.add("Опис").setFont(font).setBold();
+            cell.setWidthPercent(20);
             table.addCell(cell);
             cell = new Cell();
-            cell.add(String.valueOf(order.getPrice())).setFont(font);
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+            cell.add("Ціна").setFont(font).setBold();
+            cell.setWidthPercent(5);
             table.addCell(cell);
             cell = new Cell();
-            cell.add(String.valueOf(order.getUserLogin())).setFont(font);
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+            cell.add("Замовник").setFont(font).setBold();
+            cell.setWidthPercent(10);
             table.addCell(cell);
             cell = new Cell();
-            cell.add(order.getPaymentStatus()).setFont(font);
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+            cell.add("Статус").setFont(font).setBold();
+            cell.setWidthPercent(10);
             table.addCell(cell);
             cell = new Cell();
-            cell.add(order.getCityFrom()).setFont(font);
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+            cell.add("Місто відправлення").setFont(font).setBold();
+            cell.setWidthPercent(15);
             table.addCell(cell);
             cell = new Cell();
-            cell.add(order.getCityTo()).setFont(font);
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+            cell.add("Місто прибуття").setFont(font).setBold();
+            cell.setWidthPercent(15);
             table.addCell(cell);
             cell = new Cell();
-            cell.add(String.valueOf(order.getDateCreate())).setFont(font);
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+            cell.add("Дата Створення").setFont(font).setBold();
+            cell.setWidthPercent(10);
             table.addCell(cell);
             cell = new Cell();
-            cell.add(String.valueOf(order.getDateOfArrival())).setFont(font);
             cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+            cell.add("Дата прибуття").setFont(font).setBold();
+            cell.setWidthPercent(10);
             table.addCell(cell);
-        }
-        // Step-6 Adding Table to document
-        doc.add(table);
-        doc.close();
+            List<Order> orderList = (List<Order>) request.getSession().getAttribute("orderList");
+            for (Order order :
+                    orderList) {
+                cell = new Cell();
+                cell.add(order.getId().toString()).setFont(font);
+                cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell);
+                cell = new Cell();
+                cell.add(order.getDescription()).setFont(font);
+                cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell);
+                cell = new Cell();
+                cell.add(String.valueOf(order.getPrice())).setFont(font);
+                cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell);
+                cell = new Cell();
+                cell.add(String.valueOf(order.getUserLogin())).setFont(font);
+                cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell);
+                cell = new Cell();
+                cell.add(order.getPaymentStatus()).setFont(font);
+                cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell);
+                cell = new Cell();
+                cell.add(order.getCityFrom()).setFont(font);
+                cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell);
+                cell = new Cell();
+                cell.add(order.getCityTo()).setFont(font);
+                cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell);
+                cell = new Cell();
+                cell.add(String.valueOf(order.getDateCreate())).setFont(font);
+                cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell);
+                cell = new Cell();
+                cell.add(String.valueOf(order.getDateOfArrival())).setFont(font);
+                cell.setHorizontalAlignment(HorizontalAlignment.CENTER).setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell);
+            }
+            // Step-6 Adding Table to document
+            doc.add(table);
+            doc.close();
 
-        // setting some response headers
-        response.setHeader("Expires", "0");
-        response.setHeader("Cache-Control",
-                "must-revalidate, post-check=0, pre-check=0");
-        response.setHeader("Pragma", "public");
-        // setting the content type
-        response.setContentType("application/pdf");
-        // the contentlength
-        response.setContentLength(baos.size());
-        // write ByteArrayOutputStream to the ServletOutputStream
-        OutputStream os = response.getOutputStream();
-        baos.writeTo(os);
-        os.flush();
-        os.close();
-    }
+            // setting some response headers
+            response.setHeader("Expires", "0");
+            response.setHeader("Cache-Control",
+                    "must-revalidate, post-check=0, pre-check=0");
+            response.setHeader("Pragma", "public");
+            // setting the content type
+            response.setContentType("application/pdf");
+            // the contentlength
+            response.setContentLength(baos.size());
+            // write ByteArrayOutputStream to the ServletOutputStream
+            OutputStream os = response.getOutputStream();
+            baos.writeTo(os);
+            os.flush();
+            os.close();
+        }
+
 }
