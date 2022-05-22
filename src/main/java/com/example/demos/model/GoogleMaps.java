@@ -25,7 +25,7 @@ public class GoogleMaps {
         Response googleResponse = client.newCall(googleRequest).execute();
         assert googleResponse.body() != null;
         String js =  googleResponse.body().string();
-        distanceList=JsonParser.parseStr(js);
+        distanceList=JsonParser.parseGoogleApiDistance(js);
         googleResponse.close();
        return distanceList;
     }

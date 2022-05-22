@@ -5,11 +5,11 @@ import java.time.LocalDate;
 
 public class Calculate {
     public static Integer avgPrice(Integer distance){
-        if (distance==0) return 60;
-        return 6*distance/10;
+        if (distance==0) return 100;
+        return distance*15/10;
     }
     public static Integer deliveryPrice(Integer distance,Integer volume, String weight){
-        return avgPrice(distance)*Integer.parseInt(weight)*volume/10;
+        return Math.max(avgPrice(distance)*Integer.parseInt(weight)*volume/10, 100);
     }
     public static Integer volume(String height,String length, String width){
         return Integer.parseInt(height)*Integer.parseInt(length)*Integer.parseInt(width);

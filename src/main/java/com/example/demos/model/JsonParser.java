@@ -11,7 +11,7 @@ import java.util.List;
 
 public class JsonParser {
 
-    public static List<Distance> parseStr(String jsonStr) throws ParseException {
+    public static List<Distance> parseGoogleApiDistance(String jsonStr) throws ParseException {
         List<Distance> distanceList = new ArrayList<>();
         ArrayList<String> cityFromList;
         ArrayList<String> cityToList;
@@ -40,7 +40,6 @@ public class JsonParser {
         }
         return distanceList;
     }
-
 
     private static ArrayList<String> parseCity(JSONArray city) {
         ArrayList<String> arrayList = new ArrayList<>();

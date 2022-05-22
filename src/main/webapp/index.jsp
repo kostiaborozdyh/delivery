@@ -12,7 +12,7 @@
     <title>delivery</title>
 </head>
 <body>
-${sessionScope.user.login} ${sessionScope.money}<br>
+${sessionScope.user.login} ${sessionScope.money}
 <u:role user="${sessionScope.role}"></u:role>
 <m:today/>
 <h1><fmt:message key="delivery"/></h1>
@@ -54,7 +54,7 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
                 <td>${table.distance}</td>
                 <td>${table.price}</td>
                 <td><abbr title="Мапа" >
-                    <a href="/printMap?id=${table.id}">Мапа</a>
+                    <a href="<c:url value="/printMap?id=${table.id}"/>">Мапа</a>
                 </abbr></td>
             </tr>
         </c:forEach>

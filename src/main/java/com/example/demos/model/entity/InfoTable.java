@@ -91,7 +91,6 @@ public class InfoTable {
         this.volume = volume;
         this.weight = weight;
     }
-
     public InfoTable(){
 
     }
