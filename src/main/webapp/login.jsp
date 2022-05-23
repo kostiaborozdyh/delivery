@@ -26,9 +26,12 @@
 
     <input type="submit" value="Вхід" name="Ok"><br>
 </form><br>
-<c:if test = "${sessionScope.invalid !=null}">
+<c:if test = "${sessionScope.invalid =='invalid'}">
     <text>Логін або пароль неправильний</text><br>
     <a href="restore/restore.jsp">Відновити пароль</a>
+</c:if>
+<c:if test = "${sessionScope.invalid =='block'}">
+    <text>Ваш акаунт заблоковано</text><br>
 </c:if>
 <a href="registration.jsp">Реєстрація</a>
 </body>

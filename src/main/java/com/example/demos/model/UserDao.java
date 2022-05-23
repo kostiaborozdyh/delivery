@@ -5,17 +5,24 @@ import com.example.demos.model.entity.User;
 import com.example.demos.model.entity.ValidList;
 import com.example.demos.security.Security;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
     public static final String SQL_GET_USER_VALID = "SELECT * FROM user u WHERE u.login=? AND u.password=?";
     public static final String SQL_GET_USER_VALID_FROM_EMAIL = "SELECT * FROM user u WHERE u.email=? AND u.password=?";
     public static final String SQL_GET_USER = "SELECT * FROM user u WHERE u.login=?";
     public static final String SQL_GET_USER_FROM_ID = "SELECT * FROM user u WHERE u.id=?";
+    public static final String SQL_GET_USERS="SELECT * FROM user u WHERE u.role_id!=3";
     public static final String SQL_GET_EMAIL = "SELECT * FROM user u WHERE u.email=?";
     public static final String SQL_INSERT_USER = "INSERT INTO user(login,password,first_name,last_name,phone_number,email,role_id,notify)  VALUES (?,?,?,?,?,?,?,?)";
     public static final String SQL_CHANGE_MONEY = "UPDATE delivery.user d SET d.money = ? WHERE d.id=?";
+    public static final String SQL_BLOCK_USER = "UPDATE delivery.user d SET d.ban = 'yes' WHERE d.id=?";
     public static final String SQL_GET_USER_EMAIL = "SELECT * FROM user u WHERE u.login=?";
+    public static final String SQL_GET_USER_EMAIL_BY_ID = "SELECT * FROM user u WHERE u.id=?";
     public static final String SQL_CHANGE_PASSWORD = "UPDATE delivery.user d SET d.password = ? WHERE d.email=?";
     public static final String SQL_EDIT_USER = "UPDATE delivery.user d \n" +
             "SET d.first_name = ?, d.last_name = ?, \n" +
@@ -45,6 +52,7 @@ public class UserDao {
                     user.setRole_id(rs.getInt("role_id"));
                     user.setMoney(rs.getInt("money"));
                     user.setNotify(rs.getString("notify"));
+                    user.setBan(rs.getString("ban"));
                 }
             }
         } catch (SQLException ex) {
@@ -249,7 +257,61 @@ public class UserDao {
         }
         return email;
     }
+    public static String getUserEmail(Integer id){
+        String email = null;
+        try (Connection connection = DBHelper.getInstance().getConnection();
+             PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_EMAIL_BY_ID))
+        {
+            pst.setInt(1,id);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    email = rs.getString("email");
+                }
 
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return email;
+    }
+    public static List<User> getUsers(){
+        List<User> userList = new ArrayList<>();
+        try (Connection connection = DBHelper.getInstance().getConnection();
+             PreparedStatement pst = connection.prepareStatement(SQL_GET_USERS))
+        {
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setLogin(rs.getString("login"));
+                    user.setFirstName(rs.getString("first_name"));
+                    user.setLastName(rs.getString("last_name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setBan(rs.getString("ban"));
+                    userList.add(user);
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return userList;
+    }
+
+    public static void blockUser(Integer id, String reason) throws MessagingException, UnsupportedEncodingException {
+        try (Connection connection = DBHelper.getInstance().getConnection();
+             PreparedStatement pst = connection.prepareStatement(SQL_BLOCK_USER))
+        {
+            pst.setInt(1,id);
+            pst.executeUpdate();
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        String[] message = CreateMessage.blockUser(reason);
+        SendEmail.send(getUserEmail(id),message[0],message[1]);
+    }
 
     public static ValidList valid(User user, String password,int ch){
         ValidList validList = new ValidList();

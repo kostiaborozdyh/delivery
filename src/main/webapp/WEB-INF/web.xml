@@ -18,6 +18,10 @@
         <filter-class>com.example.demos.web.filter.ManagerFilter</filter-class>
     </filter>
     <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.example.demos.web.filter.AdminFilter</filter-class>
+    </filter>
+    <filter>
         <filter-name>OrderFilter</filter-name>
         <filter-class>com.example.demos.web.filter.OrderFilter</filter-class>
     </filter>
@@ -33,6 +37,10 @@
         <filter-name>RestoreFilter</filter-name>
         <filter-class>com.example.demos.web.filter.RestoreFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>UserListFilter</filter-name>
+        <filter-class>com.example.demos.web.filter.UserListFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>LangFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -44,6 +52,10 @@
     <filter-mapping>
         <filter-name>ManagerFilter</filter-name>
         <url-pattern>/man/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/adm/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>OrderFilter</filter-name>
@@ -60,5 +72,9 @@
     <filter-mapping>
         <filter-name>RestoreFilter</filter-name>
         <url-pattern>/restore/restorePassword.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UserListFilter</filter-name>
+        <url-pattern>/adm/usersTable.jsp</url-pattern>
     </filter-mapping>
 </web-app>

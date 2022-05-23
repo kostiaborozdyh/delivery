@@ -11,6 +11,15 @@ public class User implements Cloneable {
     private Integer role_id;
     private Integer money;
     private String notify;
+    private String ban;
+
+    public String getBan() {
+        return ban;
+    }
+
+    public void setBan(String ban) {
+        this.ban = ban;
+    }
 
     public String getNotify() {
         return notify;

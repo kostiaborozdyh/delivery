@@ -26,31 +26,36 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("invalid","invalid");
             response.sendRedirect("/login.jsp");
         }
-        else {
-            if (user.getRole_id() == 2) {
+        else
+            if(user.getBan().equals("yes")) {
+                session.setAttribute("invalid","block");
+                response.sendRedirect("/login.jsp");
+            }
+            else {
+                if (user.getRole_id() == 2) {
 
-                    session.setAttribute("user", user);
-                    session.setAttribute("role", "manager");
-                    response.sendRedirect("/man/orderList.jsp");
-            }
-            if (user.getRole_id() == 1) {
-                    session.setAttribute("user", user);
-                    session.setAttribute("money", user.getMoney());
-                    session.setAttribute("role", "user");
-                    response.sendRedirect("/index.jsp");
-            }
-            if(user.getRole_id()==3){
-                    session.setAttribute("user",user);
-                    session.setAttribute("role","admin");
-                    response.sendRedirect("/adm/usersTable.jsp");
-            }
-            if(user.getRole_id()==4){
-                    session.setAttribute("user",user);
-                    session.setAttribute("role","employee");
-                    response.sendRedirect("/employee/ordersTable.jsp");
-            }
+                        session.setAttribute("user", user);
+                        session.setAttribute("role", "manager");
+                        response.sendRedirect("/man/orderList.jsp");
+                }
+                if (user.getRole_id() == 1) {
+                        session.setAttribute("user", user);
+                        session.setAttribute("money", user.getMoney());
+                        session.setAttribute("role", "user");
+                        response.sendRedirect("/index.jsp");
+                }
+                if(user.getRole_id()==3){
+                        session.setAttribute("user",user);
+                        session.setAttribute("role","admin");
+                        response.sendRedirect("/adm/usersTable.jsp");
+                }
+                if(user.getRole_id()==4){
+                        session.setAttribute("user",user);
+                        session.setAttribute("role","employee");
+                        response.sendRedirect("/employee/ordersTable.jsp");
+                }
 
-        }
+            }
     }
 
     @Override
