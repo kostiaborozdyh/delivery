@@ -48,7 +48,7 @@ public class JsonParser {
         }
         return arrayList;
     }
-    private static String cutName(String name){
+    public static String cutName(String name){
         long count = name.chars().filter(ch -> ch == ',').count();
         if(count==1) return name;
         StringBuilder sb =new StringBuilder(name);

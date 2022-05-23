@@ -75,6 +75,7 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
 <table border="1">
     <caption>Таблиця з замовленнями </caption>
     <tr>
+        <th>Номер</th>
         <th>Опис</th>
         <th>Вага</th>
         <th>Об'єм</th>
@@ -93,7 +94,7 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
     </tr>
     <c:forEach var="order" items="${sessionScope.orders}">
         <tr>
-
+            <td>${order.id}</td>
             <td>${order.description}</td>
             <td>${order.weight}</td>
             <td>${order.volume}</td>

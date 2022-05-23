@@ -22,6 +22,9 @@ ${sessionScope.user.login} <br>
 <c:if test = "${sessionScope.role == 'admin'}">
     <a href="/adm/usersTable.jsp">Головна</a><br>
 </c:if>
+<c:if test = "${sessionScope.role == 'employee'}">
+    <a href="/employee/ordersTable.jsp">Головна</a><br>
+</c:if>
 
 <h1>Редагування аккаунта</h1>
 <form method="post" action="/editUser">
