@@ -23,6 +23,7 @@ public class OrderDao {
     public static final String SQL_CHANGE_ORDER_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 2, d.location_status_id = 2, d.date_of_sending = ?, d.date_of_arrival=? WHERE d.id=?";
 
     public static final String SQL_GET_USER_ID = "SELECT * FROM delivery.order d WHERE d.id = ?";
+    public static final String SQL_DELETE_ORDERS="DELETE FROM delivery.order d WHERE d.user_id =?";;
     public static final String SQL_GET_ORDER_LIST = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
             "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
             "do.date_of_arrival, dp.status, du.login, dl.location, do.notify\n" +
@@ -168,6 +169,16 @@ public class OrderDao {
             ex.printStackTrace();
         }
         return order;
+    }
+    public static void deleteOrder(Integer userId){
+        try (Connection connection = DBHelper.getInstance().getConnection();
+             PreparedStatement pst = connection.prepareStatement(SQL_DELETE_ORDERS))
+        {
+            pst.setInt(1,userId);
+            pst.executeUpdate();
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static Order getOneOrder(ResultSet rs) throws SQLException {

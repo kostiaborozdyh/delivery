@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Registration</title>
-    <h2>Регистрация</h2><br />
+    <h2>Регистрация</h2><br/>
 
 
 </head>

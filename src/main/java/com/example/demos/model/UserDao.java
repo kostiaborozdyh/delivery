@@ -18,9 +18,11 @@ public class UserDao {
     public static final String SQL_GET_USER_FROM_ID = "SELECT * FROM user u WHERE u.id=?";
     public static final String SQL_GET_USERS="SELECT * FROM user u WHERE u.role_id!=3";
     public static final String SQL_GET_EMAIL = "SELECT * FROM user u WHERE u.email=?";
-    public static final String SQL_INSERT_USER = "INSERT INTO user(login,password,first_name,last_name,phone_number,email,role_id,notify)  VALUES (?,?,?,?,?,?,?,?)";
+    public static final String SQL_INSERT_USER = "INSERT INTO user(login,password,first_name,last_name,phone_number,email,role_id,notify,ban)  VALUES (?,?,?,?,?,?,?,?,?)";
     public static final String SQL_CHANGE_MONEY = "UPDATE delivery.user d SET d.money = ? WHERE d.id=?";
     public static final String SQL_BLOCK_USER = "UPDATE delivery.user d SET d.ban = 'yes' WHERE d.id=?";
+    public static final String SQL_UN_BLOCK_USER = "UPDATE delivery.user d SET d.ban = 'no' WHERE d.id=?";
+    public static final String SQL_DELETE_USER = "DELETE FROM delivery.user d WHERE d.id =?";
     public static final String SQL_GET_USER_EMAIL = "SELECT * FROM user u WHERE u.login=?";
     public static final String SQL_GET_USER_EMAIL_BY_ID = "SELECT * FROM user u WHERE u.id=?";
     public static final String SQL_CHANGE_PASSWORD = "UPDATE delivery.user d SET d.password = ? WHERE d.email=?";
@@ -120,7 +122,7 @@ public class UserDao {
         return phoneNumber.matches("\\+380\\d{9}") || phoneNumber.matches("0\\d{9}$");
     }
     public static boolean loginNameValid(String login){
-        return login.matches("^[a-zA-Z]{4,20}");
+        return login.matches("^[a-zA-Z1-9]{4,20}");
     }
     public static boolean emailNameValid(String email){
         return email.matches("^([a-z\\d_-]+\\.)*[a-z\\d_-]+@[a-z\\d_-]+(\\.[a-z\\d_-]+)*\\.[a-z]{2,6}$");
@@ -141,8 +143,9 @@ public class UserDao {
             st.setString(4,user.getLastName());
             st.setString(5,user.getPhoneNumber());
             st.setString(6,user.getEmail());
-            st.setInt(7,1);
+            st.setInt(7,user.getRole_id());
             st.setString(8,user.getNotify());
+            st.setString(9,"no");
             count = st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -311,6 +314,32 @@ public class UserDao {
         }
         String[] message = CreateMessage.blockUser(reason);
         SendEmail.send(getUserEmail(id),message[0],message[1]);
+    }
+    public static void unBlockUser(Integer id) throws MessagingException, UnsupportedEncodingException {
+        try (Connection connection = DBHelper.getInstance().getConnection();
+             PreparedStatement pst = connection.prepareStatement(SQL_UN_BLOCK_USER))
+        {
+            pst.setInt(1,id);
+            pst.executeUpdate();
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        String[] message = CreateMessage.unBlockUser();
+        SendEmail.send(getUserEmail(id),message[0],message[1]);
+    }
+    public static void deleteUser(Integer id) throws MessagingException, UnsupportedEncodingException {
+        String email = getUserEmail(id);
+        OrderDao.deleteOrder(id);
+        try (Connection connection = DBHelper.getInstance().getConnection();
+             PreparedStatement pst = connection.prepareStatement(SQL_DELETE_USER))
+        {
+            pst.setInt(1,id);
+            pst.executeUpdate();
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        String[] message = CreateMessage.deleteUser();
+        SendEmail.send(email,message[0],message[1]);
     }
 
     public static ValidList valid(User user, String password,int ch){

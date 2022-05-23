@@ -7,9 +7,13 @@ public class CreateMessage {
     public static final String THEME_CHANGE_PAYMENT_STATUS ="Підтвердження заявки";
     public static final String THEME_SEND_ORDER="Заявка№";
     public static final String THEME_BLOCK_USER="Блокування акаунта";
+    public static final String THEME_UN_BLOCK_USER="Розблокування акаунта";
+    public static final String THEME_DELETE_USER="Видалення акаунта";
     public static final String TEXT="Ви успішно оформили заявку на доставку вантажу з міста ";
     public static final String TEXT_CHANGE_PAYMENT_STATUS="Менеджер підтвердив вашу заявку на доставку вантажу, до слпати ";
     public static final String TEXT_BLOCK_USER="Ваш акаунт заблоковано по причині: ";
+    public static final String TEXT_UN_BLOCK_USER="Ваш акаунт розблоковано, дякуємо за очікування!";
+    public static final String TEXT_DELETE_USER="Ваш акаунт видалено, для того щоб користуватися нашими послугами доставки, потрібно зареєструватися знову.";
     public static final String DATE="Орієнтовна дата прибуття ";
     public static final String MONEY=". До сплати ";
     public static final String MANAGER="Ваша заявка передана на розгляд менеджеру.";
@@ -40,4 +44,8 @@ public class CreateMessage {
     public static String[] blockUser(String reason){
         return new String[]{THEME_BLOCK_USER,TEXT_BLOCK_USER+reason};
     }
+    public static String[] unBlockUser(){
+        return new String[]{THEME_UN_BLOCK_USER,TEXT_UN_BLOCK_USER};
+    }
+    public static String[] deleteUser() {return new String[]{THEME_DELETE_USER,TEXT_DELETE_USER};}
 }

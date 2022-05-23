@@ -65,7 +65,7 @@ ${sessionScope.user.login} <br>
 <form method="post" action="/resetOrder">
     <input type="submit" value="Скинути фільтри">
 </form>
-<a href="/resetOrder">Оновивти</a><br>
+<a href="/resetOrder">Оновити</a><br>
 <abbr title="Пдф файлік" ><a href="/pdfOrderList" target="_blank">Звіт по доставкам</a></abbr>
 <table border="1">
     <caption>Таблиця з замовленнями </caption>

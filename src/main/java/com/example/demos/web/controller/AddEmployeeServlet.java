@@ -9,15 +9,16 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "RegistrationServlet", value = "/registrationUser")
-public class RegistrationServlet extends HttpServlet {
+@WebServlet(name = "AddEmployeeServlet", value = "/addEmployee")
+public class AddEmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("/login.jsp");
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().removeAttribute("validList");
         User user = new User();
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
@@ -25,23 +26,22 @@ public class RegistrationServlet extends HttpServlet {
         user.setLastName(request.getParameter("lastName"));
         user.setEmail(request.getParameter("email"));
         user.setPhoneNumber(request.getParameter("phoneNumber"));
-        user.setRole_id(1);
-        String[] notify = request.getParameterValues("notify");
-        if(notify==null) user.setNotify("no");
-        else user.setNotify("yes");
+        String employee = request.getParameter("employee");
+        user.setNotify("no");
+        if(employee.equals("employee")) user.setRole_id(4);
+        else user.setRole_id(2);
         ValidList validList = UserDao.valid(user,request.getParameter("secondPassword"),1);
         if(UserDao.validation(validList)) {
             if (UserDao.insertUser(user)) {
-                response.sendRedirect("/login.jsp");
+                response.sendRedirect("/adm/usersTable.jsp");
             } else {
                 response.sendRedirect("/error.jsp");
             }
         }
         else {
             request.getSession().setAttribute("validList",validList);
-            response.sendRedirect("/registration.jsp");
+            response.sendRedirect("/adm/createEmployeeAccount.jsp");
         }
-
-
     }
+
 }
