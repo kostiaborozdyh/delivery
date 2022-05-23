@@ -13,7 +13,7 @@
 </head>
 <body>
 ${sessionScope.login}<br>
-<a href="logout.jsp">Вийти</a>
+<a href="/logout.jsp">Вийти</a>
 <a href="/adm/createEmployeeAccount.jsp">Добавити працівника</a>
 <a href="/editUser.jsp">Редагувати профіль</a><br>
 <table border="1">

@@ -17,7 +17,6 @@ public class Order {
     private String paymentStatus;
     private LocalDate dateOfSending;
     private String locationStatus;
-    private String notify;
 
     public LocalDate getDateOfSending() {
         return dateOfSending;
@@ -33,14 +32,6 @@ public class Order {
 
     public void setLocationStatus(String locationStatus) {
         this.locationStatus = locationStatus;
-    }
-
-    public String getNotify() {
-        return notify;
-    }
-
-    public void setNotify(String notify) {
-        this.notify = notify;
     }
 
     public String getPaymentStatus() {

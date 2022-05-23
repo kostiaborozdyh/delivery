@@ -14,7 +14,7 @@
 </head>
 <body>
 ${sessionScope.login}<br>
-<a href="logout.jsp">Вийти</a>
+<a href="/logout.jsp">Вийти</a>
 <a href="/employee/acceptOrder.jsp">Прийняти посилки</a>
 <a href="/editUser.jsp">Редагувати профіль</a><br>
 <c:if test="${sessionScope.city!=null}">

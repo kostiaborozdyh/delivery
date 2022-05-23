@@ -11,10 +11,10 @@ import java.util.*;
 
 public class OrderDao {
 
-    public static final String SQL_INSERT_ORDER = "INSERT INTO delivery.order(description,weight,volume,price,city_from,city_to,address,date_create,date_of_arrival,user_id,payment_status_id,location_status_id,notify)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String SQL_INSERT_ORDER = "INSERT INTO delivery.order(description,weight,volume,price,city_from,city_to,address,date_create,date_of_arrival,user_id,payment_status_id,location_status_id)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
     public static final String SQL_GET_USER_ORDERS = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
             "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
-            "do.date_of_arrival, dp.status, du.login, dl.location, do.notify\n" +
+            "do.date_of_arrival, dp.status, du.login, dl.location\n" +
             "FROM delivery.order as do\n" +
             "join delivery.user as du on  do.user_id = du.id \n" +
             "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
@@ -22,29 +22,37 @@ public class OrderDao {
     public static final String SQL_CHANGE_PAY_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 3 WHERE d.id=?";
     public static final String SQL_CHANGE_ORDER_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 2, d.location_status_id = 2, d.date_of_sending = ?, d.date_of_arrival=? WHERE d.id=?";
     public static final String SQL_GIVE_ORDER = "UPDATE delivery.order d SET d.location_status_id = 4 WHERE d.id=?";
+    public static final String SQL_PUT_ON_RECORD = "UPDATE delivery.order d SET d.location_status_id = 3 WHERE d.id=?";
     public static final String SQL_GET_USER_ID = "SELECT * FROM delivery.order d WHERE d.id = ?";
     public static final String SQL_DELETE_ORDERS="DELETE FROM delivery.order d WHERE d.user_id =?";;
     public static final String SQL_GET_ORDER_LIST = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
             "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
-            "do.date_of_arrival, dp.status, du.login, dl.location, do.notify\n" +
+            "do.date_of_arrival, dp.status, du.login, dl.location\n" +
             "FROM delivery.order as do\n" +
             "join delivery.user as du on  do.user_id = du.id \n" +
             "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
             "join delivery.payment_status as dp  on  do.payment_status_id = dp.id";
     public static final String SQL_GET_ORDER = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
             "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
-            "do.date_of_arrival, dp.status, du.login, dl.location, do.notify\n" +
+            "do.date_of_arrival, dp.status, du.login, dl.location\n" +
             "FROM delivery.order as do\n" +
             "join delivery.user as du on  do.user_id = du.id \n" +
             "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
             "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.id=?";
     public static final String SQL_GET_ORDER_LIST_BY_CITY = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
             "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
-            "do.date_of_arrival, dp.status, du.login, dl.location, do.notify\n" +
+            "do.date_of_arrival, dp.status, du.login, dl.location\n" +
             "FROM delivery.order as do\n" +
             "join delivery.user as du on  do.user_id = du.id \n" +
             "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
             "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.city_to=? and do.location_status_id=?";
+    public static final String SQL_GET_ORDER_LIST_BY_CITY_ON_RECORD = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
+            "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
+            "do.date_of_arrival, dp.status, du.login, dl.location\n" +
+            "FROM delivery.order as do\n" +
+            "join delivery.user as du on  do.user_id = du.id \n" +
+            "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
+            "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.city_to=? and do.location_status_id=? and do.date_of_arrival = ?";
     public static void createOrder(String info, String cityFrom, String cityTo, String address, Integer price, Integer volume, String weight, Integer distance, Integer id) {
         try( Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement  st = connection.prepareStatement(SQL_INSERT_ORDER)) {
@@ -60,7 +68,6 @@ public class OrderDao {
             st.setInt(10,id);
             st.setInt(11,1);
             st.setInt(12,1);
-            st.setString(13,"no");
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -112,6 +119,15 @@ public class OrderDao {
     public static void giveOrder(Integer id){
         try( Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement  st = connection.prepareStatement(SQL_GIVE_ORDER)) {
+            st.setInt(1,id);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public static void putOnRecord(Integer id){
+        try( Connection connection = DBHelper.getInstance().getConnection();
+             PreparedStatement  st = connection.prepareStatement(SQL_PUT_ON_RECORD)) {
             st.setInt(1,id);
             st.executeUpdate();
         } catch (SQLException ex) {
@@ -213,7 +229,24 @@ public class OrderDao {
         }
         return list;
     }
-
+    public static List<Order> getOrderListOnRecord(String cityTo){
+        List<Order> list = new ArrayList<>();
+        try( Connection connection = DBHelper.getInstance().getConnection();
+             PreparedStatement  st = connection.prepareStatement(SQL_GET_ORDER_LIST_BY_CITY_ON_RECORD)) {
+            st.setString(1,JsonParser.cutName(cityTo));
+            st.setInt(2,2);
+            st.setDate(3,Date.valueOf(LocalDate.now()));
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    Order order  = getOneOrder(rs);
+                    list.add(order);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
     public static Order getOneOrder(ResultSet rs) throws SQLException {
         Order order = new Order();
         order.setId(rs.getInt("id"));
@@ -233,7 +266,6 @@ public class OrderDao {
         order.setPaymentStatus(rs.getString("status"));
         order.setUserLogin(rs.getString("login"));
         order.setLocationStatus(rs.getString("location"));
-        order.setNotify(rs.getString("notify"));
         return order;
     }
 }

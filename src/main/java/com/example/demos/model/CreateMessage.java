@@ -11,6 +11,7 @@ public class CreateMessage {
     public static final String THEME_DELETE_USER="Видалення акаунта";
     public static final String THEME_RESTORE_PASSWORD = "Відновнення паролю";
     public static final String THEME_SEND_CODE = "Отримання посилки";
+    public static final String THEME_PUT_ON_RECORD = "Інформація щодо доставки";
     public static final String TEXT="Ви успішно оформили заявку на доставку вантажу з міста ";
     public static final String TEXT_CHANGE_PAYMENT_STATUS="Менеджер підтвердив вашу заявку на доставку вантажу, до слпати ";
     public static final String TEXT_BLOCK_USER="Ваш акаунт заблоковано по причині: ";
@@ -18,6 +19,7 @@ public class CreateMessage {
     public static final String TEXT_DELETE_USER="Ваш акаунт видалено, для того щоб користуватися нашими послугами доставки, потрібно зареєструватися знову.";
     public static final String TEXT_RESTORE_PASSWORD = "Для того щоб відновити пароль, введіть данний код:";
     public static final String TEXT_SEND_CODE = "Для того щоб забрати посилку пароль скажіть працівнику данний код:";
+    public static final String TEXT_PUT_ON_RECORD="Ваша посилка знаходиться у відділенні, номер замовлення: ";
     public static final String DATE="Орієнтовна дата прибуття ";
     public static final String MONEY=". До сплати ";
     public static final String MANAGER="Ваша заявка передана на розгляд менеджеру.";
@@ -54,4 +56,5 @@ public class CreateMessage {
     public static String[] deleteUser() {return new String[]{THEME_DELETE_USER,TEXT_DELETE_USER};}
     public static String[] restorePassword(String code){ return new String[]{THEME_RESTORE_PASSWORD,TEXT_RESTORE_PASSWORD+code};}
     public static String[] sendCode(String code) {return  new String[]{THEME_SEND_CODE,TEXT_SEND_CODE+code};}
+    public static String[] putOnRecord(Integer id){return new String[]{THEME_PUT_ON_RECORD,TEXT_PUT_ON_RECORD+id};}
 }
