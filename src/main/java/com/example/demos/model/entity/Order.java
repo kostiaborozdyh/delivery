@@ -15,6 +15,33 @@ public class Order {
     private String cityFrom;
     private String cityTo;
     private String paymentStatus;
+    private LocalDate dateOfSending;
+    private String locationStatus;
+    private String notify;
+
+    public LocalDate getDateOfSending() {
+        return dateOfSending;
+    }
+
+    public void setDateOfSending(LocalDate dateOfSending) {
+        this.dateOfSending = dateOfSending;
+    }
+
+    public String getLocationStatus() {
+        return locationStatus;
+    }
+
+    public void setLocationStatus(String locationStatus) {
+        this.locationStatus = locationStatus;
+    }
+
+    public String getNotify() {
+        return notify;
+    }
+
+    public void setNotify(String notify) {
+        this.notify = notify;
+    }
 
     public String getPaymentStatus() {
         return paymentStatus;

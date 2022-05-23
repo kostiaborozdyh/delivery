@@ -1,6 +1,7 @@
 package com.example.demos.model;
 
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Calculate {
@@ -20,4 +21,15 @@ public class Calculate {
         else distance = distance / 100;
         return LocalDate.now().plusDays(distance);
     }
+    public static LocalDate newArrivalTime(LocalDate dateOfCreate, LocalDate dateOfArrival) {
+        int length1 = dateOfCreate.getDayOfYear();
+        int length2 = dateOfArrival.getDayOfYear();
+        if(dateOfArrival.getYear() != dateOfCreate.getYear()){
+          return   LocalDate.now().plusDays(length2-length1+365);
+        }
+        else{
+            return   LocalDate.now().plusDays(length2-length1);
+        }
+    }
+
 }

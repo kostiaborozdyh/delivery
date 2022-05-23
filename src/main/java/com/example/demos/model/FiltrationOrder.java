@@ -26,6 +26,13 @@ public class FiltrationOrder {
 
         return order;
     }
+    public static List<Order> location(String[] location,List<Order> order){
+
+        if(location!=null)
+            order = order.stream().filter((x)->(Arrays.asList(location).contains(x.getLocationStatus()))).collect(Collectors.toList());
+
+        return order;
+    }
     public static List<Order> dateCreate(String minDateCreate, String maxDateCreate, List<Order> order){
 
         if((!Objects.equals(minDateCreate, "")) && (!Objects.equals(maxDateCreate, "")))

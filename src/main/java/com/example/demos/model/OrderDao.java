@@ -11,32 +11,35 @@ import java.util.*;
 
 public class OrderDao {
 
-    public static final String INSERT_ORDER = "INSERT INTO delivery.order(description,weight,volume,price,city_from,city_to,address,date_create,date_of_arrival,user_id,payment_status_id)  VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-    public static final String GET_USER_ORDERS = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
-            "do.city_from, do.city_to, do.address, do.date_create, du.login, \n" +
-            "do.date_of_arrival, dp.status\n" +
-            "  FROM delivery.order as do\n" +
-            "  join delivery.user as du on  do.user_id = du.id \n" +
-            "  join delivery.payment_status as dp  on  do.payment_status_id = dp.id  and do.user_id=?";
-    public static final String CHANGE_PAY_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 3 WHERE d.id=?";
-    public static final String CHANGE_ORDER_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 2 WHERE d.id=?";
+    public static final String SQL_INSERT_ORDER = "INSERT INTO delivery.order(description,weight,volume,price,city_from,city_to,address,date_create,date_of_arrival,user_id,payment_status_id,location_status_id,notify)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String SQL_GET_USER_ORDERS = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
+            "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
+            "do.date_of_arrival, dp.status, du.login, dl.location, do.notify\n" +
+            "FROM delivery.order as do\n" +
+            "join delivery.user as du on  do.user_id = du.id \n" +
+            "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
+            "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.user_id=?";
+    public static final String SQL_CHANGE_PAY_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 3 WHERE d.id=?";
+    public static final String SQL_CHANGE_ORDER_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 2, d.location_status_id = 2, d.date_of_sending = ?, d.date_of_arrival=? WHERE d.id=?";
 
-    public static final String GET_USER_ID = "SELECT * FROM delivery.order d WHERE d.id = ?";
-    public static final String GET_ORDER_LIST = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
-            "do.city_from, do.city_to, do.address, do.date_create, \n" +
-            "do.date_of_arrival, dp.status, du.login\n" +
+    public static final String SQL_GET_USER_ID = "SELECT * FROM delivery.order d WHERE d.id = ?";
+    public static final String SQL_GET_ORDER_LIST = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
+            "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
+            "do.date_of_arrival, dp.status, du.login, dl.location, do.notify\n" +
             "FROM delivery.order as do\n" +
             "join delivery.user as du on  do.user_id = du.id \n" +
+            "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
             "join delivery.payment_status as dp  on  do.payment_status_id = dp.id";
-    public static final String GET_ORDER = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
-            "do.city_from, do.city_to, do.address, do.date_create, \n" +
-            "do.date_of_arrival, dp.status, du.login\n" +
+    public static final String SQL_GET_ORDER = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
+            "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
+            "do.date_of_arrival, dp.status, du.login, dl.location, do.notify\n" +
             "FROM delivery.order as do\n" +
             "join delivery.user as du on  do.user_id = du.id \n" +
+            "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
             "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.id=?";
     public static void createOrder(String info, String cityFrom, String cityTo, String address, Integer price, Integer volume, String weight, Integer distance, Integer id) {
         try( Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement  st = connection.prepareStatement(INSERT_ORDER)) {
+             PreparedStatement  st = connection.prepareStatement(SQL_INSERT_ORDER)) {
             st.setString(1,info);
             st.setInt(2,Integer.parseInt(weight));
             st.setInt(3,volume);
@@ -48,6 +51,8 @@ public class OrderDao {
             st.setDate(9,Date.valueOf(Calculate.arrivalTime(distance)));
             st.setInt(10,id);
             st.setInt(11,1);
+            st.setInt(12,1);
+            st.setString(13,"no");
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -59,7 +64,7 @@ public class OrderDao {
         List<Order> list = new ArrayList<>();
 
         try( Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement  st = connection.prepareStatement(GET_USER_ORDERS)) {
+             PreparedStatement  st = connection.prepareStatement(SQL_GET_USER_ORDERS)) {
              st.setInt(1,user.getId());
              try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
@@ -75,7 +80,7 @@ public class OrderDao {
 
     public static void changePayStatus(Integer id, Integer value, Integer money){
         try( Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement  st = connection.prepareStatement(CHANGE_PAY_STATUS)) {
+             PreparedStatement  st = connection.prepareStatement(SQL_CHANGE_PAY_STATUS)) {
             st.setInt(1,id);
             UserDao.changeMoney(id,value,money);
             st.executeUpdate();
@@ -84,10 +89,13 @@ public class OrderDao {
         }
     }
     public static void changeOrderStatus(Integer id){
-
+            Order order = getOrder(id);
+            LocalDate dateOfArrival = Calculate.newArrivalTime(order.getDateCreate(),order.getDateOfArrival());
         try( Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement  st = connection.prepareStatement(CHANGE_ORDER_STATUS)) {
-            st.setInt(1,id);
+             PreparedStatement  st = connection.prepareStatement(SQL_CHANGE_ORDER_STATUS)) {
+            st.setDate(1,Date.valueOf(LocalDate.now()));
+            st.setDate(2,Date.valueOf(dateOfArrival));
+            st.setInt(3,id);
             st.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -97,7 +105,7 @@ public class OrderDao {
         int id = 0;
 
         try( Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement  st = connection.prepareStatement(GET_USER_ID)) {
+             PreparedStatement  st = connection.prepareStatement(SQL_GET_USER_ID)) {
             st.setInt(1,orderId);
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
@@ -134,7 +142,7 @@ public class OrderDao {
         List<Order> list = new ArrayList<>();
 
         try( Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement  st = connection.prepareStatement(GET_ORDER_LIST)) {
+             PreparedStatement  st = connection.prepareStatement(SQL_GET_ORDER_LIST)) {
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
                     Order order  = getOneOrder(rs);
@@ -149,7 +157,7 @@ public class OrderDao {
     public static Order getOrder(Integer orderId){
         Order order=null;
         try( Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement  st = connection.prepareStatement(GET_ORDER)) {
+             PreparedStatement  st = connection.prepareStatement(SQL_GET_ORDER)) {
             st.setInt(1,orderId);
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
@@ -173,9 +181,15 @@ public class OrderDao {
         order.setCityTo(rs.getString("city_to"));
         order.setAddress(rs.getString("address"));
         order.setDateCreate(rs.getDate("date_create").toLocalDate());
+        Date date = rs.getDate("date_of_sending");
+        if (date==null) order.setDateOfSending(null);
+        else
+            order.setDateOfSending(date.toLocalDate());
         order.setDateOfArrival(rs.getDate("date_of_arrival").toLocalDate());
         order.setPaymentStatus(rs.getString("status"));
         order.setUserLogin(rs.getString("login"));
+        order.setLocationStatus(rs.getString("location"));
+        order.setNotify(rs.getString("notify"));
         return order;
     }
 }

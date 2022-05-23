@@ -22,6 +22,11 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
     <label> <input type="checkbox" name="paymentStatus" value="На розгляді" <c:if test="${sessionScope.status1 != null}"> checked</c:if> ></label>На розгляді<br>
     <label> <input type="checkbox" name="paymentStatus" value="Очікує оплату" <c:if test="${sessionScope.status2 != null}"> checked</c:if> ></label>Очікує оплату<br>
     <label> <input type="checkbox" name="paymentStatus" value="Оплачено" <c:if test="${sessionScope.status3 != null}"> checked</c:if> ></label>Оплачено<br>
+    <text>Місцезнаходження</text><br>
+    <label> <input type="checkbox" name="locationStatus" value="В місті відправлення" <c:if test="${sessionScope.location1 != null}"> checked</c:if> ></label>В місті відправлення<br>
+    <label> <input type="checkbox" name="locationStatus" value="В дорозі" <c:if test="${sessionScope.location2 != null}"> checked</c:if> ></label>В дорозі<br>
+    <label> <input type="checkbox" name="locationStatus" value="У відділенні пошти" <c:if test="${sessionScope.location3 != null}"> checked</c:if> ></label>У відділенні пошти<br>
+    <label> <input type="checkbox" name="locationStatus" value="Отримано" <c:if test="${sessionScope.location4 != null}"> checked</c:if> ></label>Отримано<br>
     <text>Дата відправки</text><br>
     <label>от<input type="date" name="minDateCreate" value="${sessionScope.minDateCreate}"></label>
     <label>до<input type="date" name="maxDateCreate" value="${sessionScope.maxDateCreate}"><br></label>
@@ -63,8 +68,8 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
 <form method="post" action="/resetOrder">
     <input type="submit" value="Скинути фільтри">
 </form>
-
-<abbr title="Пдф файлік" ><a href="/pdfOrder" target="_blank">Звіт по доставкам</a></abbr>
+<a href="/resetOrder">Оновивти</a><br>
+<abbr title="Pdf файлік" ><a href="/pdfOrder" target="_blank">Звіт по доставкам</a></abbr>
 
 
 <table border="1">
@@ -80,6 +85,11 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
         <th>Дата Створення</th>
         <th>Дата прибуття</th>
         <th>Статус</th>
+        <th>Місцезнаходження</th>
+        <th>Оплата</th>
+        <th>Pdf звіти</th>
+        <th>Пошта</th>
+        <th>Заявки</th>
     </tr>
     <c:forEach var="order" items="${sessionScope.orders}">
         <tr>
@@ -94,6 +104,7 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
             <td>${order.dateCreate}</td>
             <td>${order.dateOfArrival}</td>
             <td>${order.paymentStatus}</td>
+            <td>${order.locationStatus}</td>
             <td>
                 <c:if test = "${(sessionScope.money<order.price) && ((order.paymentStatus == 'Очікує оплату') ||(order.paymentStatus == 'На розгляді')) }">
                     <abbr title="Недостатньо грошей, потрібно поповнити рахунок" ><a href="*" onclick="return false">Оплатить</a></abbr>
@@ -109,13 +120,18 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
                 </c:if>
             </td>
             <td>
-                <abbr title="Відправити інформацію на пошту" >
-                    <a href="/pdfUserOrder?idOrder=${order.id}" target="_blank">Пдф Файл</a>
+                <abbr title="Pdf Файлік" >
+                    <a href="/pdfUserOrder?idOrder=${order.id}" target="_blank">Pdf Файл</a>
                 </abbr>
             </td>
             <td>
                 <abbr title="Відправити інформацію на пошту" >
                     <a href="/sendEmailOrder?idOrder=${order.id}">Відправити на пошту</a>
+                </abbr>
+            </td>
+            <td>
+                <abbr title="Детальніше про заявку" >
+                    <a href="/info?id=${order.id}">Детальніше</a>
                 </abbr>
             </td>
         </tr>

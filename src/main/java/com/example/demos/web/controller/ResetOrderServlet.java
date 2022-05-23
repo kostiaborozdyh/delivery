@@ -12,7 +12,7 @@ import java.io.IOException;
 public class ResetOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    doPost(request,response);
     }
 
     @Override
@@ -23,6 +23,10 @@ public class ResetOrderServlet extends HttpServlet {
         session.removeAttribute("status1");
         session.removeAttribute("status2");
         session.removeAttribute("status3");
+        session.removeAttribute("location1");
+        session.removeAttribute("location2");
+        session.removeAttribute("location3");
+        session.removeAttribute("location4");
         session.removeAttribute("minDateCreate");
         session.removeAttribute("maxDateCreate");
         session.removeAttribute("minDateOfArrival");
