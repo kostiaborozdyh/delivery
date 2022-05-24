@@ -21,11 +21,15 @@ public class ShowInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final String cityFrom = request.getParameter("cityFrom");
         final String cityTo = request.getParameter("cityTo");
-        try {
-            List<InfoTable> infoTable = InfoTableDao.getInfoTable(cityFrom,cityTo);
-            request.getSession().setAttribute("infoTable",infoTable);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        final String input = request.getParameter("input");
+        if(input!=null) System.out.println("yes");
+        else {
+            try {
+                List<InfoTable> infoTable = InfoTableDao.getInfoTable(cityFrom, cityTo);
+                request.getSession().setAttribute("infoTable", infoTable);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
        response.sendRedirect("/index.jsp");
     }
