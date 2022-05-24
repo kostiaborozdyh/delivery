@@ -7,6 +7,7 @@ import com.example.demos.model.entity.User;
 import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class OrderDao {
@@ -52,7 +53,7 @@ public class OrderDao {
             "FROM delivery.order as do\n" +
             "join delivery.user as du on  do.user_id = du.id \n" +
             "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
-            "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.city_to=? and do.location_status_id=? and do.date_of_arrival = ?";
+            "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.city_to=? and do.location_status_id=? and do.date_of_arrival <= ?";
     public static void createOrder(String info, String cityFrom, String cityTo, String address, Integer price, Integer volume, String weight, Integer distance, Integer id) {
         try( Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement  st = connection.prepareStatement(SQL_INSERT_ORDER)) {

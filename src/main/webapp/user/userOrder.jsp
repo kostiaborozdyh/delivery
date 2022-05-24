@@ -41,7 +41,10 @@ ${sessionScope.user.login} <br>
             <a href="/pay?id=${sessionScope.infoOrder.id}&value=${sessionScope.infoOrder.price}&money=${sessionScope.money}">Оплатить</a>
         </abbr>
     </c:if>
-<text><abbr title="Місцерозташування" ><a href="" onclick="return false">Місцерозташування посилки(Бетта)</a></abbr></text>
+<c:if test="${sessionScope.infoOrder.locationStatus!='В місті відправлення' && sessionScope.infoOrder.locationStatus!='Отримано'}">
+    <text><abbr title="Місцерозташування" ><a href="/showLocation?id=${sessionScope.infoOrder.id}">Місцерозташування посилки(Бетта)</a></abbr></text>
+</c:if>
+
 <a href="/resetOrder">Повернутись до замовлень</a><br>
 <a href="/info?id=${sessionScope.infoOrder.id}">Оновити</a><br>
 </body>

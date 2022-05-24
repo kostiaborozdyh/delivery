@@ -5,7 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="text"/>
-
 <!DOCTYPE html>
 <html lang="${sessionScope.lang}" class="h-100">
 <head>
@@ -71,6 +70,10 @@ ${sessionScope.user.login} ${sessionScope.money}
 </c:if>
 </body>
 </html>
+
+
+
+
 <%--
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&libraries=places&callback=initAutocomplete"
         async defer></script>

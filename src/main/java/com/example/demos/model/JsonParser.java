@@ -1,6 +1,7 @@
 package com.example.demos.model;
 
 import com.example.demos.model.entity.Distance;
+import com.example.demos.model.entity.Point;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -39,6 +40,18 @@ public class JsonParser {
             i++;
         }
         return distanceList;
+    }
+    public static Point parseGoogleApiGeocode(String jsonStr) throws ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(jsonStr);
+        JSONObject jsonObj = (JSONObject) obj;
+        JSONArray results = (JSONArray) jsonObj.get("results");
+        JSONObject information = (JSONObject) results.get(0);
+        JSONObject geometry = (JSONObject) information.get("geometry");
+        JSONObject location = (JSONObject) geometry.get("location");
+        String lng = location.get("lng").toString();
+        String lat = location.get("lat").toString();
+        return new Point(lat,lng);
     }
 
     private static ArrayList<String> parseCity(JSONArray city) {
