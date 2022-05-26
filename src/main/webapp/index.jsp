@@ -13,46 +13,25 @@
 <body>
 ${sessionScope.user.login} ${sessionScope.money}
 <u:role user="${sessionScope.role}"></u:role>
-<m:today/>
+<a href="/reviews.jsp">Відгуки</a><m:today/>
+
 <h1><fmt:message key="delivery"/></h1>
 Введіть міста для виведення інформації про доставку між ними<br>
 <form method="post" action="/showInfo" id="kok">
     <label>Міста відправлення</label><br>
-    <label><input type="text" id="aCityFrom1" name="cityFrom1" required></label>
-   <div id="divk"></div>
-    <c:if test="${sessionScope.numberCityFrom>1}">
-        <label><input type="text" id="autocomplete2" name="cityFrom2" required></label>
-    </c:if>
-    <c:if test="${sessionScope.numberCityFrom>2}">
-        <label><input type="text" id="autocomplete3" name="cityFrom3" required></label><br>
-    </c:if>
-    <c:if test="${sessionScope.numberCityFrom>3}">
-        <label><input type="text" id="autocomplete4" name="cityFrom4" required></label>
-    </c:if>
-    <c:if test="${sessionScope.numberCityFrom>4}">
-        <label><input type="text" id="autocomplete5" name="cityFrom5" required></label><br>
-    </c:if>
-    <c:if test="${sessionScope.numberCityFrom!=5}">
-        <%--  <input type="submit" value="input" > --%>
-        <text id="textEdit">AddCity</text>
-      <a href="/addCity?id=1">Додати місто</a><br>
-  </c:if>
-
-  <label>Міста прибуття</label><br>
-  <label><input type="text" id="aCityTo1" name="cityTo"  required></label>
-  <c:if test="${sessionScope.numberCityTo>1}">
-      <label><input type="text" id="autocomplete7" name="cityTo2" required></label>
-  </c:if>
-  <c:if test="${sessionScope.numberCityTo>2}">
-      <label><input type="text" id="autocomplete8" name="cityTo2" required></label><br>
-  </c:if>
-  <c:if test="${sessionScope.numberCityTo>3}">
-      <label><input type="text" id="autocomplete9" name="cityTo2" required></label>
-  </c:if>
-  <c:if test="${sessionScope.numberCityTo>4}">
-      <label><input type="text" id="autocomplete10" name="cityTo2" required></label><br>
-  </c:if>
-  <c:if test="${sessionScope.numberCityTo!=5}"><a href="/addCity?id=2">Додати місто</a><br></c:if>
+    <label><input type="text" id="idCityFrom1" name="cityFrom1" required></label>
+    <div id="divCityFrom2"></div>
+    <div id="divCityFrom3"></div>
+    <div id="divCityFrom4"></div>
+    <div id="divCityFrom5"></div>
+    <text id="textCityFrom">Додати місто</text><br>
+    <label>Міста прибуття</label><br>
+    <label><input type="text" id="idCityTo1" name="cityTo1"  required></label>
+    <div id="divCityTo2"></div>
+    <div id="divCityTo3"></div>
+    <div id="divCityTo4"></div>
+    <div id="divCityTo5"></div>
+    <text id="textCityTo">Додати місто</text><br>
   <input type="submit" value="Розрахувати відстань">
 </form>
 <br/>

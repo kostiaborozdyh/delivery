@@ -19,18 +19,23 @@ public class ShowInfoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        final String cityFrom = request.getParameter("cityFrom");
-        final String cityTo = request.getParameter("cityTo");
-        final String input = request.getParameter("input");
-        if(input!=null) System.out.println("yes");
-        else {
+        StringBuilder cityFrom = new StringBuilder();
+        StringBuilder cityTo = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            String strFrom = request.getParameter("cityFrom"+(i+1));
+            String strTo = request.getParameter("cityTo"+(i+1));
+            if(strFrom!=null) cityFrom.append("|").append(strFrom);
+            if(strTo!=null) cityTo.append("|").append(strTo);
+        }
+        cityFrom.deleteCharAt(0);
+        cityTo.deleteCharAt(0);
             try {
-                List<InfoTable> infoTable = InfoTableDao.getInfoTable(cityFrom, cityTo);
+                List<InfoTable> infoTable = InfoTableDao.getInfoTable(cityFrom.toString(), cityTo.toString());
                 request.getSession().setAttribute("infoTable", infoTable);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-        }
+            request.getSession().removeAttribute("table");
        response.sendRedirect("/index.jsp");
     }
 }

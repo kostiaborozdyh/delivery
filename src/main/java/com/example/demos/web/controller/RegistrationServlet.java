@@ -33,6 +33,7 @@ public class RegistrationServlet extends HttpServlet {
         if(UserDao.validation(validList)) {
             if (UserDao.insertUser(user)) {
                 response.sendRedirect("/login.jsp");
+                request.getSession().setAttribute("successful","successful");
             } else {
                 response.sendRedirect("/error.jsp");
             }
