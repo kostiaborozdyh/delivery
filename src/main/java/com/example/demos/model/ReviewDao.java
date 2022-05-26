@@ -1,6 +1,7 @@
-package com.example.demos.model.entity;
+package com.example.demos.model;
 
 import com.example.demos.DB.DBHelper;
+import com.example.demos.model.entity.Review;
 
 import java.sql.*;
 import java.util.ArrayList;

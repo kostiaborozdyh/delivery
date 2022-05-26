@@ -27,19 +27,21 @@ public class RegistrationServlet extends HttpServlet {
         user.setPhoneNumber(request.getParameter("phoneNumber"));
         user.setRole_id(1);
         String[] notify = request.getParameterValues("notify");
-        if(notify==null) user.setNotify("no");
-        else user.setNotify("yes");
-        ValidList validList = UserDao.valid(user,request.getParameter("secondPassword"),1);
-        if(UserDao.validation(validList)) {
+        if (notify == null) {
+            user.setNotify("no");
+        } else {
+            user.setNotify("yes");
+        }
+        ValidList validList = UserDao.valid(user, request.getParameter("secondPassword"), 1);
+        if (UserDao.validation(validList)) {
             if (UserDao.insertUser(user)) {
                 response.sendRedirect("/login.jsp");
-                request.getSession().setAttribute("successful","successful");
+                request.getSession().setAttribute("successful", "successful");
             } else {
                 response.sendRedirect("/error.jsp");
             }
-        }
-        else {
-            request.getSession().setAttribute("validList",validList);
+        } else {
+            request.getSession().setAttribute("validList", validList);
             response.sendRedirect("/registration.jsp");
         }
 

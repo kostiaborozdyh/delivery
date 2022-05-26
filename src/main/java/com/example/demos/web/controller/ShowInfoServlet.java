@@ -1,5 +1,6 @@
 package com.example.demos.web.controller;
 
+import com.example.demos.model.Calculate;
 import com.example.demos.model.InfoTableDao;
 import com.example.demos.model.entity.InfoTable;
 import org.json.simple.parser.ParseException;
@@ -22,20 +23,28 @@ public class ShowInfoServlet extends HttpServlet {
         StringBuilder cityFrom = new StringBuilder();
         StringBuilder cityTo = new StringBuilder();
         for (int i = 0; i < 5; i++) {
-            String strFrom = request.getParameter("cityFrom"+(i+1));
-            String strTo = request.getParameter("cityTo"+(i+1));
-            if(strFrom!=null) cityFrom.append("|").append(strFrom);
-            if(strTo!=null) cityTo.append("|").append(strTo);
+            String strFrom = request.getParameter("cityFrom" + (i + 1));
+            String strTo = request.getParameter("cityTo" + (i + 1));
+            if (strFrom != null) cityFrom.append("|").append(strFrom);
+            if (strTo != null) cityTo.append("|").append(strTo);
         }
         cityFrom.deleteCharAt(0);
         cityTo.deleteCharAt(0);
-            try {
-                List<InfoTable> infoTable = InfoTableDao.getInfoTable(cityFrom.toString(), cityTo.toString());
-                request.getSession().setAttribute("infoTable", infoTable);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
+        try {
+            List<InfoTable> infoTable = InfoTableDao.getInfoTable(cityFrom.toString(), cityTo.toString());
+            List<Integer> list = Calculate.getPaginationList(infoTable);
+            if (list == null) {
+                request.getSession().setAttribute("infoTableShort", infoTable);
+            } else {
+                request.getSession().setAttribute("infoTableShort", Calculate.getFiveElements(infoTable, 1));
             }
-            request.getSession().removeAttribute("table");
-       response.sendRedirect("/index.jsp");
+            request.getSession().setAttribute("infoTable", infoTable);
+            request.getSession().setAttribute("list", list);
+            request.getSession().setAttribute("pageNumber",1);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        request.getSession().removeAttribute("table");
+        response.sendRedirect("/index.jsp");
     }
 }

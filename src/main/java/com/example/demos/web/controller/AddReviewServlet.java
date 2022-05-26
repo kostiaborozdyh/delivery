@@ -1,6 +1,6 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.entity.ReviewDao;
+import com.example.demos.model.ReviewDao;
 import com.example.demos.model.entity.User;
 
 import javax.servlet.*;
