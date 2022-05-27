@@ -94,14 +94,14 @@
     </style>
 </head>
 <body>
-<div class="signup-form">
+<div class="signup-form justify-content-center">
     <form action="/loginUser" method="post" class="form-horizontal">
-        <div class="col-xs-8 col-xs-offset-4">
+        <div class="col-12 col-xs-offset-4 m-0">
             <h2>Авторизація</h2>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-4">Логін</label>
-            <div class="col-xs-8">
+            <label class="control-label col-xs-2">Логін</label>
+            <div class="col-xs-10">
                 <c:if test = "${sessionScope.changePassword !=null}">
                     <text style="color: #3598dc">Використовуйте новий пароль для входу на сторінку</text><br>
                 </c:if>
@@ -112,8 +112,8 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-4">Пароль</label>
-            <div class="col-xs-8">
+            <label class="control-label col-xs-2">Пароль</label>
+            <div class="col-xs-10">
                 <input type="password" class="form-control" name="password" required="required" placeholder="Пароль">
                 <c:if test = "${sessionScope.invalid =='invalid'}">
                     <text style="color: red">Логін або пароль неправильний</text><br>

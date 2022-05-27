@@ -7,45 +7,127 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Розрахунок вартості багажа</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Розрахунок Вартості доставки</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-${sessionScope.user.login} ${sessionScope.money}<br>
-<a href="/index.jsp">Головна</a><br>
-<H1>Розрахунок вартості доставки</H1>
-<form method="post" action="/calculateBag">
-    <label><input type="text" id="autocomplete" name="cityFrom" required></label>Місто відправлення<br>
-    <label><input type="text" id="autocompleteSec" name="cityTo"  required></label>Місто прибуття<br>
-    <label><input type="number" name="weight" min="1"  required></label>Вага kg<br>
-    <label><input type="number" name="height" min="1"  required></label>Висота м<br>
-    <label><input type="number" name="length" min="1"  required></label>Довжина м<br>
-    <label><input type="number" name="width"  min="1"  required></label>Ширина м<br>
-    <input type="submit" value="Обрахувати ціну вантажу" name="Ok"><br>
-</form>
-<c:if test="${sessionScope.calculateTable!=null}">
-<h1>Доставка з міста "${sessionScope.calculateTable.cityFrom}"<br>
-    в місто "${sessionScope.calculateTable.cityTo}"  <br>
-    з вагою  ${sessionScope.calculateTable.weight} <br>
-    та об'ємом ${sessionScope.calculateTable.volume}  <br>
-    коштує ${sessionScope.calculateTable.price} <br> </h1>
-
-    <iframe
-            width="600"
-            height="450"
-            style="border:0"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&origin=${sessionScope.calculateTable.cityFrom}
-  &destination=${sessionScope.calculateTable.cityTo}
-  &mode=driving&language=uk&avoid=tolls|highways">
-    </iframe><br>
-</c:if>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">Delivery Holder</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/main.jsp" class="nav-item nav-link active">Головна</a>
+                <a href="#" class="nav-item nav-link">Про нас</a>
+                <a href="/index.jsp" class="nav-item nav-link">Напрямки доставки</a>
+                <a href="/calculate.jsp" class="nav-item nav-link active">Розрахувати вартість посилки</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a href="/login.jsp" class="nav-item nav-link">Вхід</a>
+                <span class="nav-item nav-link">/</span>
+                <a href="/registration.jsp" class="nav-item nav-link">Реєстарція</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row justify-content-center mt-3 mb-3">
+        <div class="col-md-auto">
+            <h4>Розрахування вартості доставки</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-8 ">
+            <div class="row">
+                <div class="col-6">
+                    <form method="post" action="/calculateBag" id="form">
+                        <div class="row justify-content-center">
+                            <div class="col-md-auto">
+                                <div class="rounded bg-light p-4 mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="form-group mb-3">
+                                            <label class="control-label col-xs-4 mb-1">Місто відправки<text style = "color:red;">*</text></label>
+                                            <div class="col-xs-8">
+                                                <input type="text" class="form-control" name="cityFrom" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label col-xs-4 mb-1">Місто доставки<text style = "color:red;">*</text></label>
+                                            <div class="col-xs-8">
+                                                <input type="text" class="form-control" name="cityTo" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label col-xs-4 mb-1">Вага кг<text style = "color:red;">*</text></label>
+                                            <div class="col-xs-8">
+                                                <input type="number" name="weight" min="1" class="form-control" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label col-xs-4 mb-1">Висота м<text style = "color:red;">*</text></label>
+                                            <div class="col-xs-8">
+                                                <input type="number" name="height" min="1" class="form-control" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label col-xs-4 mb-1">Довжина м<text style = "color:red;">*</text></label>
+                                            <div class="col-xs-8">
+                                                <input type="number" name="length" min="1" class="form-control" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label col-xs-4 mb-1">Широта м<text style = "color:red;">*</text></label>
+                                            <div class="col-xs-8">
+                                                <input type="number" name="width"  min="1" class="form-control" required="required">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <div class="row justify-content-center">
+                        <div class="col-md-auto">
+                            <div class="row justify-content-center">
+                                <div class="col-md-auto">
+                                    <h5>Інформація про доставку</h5>
+                                    <p>Доставка з міста: ${sessionScope.calculateTable.cityFrom}<br>
+                                        Пункт Призначення: ${sessionScope.calculateTable.cityTo} <br>
+                                        Вага вантажу:<c:if test="${sessionScope.calculateTable!=null}">
+                                            ${sessionScope.calculateTable.weight} кг
+                                        </c:if><br>
+                                        Об'єм вантажу: <c:if test="${sessionScope.calculateTable!=null}">
+                                        ${sessionScope.calculateTable.volume} м<sup>3</sup>
+                                        </c:if><br>
+                                        Вартість: ${sessionScope.calculateTable.price}
+                                    </p>
+                                    <div class="row mt-4">
+                                        <div class="col-md-auto">
+                                            <p><input type="submit" form="form" value="Розрахувати" class="btn btn-success"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+
 <%--
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&libraries=places&callback=initAutocomplete"
         async defer></script>

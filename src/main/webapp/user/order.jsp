@@ -57,12 +57,6 @@ ${sessionScope.user.login} ${sessionScope.money}<br>
     <label><input type="radio" name="sort" value="sortByMaxPrice" <c:if test="${sessionScope.sort == 'sortByMaxPrice'}"> checked</c:if>>По ціні↓</label><br>
     <label><input type="radio" name="sort" value="sortByMinDateCreate" <c:if test="${sessionScope.sort == 'sortByMinDateCreate'}"> checked</c:if>>По Даті створення↑</label>
     <label><input type="radio" name="sort" value="sortByMaxDateCreate" <c:if test="${sessionScope.sort == 'sortByMaxDateCreate'}"> checked</c:if>>По Даті створення↓</label><br>
-    <label><input type="radio" name="sort" value="sortByMinDateOfArrival"<c:if test="${sessionScope.sort == 'sortByMinDateOfArrival'}"> checked</c:if>>По Даті прибуття↑</label>
-    <label><input type="radio" name="sort" value="sortByMaxDateOfArrival"<c:if test="${sessionScope.sort == 'sortByMaxDateOfArrival'}"> checked</c:if>>По Даті прибуття↓</label><br>
-    <label><input type="radio" name="sort" value="sortByMinCityFrom"  <c:if test="${sessionScope.sort == 'sortByMinCityFrom'}"> checked</c:if>>По Місту відправлення(А-Я)</label>
-    <label><input type="radio" name="sort" value="sortByMaxCityFrom"<c:if test="${sessionScope.sort == 'sortByMaxCityFrom'}"> checked</c:if>>По Місту відправлення(Я-А)</label><br>
-    <label><input type="radio" name="sort" value="sortByMinCityTo"<c:if test="${sessionScope.sort == 'sortByMinCityTo'}"> checked</c:if>>По Місту прибуття(А-Я)</label>
-    <label><input type="radio" name="sort" value="sortByMaxCityTo"<c:if test="${sessionScope.sort == 'sortByMaxCityTo'}"> checked</c:if>>По Місту прибуття(Я-А)</label><br>
     <input type="submit" value="Фільтрувати">
 </form>
 <form method="post" action="/resetOrder">

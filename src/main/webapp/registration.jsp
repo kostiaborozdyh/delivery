@@ -94,14 +94,14 @@
     </style>
 </head>
 <body>
-<div class="signup-form">
+<div class="signup-form justify-content-center">
     <form action="<c:url value='/registrationUser'/>" method="post" class="form-horizontal">
-        <div class="col-xs-8 col-xs-offset-4">
+        <div class="col-12 col-xs-offset-4">
             <h2>Реєстрація</h2>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-4">Логін<text style = "color:red;">*</text></label>
-            <div class="col-xs-8">
+            <label class="control-label col-xs-2">Логін<text style = "color:red;">*</text></label>
+            <div class="col-xs-10">
                 <input type="text" class="form-control" name="login" required="required" value="${sessionScope.validList.validLoginName}">
                 <c:if test = "${sessionScope.validList.invalidLogin != null}">
                     <text style = "color:red;">Користувач з логіном ${sessionScope.validList.invalidLogin} уже існує</text><br>
@@ -112,8 +112,8 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-4">Ім'я<text style = "color:red;">*</text></label>
-            <div class="col-xs-8">
+            <label class="control-label col-xs-2">Ім'я<text style = "color:red;">*</text></label>
+            <div class="col-xs-10">
                 <input type="text" class="form-control" name="firstName" required="required" value="${sessionScope.validList.validFirstName}">
                 <c:if test = "${sessionScope.validList.invalidFirstName != null}">
                     <text style = "color:red;">Ім'я - ${sessionScope.validList.invalidFirstName} повинно складатися тільки з букв і бути більше 3х символів</text><br>
@@ -121,8 +121,8 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-4">Прізвище<text style = "color:red;">*</text></label>
-            <div class="col-xs-8">
+            <label class="control-label col-xs-2">Прізвище<text style = "color:red;">*</text></label>
+            <div class="col-xs-10">
                 <input type="text" class="form-control" name="lastName" required="required" value="${sessionScope.validList.validLastName}">
                 <c:if test = "${sessionScope.validList.invalidLastName != null}">
                     <text style = "color:red;">Прізвище - ${sessionScope.validList.invalidLastName} повинно складатися тільки з букв і бути більше 3х символів</text><br>
@@ -130,8 +130,8 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-4">Пароль<text style = "color:red;">*</text></label>
-            <div class="col-xs-8">
+            <label class="control-label col-xs-2">Пароль<text style = "color:red;">*</text></label>
+            <div class="col-xs-10">
                 <input type="password" class="form-control" name="password" required="required">
                 <c:if test = "${sessionScope.validList.invalidPassword != null}">
                     <text style = "color:red;">Паролі повинні співпадати</text><br>
@@ -139,8 +139,8 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-4">Повторити пароль<text style = "color:red;">*</text></label>
-            <div class="col-xs-8">
+            <label class="control-label col-xs-2">Повторити пароль<text style = "color:red;">*</text></label>
+            <div class="col-xs-10">
                 <input type="password" class="form-control" name="secondPassword" required="required">
                 <c:if test = "${sessionScope.validList.invalidPasswordName != null}">
                     <text style = "color:red;">Пароль обов'язково повинен містити цифру, велику та малу латинську літеру і бути не менше 8 символів</text><br>
@@ -148,8 +148,8 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-4">Пошта<text style = "color:red;">*</text></label>
-            <div class="col-xs-8">
+            <label class="control-label col-xs-2">Пошта<text style = "color:red;">*</text></label>
+            <div class="col-xs-10">
                 <input type="email" class="form-control" name="email" required="required" value="${sessionScope.validList.validEmailName}">
                 <c:if test = "${sessionScope.validList.invalidEmail != null}">
                     <text style = "color:red;">Користувач з email ${sessionScope.validList.invalidEmail} уже існує</text><br>
@@ -160,16 +160,16 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-4">Телефон</label>
-            <div class="col-xs-8">
+            <label class="control-label col-xs-2">Телефон</label>
+            <div class="col-xs-10">
                 <input type="text" class="form-control" name="phoneNumber"  value="${sessionScope.validList.validPhoneNumber}">
                 <c:if test = "${sessionScope.validList.invalidPhoneNumber != null}">
                     <text style = "color:red;">телефон - ${sessionScope.validList.invalidPhoneNumber} повинен мати 10 цифр та починатися з 0 або +380</text><br>
                 </c:if>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-xs-8 col-xs-offset-4">
+        <div class="form-group justify-content-center d-flex">
+            <div class="col-12 text-center">
                 <p><label class="checkbox-inline"><input type="checkbox" name="notify" value="notifyEmail">Підписатися на розсилку</label></p>
                 <button type="submit" class="btn btn-primary btn-lg">Зареєструватися</button>
             </div>

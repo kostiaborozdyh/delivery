@@ -22,11 +22,11 @@ public class SortingTableServlet extends HttpServlet {
         String sort = request.getParameter("sort");
         HttpSession session = request.getSession();
         List<InfoTable> tableList = (List<InfoTable>) session.getAttribute("infoTable");
-        tableList = FiltrationOrder.sortingTable(sort,tableList);
-        session.setAttribute("infoTable",tableList);
-        session.setAttribute("infoTableShort", Calculate.getFiveElements(tableList,1));
-        session.setAttribute("pageNumber",1);
-        session.setAttribute("sort",sort);
+        tableList = FiltrationOrder.sortingTable(sort, tableList);
+        session.setAttribute("infoTable", tableList);
+        session.setAttribute("infoTableShort", Calculate.getFiveElements(tableList, 1));
+        session.setAttribute("pageNumber", 1);
+        session.setAttribute("sort", sort);
         response.sendRedirect("/index.jsp");
     }
 }
