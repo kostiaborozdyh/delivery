@@ -1,8 +1,8 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.CreateMessage;
-import com.example.demos.model.OrderDao;
-import com.example.demos.model.SendEmail;
+import com.example.demos.model.utils.CreateMessage;
+import com.example.demos.model.dao.OrderDao;
+import com.example.demos.model.utils.SendEmail;
 import com.example.demos.model.entity.User;
 
 import javax.mail.MessagingException;
@@ -25,7 +25,7 @@ public class SendEmailOrderServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
             response.sendRedirect("/user/order.jsp");
-        } else  response.sendRedirect("/index.jsp");
+        } else  response.sendRedirect("/main.jsp");
     }
 
     @Override

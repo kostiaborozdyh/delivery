@@ -85,7 +85,7 @@ public class PdfOrderListServlet extends HttpServlet {
             cell.add("Дата прибуття").setFont(font).setBold();
             cell.setWidthPercent(10);
             table.addCell(cell);
-            List<Order> orderList = (List<Order>) request.getSession().getAttribute("orderList");
+            List<Order> orderList = (List<Order>) request.getSession().getAttribute("orders");
             for (Order order :
                     orderList) {
                 cell = new Cell();

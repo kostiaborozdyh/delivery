@@ -1,4 +1,5 @@
 package com.example.demos.DB;
+
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -11,21 +12,11 @@ import java.sql.SQLException;
  */
 public class DBHelper {
 
-    public static final String HOST = "localhost";
-    public static final String DB_NAME = "delivery";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "qazwsxedcA7?";
-
     private static volatile DBHelper instance;
 
     private final HikariDataSource ds;
 
     private DBHelper() {
-        String hostname = System.getProperty(HOST);
-        String dbName = System.getProperty(DB_NAME);
-        String userName = System.getProperty(USERNAME);
-        String password = System.getProperty(PASSWORD);
-
         //configuring db connection and pooling with recommended params
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");

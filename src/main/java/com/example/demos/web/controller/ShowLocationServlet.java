@@ -1,6 +1,6 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.Calculate;
+import com.example.demos.model.utils.Calculate;
 import com.example.demos.model.entity.Point;
 import org.json.simple.parser.ParseException;
 

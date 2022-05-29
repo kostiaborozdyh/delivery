@@ -1,4 +1,4 @@
-package com.example.demos.model;
+package com.example.demos.model.utils;
 
 import com.example.demos.model.entity.InfoTable;
 import com.example.demos.model.entity.Order;

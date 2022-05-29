@@ -1,9 +1,9 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.CreateMessage;
-import com.example.demos.model.OrderDao;
-import com.example.demos.model.SendEmail;
-import com.example.demos.model.UserDao;
+import com.example.demos.model.utils.CreateMessage;
+import com.example.demos.model.dao.OrderDao;
+import com.example.demos.model.utils.SendEmail;
+import com.example.demos.model.dao.UserDao;
 
 import javax.mail.MessagingException;
 import javax.servlet.*;

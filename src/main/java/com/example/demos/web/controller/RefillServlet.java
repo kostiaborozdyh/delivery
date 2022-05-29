@@ -1,6 +1,6 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.UserDao;
+import com.example.demos.model.dao.UserDao;
 import com.example.demos.model.entity.User;
 
 import javax.servlet.*;
@@ -20,12 +20,15 @@ public class RefillServlet extends HttpServlet {
         final int value = Integer.parseInt(request.getParameter("value"));
         User user = (User) request.getSession().getAttribute("user");
         int money;
-        if(user.getMoney()==null) money=0;
-        else money = user.getMoney();
-        if(UserDao.refillMoney(user.getId(),value,money)){
-            user.setMoney(money+value);
-            request.getSession().setAttribute("money",money+value);
+        if (user.getMoney() == null) {
+            money = 0;
+        } else {
+            money = user.getMoney();
         }
-        response.sendRedirect("user/refill.jsp");
+        if (UserDao.refillMoney(user.getId(), value, money)) {
+            user.setMoney(money + value);
+            request.getSession().setAttribute("money", money + value);
+        }
+        response.sendRedirect("/user/refill.jsp");
     }
 }

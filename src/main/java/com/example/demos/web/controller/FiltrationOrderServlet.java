@@ -1,7 +1,7 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.FiltrationOrder;
-import com.example.demos.model.OrderDao;
+import com.example.demos.model.utils.FiltrationOrder;
+import com.example.demos.model.dao.OrderDao;
 import com.example.demos.model.entity.Order;
 import com.example.demos.model.entity.User;
 
@@ -74,13 +74,14 @@ public class FiltrationOrderServlet extends HttpServlet {
         orderList = FiltrationOrder.dateOfArrival(minDateOfArrival, maxDateOfArrival, orderList);
         orderList = FiltrationOrder.cityFrom(cityFrom, orderList);
         orderList = FiltrationOrder.cityTo(cityTo, orderList);
-        if (sort != null)
+        if (sort != null) {
             orderList = FiltrationOrder.sorting(sort, orderList);
+        }
+        session.removeAttribute("pageNumberOrder");
+        session.setAttribute("orders", orderList);
         if (session.getAttribute("role").equals("user")) {
-            session.setAttribute("orders", orderList);
             response.sendRedirect("/user/order.jsp");
         } else {
-            session.setAttribute("orderList", orderList);
             response.sendRedirect("/man/orderList.jsp");
         }
     }

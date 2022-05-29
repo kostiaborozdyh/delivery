@@ -1,4 +1,4 @@
-package com.example.demos.model;
+package com.example.demos.model.utils;
 
 import com.example.demos.model.entity.Order;
 
@@ -14,7 +14,7 @@ public class CreateMessage {
     public static final String THEME_PUT_ON_RECORD = "Інформація щодо доставки";
     public static final String TEXT="Ви успішно оформили заявку на доставку вантажу з міста ";
     public static final String TEXT_CHANGE_PAYMENT_STATUS="Менеджер підтвердив вашу заявку на доставку вантажу, до слпати ";
-    public static final String TEXT_BLOCK_USER="Ваш акаунт заблоковано по причині: ";
+    public static final String TEXT_BLOCK_USER="Ваш акаунт заблоковано.";
     public static final String TEXT_UN_BLOCK_USER="Ваш акаунт розблоковано, дякуємо за очікування!";
     public static final String TEXT_DELETE_USER="Ваш акаунт видалено, для того щоб користуватися нашими послугами доставки, потрібно зареєструватися знову.";
     public static final String TEXT_RESTORE_PASSWORD = "Для того щоб відновити пароль, введіть данний код:";
@@ -47,8 +47,8 @@ public class CreateMessage {
         return new String[]{sbTheme, sb};
 
     }
-    public static String[] blockUser(String reason){
-        return new String[]{THEME_BLOCK_USER,TEXT_BLOCK_USER+reason};
+    public static String[] blockUser(){
+        return new String[]{THEME_BLOCK_USER,TEXT_BLOCK_USER};
     }
     public static String[] unBlockUser(){
         return new String[]{THEME_UN_BLOCK_USER,TEXT_UN_BLOCK_USER};

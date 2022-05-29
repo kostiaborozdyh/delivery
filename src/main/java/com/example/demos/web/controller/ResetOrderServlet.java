@@ -1,6 +1,6 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.OrderDao;
+import com.example.demos.model.dao.OrderDao;
 import com.example.demos.model.entity.User;
 
 import javax.servlet.*;
@@ -36,12 +36,13 @@ public class ResetOrderServlet extends HttpServlet {
         session.removeAttribute("cityFromSet");
         session.removeAttribute("cityToSet");
         session.removeAttribute("sort");
+        session.removeAttribute("pageNumberOrder");
         if(session.getAttribute("role").equals("user")) {
             session.setAttribute("orders", OrderDao.getUserOrders((User) request.getSession().getAttribute("user")));
             response.sendRedirect("/user/order.jsp");
         }
         else {
-            session.setAttribute("orderList", OrderDao.getOrderList());
+            session.setAttribute("orders", OrderDao.getOrderList());
             response.sendRedirect("/man/orderList.jsp");
         }
     }

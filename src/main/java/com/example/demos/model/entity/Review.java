@@ -1,9 +1,20 @@
 package com.example.demos.model.entity;
 
+import java.time.LocalDate;
+
 public class Review {
     private Integer id;
     private String firstName;
     private String response;
+    private LocalDate date;
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     public Integer getId() {
         return id;

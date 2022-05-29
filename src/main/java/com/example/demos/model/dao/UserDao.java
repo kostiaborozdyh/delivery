@@ -1,6 +1,8 @@
-package com.example.demos.model;
+package com.example.demos.model.dao;
 
 import com.example.demos.DB.DBHelper;
+import com.example.demos.model.utils.CreateMessage;
+import com.example.demos.model.utils.SendEmail;
 import com.example.demos.model.entity.User;
 import com.example.demos.model.entity.ValidList;
 import com.example.demos.security.Security;
@@ -39,8 +41,11 @@ public class UserDao {
         User user = null;
         PreparedStatement pst;
         try (Connection con = DBHelper.getInstance().getConnection()) {
-            if (emailNameValid(login)) pst = con.prepareStatement(SQL_GET_USER_VALID_FROM_EMAIL);
-            else pst = con.prepareStatement(SQL_GET_USER_VALID);
+            if (emailNameValid(login)) {
+                pst = con.prepareStatement(SQL_GET_USER_VALID_FROM_EMAIL);
+            } else {
+                pst = con.prepareStatement(SQL_GET_USER_VALID);
+            }
             pst.setString(1, login);
             pst.setString(2, Security.hashPassword(password));
             try (ResultSet rs = pst.executeQuery()) {
@@ -131,7 +136,6 @@ public class UserDao {
             st.setString(8, user.getNotify());
             st.setString(9, "no");
             count = st.executeUpdate();
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (Exception e) {
@@ -159,7 +163,6 @@ public class UserDao {
             st.setString(1, Security.hashPassword(password));
             st.setString(2, email);
             count = st.executeUpdate();
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (Exception e) {
@@ -175,7 +178,6 @@ public class UserDao {
             st.setInt(1, money + value);
             st.setInt(2, userId);
             count = st.executeUpdate();
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -183,29 +185,22 @@ public class UserDao {
     }
 
     public static User editUser(User user) {
-        int count = 0;
+        int count = 0, k = 1;
         PreparedStatement st = null;
         try (Connection connection = DBHelper.getInstance().getConnection()) {
             if (user.getPassword().equals("Password1")) {
                 st = connection.prepareStatement(SQL_EDIT_USER);
-                st.setString(1, user.getFirstName());
-                st.setString(2, user.getLastName());
-                st.setString(3, user.getPhoneNumber());
-                st.setString(4, user.getEmail());
-                st.setString(5, user.getNotify());
-                st.setInt(6, user.getId());
-
             } else {
                 st = connection.prepareStatement(SQL_EDIT_USER_AND_PASSWORD);
                 st.setString(1, Security.hashPassword(user.getPassword()));
-                st.setString(2, user.getFirstName());
-                st.setString(3, user.getLastName());
-                st.setString(4, user.getPhoneNumber());
-                st.setString(5, user.getEmail());
-                st.setString(6, user.getNotify());
-                st.setInt(7, user.getId());
-
+                k++;
             }
+            st.setString(k, user.getFirstName());
+            st.setString(++k, user.getLastName());
+            st.setString(++k, user.getPhoneNumber());
+            st.setString(++k, user.getEmail());
+            st.setString(++k, user.getNotify());
+            st.setInt(++k, user.getId());
             count = st.executeUpdate();
             user.setPassword("");
 
@@ -275,16 +270,14 @@ public class UserDao {
                     user.setBan(rs.getString("ban"));
                     userList.add(user);
                 }
-
             }
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return userList;
     }
 
-    public static void blockUser(Integer id, String reason) throws MessagingException, UnsupportedEncodingException {
+    public static void blockUser(Integer id) throws MessagingException, UnsupportedEncodingException {
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_BLOCK_USER)) {
             pst.setInt(1, id);
@@ -292,7 +285,7 @@ public class UserDao {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        String[] message = CreateMessage.blockUser(reason);
+        String[] message = CreateMessage.blockUser();
         SendEmail.send(getUserEmail(id), message[0], message[1]);
     }
 

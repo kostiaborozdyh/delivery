@@ -1,6 +1,6 @@
 package com.example.demos.web.filter;
 
-import com.example.demos.model.ReviewDao;
+import com.example.demos.model.dao.ReviewDao;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +22,5 @@ public class ReviewsFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         request.getSession().setAttribute("reviews", ReviewDao.getReviews());
         filterChain.doFilter(servletRequest, servletResponse);
-
-
     }
 }

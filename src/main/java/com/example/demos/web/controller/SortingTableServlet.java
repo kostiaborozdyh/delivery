@@ -1,7 +1,7 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.Calculate;
-import com.example.demos.model.FiltrationOrder;
+import com.example.demos.model.utils.Calculate;
+import com.example.demos.model.utils.FiltrationOrder;
 import com.example.demos.model.entity.InfoTable;
 
 import javax.servlet.*;
@@ -27,6 +27,6 @@ public class SortingTableServlet extends HttpServlet {
         session.setAttribute("infoTableShort", Calculate.getFiveElements(tableList, 1));
         session.setAttribute("pageNumber", 1);
         session.setAttribute("sort", sort);
-        response.sendRedirect("/index.jsp");
+        response.sendRedirect("/info.jsp");
     }
 }

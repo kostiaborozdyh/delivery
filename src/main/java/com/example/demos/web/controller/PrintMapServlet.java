@@ -18,7 +18,7 @@ public class PrintMapServlet extends HttpServlet {
                 infoTable) {
             if(table.getId()==id) request.getSession().setAttribute("table",table);
         }
-        response.sendRedirect("/index.jsp");
+        response.sendRedirect("/info.jsp");
     }
 
     @Override

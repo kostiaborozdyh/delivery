@@ -1,7 +1,7 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.Calculate;
-import com.example.demos.model.GoogleMaps;
+import com.example.demos.model.utils.Calculate;
+import com.example.demos.model.utils.GoogleMaps;
 import com.example.demos.model.entity.Distance;
 import com.example.demos.model.entity.InfoTable;
 import org.json.simple.parser.ParseException;
@@ -27,16 +27,29 @@ public class CalculateServlet extends HttpServlet {
         final String height = request.getParameter("height");
         final String length = request.getParameter("length");
         final String width = request.getParameter("width");
-        int price,volume;
+        final String address = request.getParameter("address");
+        final String info = request.getParameter("info");
+        int price, volume;
         try {
-            List<Distance> distanceList = GoogleMaps.getDistance(cityFrom,cityTo);
-            volume = Calculate.volume(height,length,width);
-            price = Calculate.deliveryPrice(distanceList.get(0).getDistance(),volume,weight);
-            InfoTable infoTable = new InfoTable(distanceList.get(0).getCityFrom(),distanceList.get(0).getCityTo(),distanceList.get(0).getDistance(),price,volume,Integer.parseInt(weight));
-            request.getSession().setAttribute("calculateTable",infoTable);
+            List<Distance> distanceList = GoogleMaps.getDistance(cityFrom, cityTo);
+            volume = Calculate.volume(height, length, width);
+            price = Calculate.deliveryPrice(distanceList.get(0).getDistance(), volume, weight);
+            InfoTable infoTable = new InfoTable(distanceList.get(0).getCityFrom(), distanceList.get(0).getCityTo(), distanceList.get(0).getDistance(), price, volume, Integer.parseInt(weight));
+            if (address != null) {
+                request.getSession().setAttribute("newOrder", infoTable);
+                request.getSession().setAttribute("orderAddress", address);
+                request.getSession().setAttribute("orderInfo", info);
+            } else {
+                request.getSession().setAttribute("calculateTable", infoTable);
+            }
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        response.sendRedirect("/calculate.jsp");
+        if (address != null) {
+            request.getSession().setAttribute("btn", "unblock");
+            response.sendRedirect("/user/createOrder.jsp");
+        } else {
+            response.sendRedirect("/calculate.jsp");
+        }
     }
 }

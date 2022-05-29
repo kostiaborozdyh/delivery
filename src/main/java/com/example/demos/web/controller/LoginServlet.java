@@ -1,7 +1,7 @@
 package com.example.demos.web.controller;
 
 
-import com.example.demos.model.UserDao;
+import com.example.demos.model.dao.UserDao;
 import com.example.demos.model.entity.User;
 
 import java.io.*;
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("user", user);
                         session.setAttribute("money", user.getMoney());
                         session.setAttribute("role", "user");
-                        response.sendRedirect("/index.jsp");
+                        response.sendRedirect("/info.jsp");
                 }
                 if(user.getRole_id()==3){
                         session.setAttribute("user",user);
@@ -60,6 +60,6 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //response.sendRedirect("/index.jsp");
+        //response.sendRedirect("/info.jsp");
     }
 }

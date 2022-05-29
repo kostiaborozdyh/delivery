@@ -18,13 +18,11 @@ public class EmployeeFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        if (request.getSession().getAttribute("role")==null)
-            response.sendRedirect("/login.jsp");
-        else
-        if (request.getSession().getAttribute("role").equals("employee"))
+        if (request.getSession().getAttribute("role").equals("employee")) {
             filterChain.doFilter(servletRequest, servletResponse);
-        else
+        } else {
             response.sendRedirect("/index.jsp");
+        }
     }
 
 }

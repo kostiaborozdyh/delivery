@@ -1,6 +1,6 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.OrderDao;
+import com.example.demos.model.dao.OrderDao;
 import com.example.demos.model.entity.Order;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
@@ -21,13 +21,14 @@ import java.io.OutputStream;
 public class PdfUserOrderServlet extends HttpServlet {
 
     public final String FONT = "D:\\servlet\\demos\\src\\main\\webapp\\font\\FreeSans.ttf";
+
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
         // Get the text that will be added to the PDF
         Integer id = Integer.parseInt(request.getParameter("idOrder"));
         Order order = OrderDao.getOrder(id);
-        String text = "Заявка№"+order.getId();
+        String text = "Заявка№" + order.getId();
         String sb = "Опис: " + order.getDescription() + "\n" +
                 "Вага: " + order.getWeight() + "\n" +
                 "Об'єм: " + order.getVolume() + "\n" +
@@ -36,7 +37,7 @@ public class PdfUserOrderServlet extends HttpServlet {
                 "Місто прибуття: " + order.getCityTo() + "\n" +
                 "Адреса: " + order.getAddress() + "\n" +
                 "Дата створення: " + order.getDateCreate() + "\n" +
-                "Дата прибуття: " + order.getDateOfArrival() + "\n"+
+                "Дата прибуття: " + order.getDateOfArrival() + "\n" +
                 "Статус: " + order.getPaymentStatus() + "\n";
         PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

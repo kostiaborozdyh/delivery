@@ -9,9 +9,8 @@
     <jsp-version>1.2</jsp-version>
     <short-name>simple</short-name>
     <uri>https://tomcat.apache.org/example-taglib</uri>
-
     <tag>
         <name>today</name>
-        <tag-class>com.example.demos.web.utils.DateTag</tag-class>
+        <tag-class>com.example.demos.web.tag.DateTag</tag-class>
     </tag>
 </taglib>

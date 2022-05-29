@@ -1,6 +1,6 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.UserDao;
+import com.example.demos.model.dao.UserDao;
 import com.example.demos.model.entity.User;
 import com.example.demos.model.entity.ValidList;
 
@@ -13,7 +13,6 @@ import java.io.IOException;
 public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("/login.jsp");
     }
 
     @Override
@@ -34,12 +33,9 @@ public class RegistrationServlet extends HttpServlet {
         }
         ValidList validList = UserDao.valid(user, request.getParameter("secondPassword"), 1);
         if (UserDao.validation(validList)) {
-            if (UserDao.insertUser(user)) {
-                response.sendRedirect("/login.jsp");
-                request.getSession().setAttribute("successful", "successful");
-            } else {
-                response.sendRedirect("/error.jsp");
-            }
+            UserDao.insertUser(user);
+            response.sendRedirect("/login.jsp");
+            request.getSession().setAttribute("successful", "successful");
         } else {
             request.getSession().setAttribute("validList", validList);
             response.sendRedirect("/registration.jsp");

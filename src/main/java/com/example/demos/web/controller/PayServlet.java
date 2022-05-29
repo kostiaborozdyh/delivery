@@ -1,6 +1,6 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.OrderDao;
+import com.example.demos.model.dao.OrderDao;
 import com.example.demos.model.entity.User;
 
 import javax.servlet.*;
@@ -20,7 +20,7 @@ public class PayServlet extends HttpServlet {
             OrderDao.changePayStatus(orderId, value, money);
             request.getSession().setAttribute("money", money - value);
             request.getSession().removeAttribute("orders");
-            response.sendRedirect("user/order.jsp");
+            response.sendRedirect("/user/order.jsp");
     }
 
     @Override

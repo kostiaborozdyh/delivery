@@ -5,8 +5,12 @@
   Time: 17:52
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="text"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +19,7 @@
     <title>Розрахунок Вартості доставки</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <u:width width="width"/>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
@@ -25,17 +30,53 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="/main.jsp" class="nav-item nav-link active">Головна</a>
+                <a href="/index.jsp" class="nav-item nav-link">Головна</a>
                 <a href="#" class="nav-item nav-link">Про нас</a>
-                <a href="/index.jsp" class="nav-item nav-link">Напрямки доставки</a>
+                <a href="/info.jsp" class="nav-item nav-link">Напрямки доставки</a>
                 <a href="/calculate.jsp" class="nav-item nav-link active">Розрахувати вартість посилки</a>
+                <a href="/reviews.jsp" class="nav-item nav-link">Відгуки</a>
+                <c:if test="${sessionScope.role=='user'}">
+                    <a href="/user/createOrder.jsp" class="nav-item nav-link">Оформлення замовлення</a>
+                    <a href="/user/order.jsp" class="nav-item nav-link">Мої заявки</a>
+                </c:if>
             </div>
-            <div class="navbar-nav ms-auto">
-                <a href="/login.jsp" class="nav-item nav-link">Вхід</a>
-                <span class="nav-item nav-link">/</span>
-                <a href="/registration.jsp" class="nav-item nav-link">Реєстарція</a>
-            </div>
+            <c:if test="${sessionScope.role==null}">
+                <div class="navbar-nav ms-auto">
+                    <a href="/login.jsp" class="nav-item nav-link">Вхід</a>
+                    <span class="nav-item nav-link">/</span>
+                    <a href="/registration.jsp" class="nav-item nav-link">Реєстарція</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Укр</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Англ</a>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
         </div>
+        <c:if test="${sessionScope.role=='user'}">
+            <div class="nav navbar-nav navbar-right">
+                <a href="#" class="nav-item nav-link disabled">${sessionScope.money}$</a>
+            </div>
+            <div class="nav navbar-nav navbar-right">
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.user.login}</a>
+                    <div class="dropdown-menu ">
+                        <a href="/user/refill.jsp" class="dropdown-item">Поповнення</a>
+                        <a href="/editUser.jsp" class="dropdown-item">Редагування</a>
+                        <a href="/lout" class="dropdown-item">Вихід</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav navbar-nav navbar-right">
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Укр</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Англ</a>
+                    </div>
+                </div>
+            </div>
+        </c:if>
     </div>
 </nav>
 <div class="container">

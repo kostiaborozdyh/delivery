@@ -1,4 +1,4 @@
-package com.example.demos.model;
+package com.example.demos.model.utils;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

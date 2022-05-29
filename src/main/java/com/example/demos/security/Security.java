@@ -1,7 +1,7 @@
 package com.example.demos.security;
 
-import com.example.demos.model.CreateMessage;
-import com.example.demos.model.SendEmail;
+import com.example.demos.model.utils.CreateMessage;
+import com.example.demos.model.utils.SendEmail;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;

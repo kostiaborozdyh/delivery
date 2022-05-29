@@ -1,7 +1,7 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.Calculate;
-import com.example.demos.model.InfoTableDao;
+import com.example.demos.model.utils.Calculate;
+import com.example.demos.model.utils.Table;
 import com.example.demos.model.entity.InfoTable;
 import org.json.simple.parser.ParseException;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class ShowInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("/index.jsp");
+        response.sendRedirect("/info.jsp");
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ShowInfoServlet extends HttpServlet {
         cityFrom.deleteCharAt(0);
         cityTo.deleteCharAt(0);
         try {
-            List<InfoTable> infoTable = InfoTableDao.getInfoTable(cityFrom.toString(), cityTo.toString());
+            List<InfoTable> infoTable = Table.getInfoTable(cityFrom.toString(), cityTo.toString());
             List<Integer> list = Calculate.getPaginationList(infoTable);
             if (list == null) {
                 request.getSession().setAttribute("infoTableShort", infoTable);
@@ -40,11 +40,11 @@ public class ShowInfoServlet extends HttpServlet {
             }
             request.getSession().setAttribute("infoTable", infoTable);
             request.getSession().setAttribute("list", list);
-            request.getSession().setAttribute("pageNumber",1);
+            request.getSession().setAttribute("pageNumber", 1);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         request.getSession().removeAttribute("table");
-        response.sendRedirect("/index.jsp");
+        response.sendRedirect("/info.jsp");
     }
 }

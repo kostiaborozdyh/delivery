@@ -1,6 +1,6 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.UserDao;
+import com.example.demos.model.dao.UserDao;
 
 import javax.mail.MessagingException;
 import javax.servlet.*;
@@ -23,6 +23,7 @@ public class DeleteUserServlet extends HttpServlet {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+        request.getSession().removeAttribute("pageNumberUser");
         response.sendRedirect("/adm/usersTable.jsp");
     }
 }

@@ -1,7 +1,7 @@
-package com.example.demos.model;
+package com.example.demos.model.utils;
 
 
-import com.example.demos.model.entity.InfoTable;
+import com.example.demos.model.dao.OrderDao;
 import com.example.demos.model.entity.Order;
 import com.example.demos.model.entity.Point;
 import org.json.simple.parser.ParseException;
@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.Set;
 
 public class Calculate {
     public static Integer avgPrice(Integer distance) {
@@ -74,10 +74,27 @@ public class Calculate {
         String lng = String.valueOf(lngCityFrom - diffLng * time);
         return new Point(lat, lng);
     }
+    public static Set<String> cityFromSet(List<Order> orderList) {
+        Set<String> stringSet = new HashSet<>();
+        for (Order order :
+                orderList) {
+            stringSet.add(order.getCityFrom());
+        }
+        return stringSet;
+    }
 
-    public static List<Integer> getPaginationList(List<InfoTable> infoTable) {
+    public static Set<String> cityToSet(List<Order> orderList) {
+        Set<String> stringSet = new HashSet<>();
+        for (Order order :
+                orderList) {
+            stringSet.add(order.getCityTo());
+        }
+        return stringSet;
+    }
+
+    public static <T> List<Integer> getPaginationList(List<T> inputList) {
         List<Integer> list = new ArrayList<>();
-        int size = infoTable.size();
+        int size = inputList.size();
         int a = 0;
         if (size % 5 != 0) a = 1;
         int length = size / 5 + a;
@@ -88,14 +105,14 @@ public class Calculate {
         else return list;
     }
 
-    public static List<InfoTable> getFiveElements(List<InfoTable> infoTable, int index) {
-        List<InfoTable> list = new ArrayList<>();
+    public static <T> List<T> getFiveElements(List<T> inputList, int index) {
+        List<T> list = new ArrayList<>();
         int lastIndex = index * 5;
-        if (infoTable.size() < index * 5) {
-            lastIndex = infoTable.size() % ((index - 1)*5)+((index - 1)*5);
+        if (inputList.size() < index * 5) {
+            lastIndex = inputList.size() % ((index - 1)*5)+((index - 1)*5);
         }
         for (int i = (index - 1) * 5; i < lastIndex; i++) {
-            list.add(infoTable.get(i));
+            list.add(inputList.get(i));
         }
         return list;
     }

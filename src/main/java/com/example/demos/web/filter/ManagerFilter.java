@@ -19,12 +19,10 @@ public class ManagerFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        if (request.getSession().getAttribute("role")==null)
-            response.sendRedirect("/login.jsp");
-        else
-        if (request.getSession().getAttribute("role").equals("user"))
-            response.sendRedirect("/index.jsp");
-        else
+        if (request.getSession().getAttribute("role").equals("manager")) {
             filterChain.doFilter(servletRequest, servletResponse);
+        } else {
+            response.sendRedirect("/index.jsp");
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.OrderDao;
-import com.example.demos.model.UserDao;
+import com.example.demos.model.dao.OrderDao;
+import com.example.demos.model.dao.UserDao;
 import com.example.demos.security.Security;
 
 import javax.mail.MessagingException;

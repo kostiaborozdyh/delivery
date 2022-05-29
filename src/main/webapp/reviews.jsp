@@ -5,15 +5,18 @@
   Time: 10:41
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="text"/>
 <html>
 <head>
     <title>Відгуки</title>
     <h1>Відгуки</h1>
 </head>
 <body>
-<a href="/index.jsp">Головна</a><br>
+<a href="/info.jsp">Головна</a><br>
 <c:if test="${sessionScope.role=='user'}">
 <form method="post" action="/addReview">
     <input type="text" name="response" placeholder="Веддіть ваш відгук">

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class UserFilter implements Filter{
+public class UserFilter implements Filter {
     @Override
     public void destroy() {
     }
@@ -19,12 +19,10 @@ public class UserFilter implements Filter{
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        if (request.getSession().getAttribute("role")==null)
+        if (request.getSession().getAttribute("role") == "user") {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } else {
             response.sendRedirect("/login.jsp");
-        else
-            if (request.getSession().getAttribute("role").equals("manager"))
-                response.sendRedirect("/man/orderList.jsp");
-            else
-                filterChain.doFilter(servletRequest, servletResponse);
+        }
     }
 }

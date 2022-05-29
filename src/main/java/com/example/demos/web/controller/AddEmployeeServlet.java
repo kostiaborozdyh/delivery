@@ -1,6 +1,6 @@
 package com.example.demos.web.controller;
 
-import com.example.demos.model.UserDao;
+import com.example.demos.model.dao.UserDao;
 import com.example.demos.model.entity.User;
 import com.example.demos.model.entity.ValidList;
 

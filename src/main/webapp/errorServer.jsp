@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: YES
-  Date: 07.05.2022
-  Time: 16:19
+  Date: 29.05.2022
+  Time: 19:04
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -16,7 +16,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Error404</title>
+    <title>Error500</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <u:width width="width"/>
@@ -56,11 +56,11 @@
 </nav>
 <div class="container">
     <div class="row justify-content-center mb-3">
-        <img src="/img/e404.jpg" class="w-75">
+        <img src="/img/e500.jpg" class="w-75 ps-5">
     </div>
     <div class="row justify-content-center">
         <div class="col-md-auto">
-            <p>Сторінку яку ви намагаєтесь найти немає(((((((</p>
+            <p>Сталася помилка на сервері, зв'яжіться з нами((((((((</p>
         </div>
     </div>
 </div>
