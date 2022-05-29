@@ -13,6 +13,7 @@ import javax.servlet.annotation.*;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         final String login = request.getParameter("login");
         final String password = request.getParameter("password");
         User user;
@@ -21,45 +22,47 @@ public class LoginServlet extends HttpServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        HttpSession session = request.getSession();
-        if(user==null) {
-            session.setAttribute("invalid","invalid");
+        if (user == null) {
+            session.setAttribute("invalid", "invalid");
             response.sendRedirect("/login.jsp");
-        }
-        else
-            if(user.getBan().equals("yes")) {
-                session.setAttribute("invalid","block");
+        } else {
+            if (user.getBan().equals("yes")) {
+                session.setAttribute("invalid", "block");
                 response.sendRedirect("/login.jsp");
-            }
-            else {
-                if (user.getRole_id() == 2) {
-
-                        session.setAttribute("user", user);
-                        session.setAttribute("role", "manager");
-                        response.sendRedirect("/man/orderList.jsp");
-                }
-                if (user.getRole_id() == 1) {
+            } else {
+                int roleId = user.getRole_id();
+                switch (roleId) {
+                    case 1: {
                         session.setAttribute("user", user);
                         session.setAttribute("money", user.getMoney());
                         session.setAttribute("role", "user");
                         response.sendRedirect("/info.jsp");
-                }
-                if(user.getRole_id()==3){
-                        session.setAttribute("user",user);
-                        session.setAttribute("role","admin");
+                    }
+                    break;
+                    case 2: {
+                        session.setAttribute("user", user);
+                        session.setAttribute("role", "manager");
+                        response.sendRedirect("/man/orderList.jsp");
+                    }
+                    break;
+                    case 3: {
+                        session.setAttribute("user", user);
+                        session.setAttribute("role", "admin");
                         response.sendRedirect("/adm/usersTable.jsp");
-                }
-                if(user.getRole_id()==4){
-                        session.setAttribute("user",user);
-                        session.setAttribute("role","employee");
+                    }
+                    break;
+                    case 4: {
+                        session.setAttribute("user", user);
+                        session.setAttribute("role", "employee");
                         response.sendRedirect("/employee/ordersTable.jsp");
+                    }
+                    break;
                 }
-
             }
+        }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //response.sendRedirect("/info.jsp");
     }
 }

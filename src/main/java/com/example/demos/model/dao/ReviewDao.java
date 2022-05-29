@@ -38,12 +38,49 @@ public class ReviewDao {
     }
 
     public static void addReview(Integer id, String response, LocalDate date) {
-        try (Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement st = connection.prepareStatement(SQL_INSERT_REVIEW)) {
-            st.setInt(1, id);
-            st.setString(2, response);
-            st.setDate(3,Date.valueOf(date));
-            st.executeUpdate();
+        Connection connection = null;
+        PreparedStatement pst = null;
+        try {
+            connection = DBHelper.getInstance().getConnection();
+            pst = connection.prepareStatement(SQL_INSERT_REVIEW);
+            connection.setAutoCommit(false);
+            pst.setInt(1, id);
+            pst.setString(2, response);
+            pst.setDate(3, Date.valueOf(date));
+            pst.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            rollback(connection);
+            ex.printStackTrace();
+        } finally {
+            close(pst);
+            close(connection);
+        }
+    }
+
+    private static void close(PreparedStatement st) {
+        if (st != null) {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void close(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void rollback(Connection connection) {
+        try {
+            connection.rollback();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

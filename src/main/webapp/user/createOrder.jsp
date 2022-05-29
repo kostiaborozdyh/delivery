@@ -31,7 +31,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
          <div class="navbar-nav">
             <a href="/index.jsp" class="nav-item nav-link ">Головна</a>
-            <a href="#" class="nav-item nav-link">Про нас</a>
+            <a href="/aboutUs.jsp" class="nav-item nav-link">Про нас</a>
             <a href="/info.jsp" class="nav-item nav-link">Тарифи</a>
             <a href="/calculate.jsp" class="nav-item nav-link">Розрахувати вартість посилки</a>
             <a href="/reviews.jsp" class="nav-item nav-link">Відгуки</a>

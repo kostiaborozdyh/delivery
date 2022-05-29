@@ -5,6 +5,7 @@ import com.example.demos.model.utils.CreateMessage;
 import com.example.demos.model.utils.SendEmail;
 import com.example.demos.model.entity.User;
 import com.example.demos.model.entity.ValidList;
+import com.example.demos.model.utils.Validation;
 import com.example.demos.security.Security;
 
 import javax.mail.MessagingException;
@@ -41,7 +42,7 @@ public class UserDao {
         User user = null;
         PreparedStatement pst;
         try (Connection con = DBHelper.getInstance().getConnection()) {
-            if (emailNameValid(login)) {
+            if (Validation.emailNameValid(login)) {
                 pst = con.prepareStatement(SQL_GET_USER_VALID_FROM_EMAIL);
             } else {
                 pst = con.prepareStatement(SQL_GET_USER_VALID);
@@ -124,96 +125,133 @@ public class UserDao {
 
     public static boolean insertUser(User user) {
         int count = 0;
-        try (Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement st = connection.prepareStatement(SQL_INSERT_USER)) {
-            st.setString(1, user.getLogin());
-            st.setString(2, Security.hashPassword(user.getPassword()));
-            st.setString(3, user.getFirstName());
-            st.setString(4, user.getLastName());
-            st.setString(5, user.getPhoneNumber());
-            st.setString(6, user.getEmail());
-            st.setInt(7, user.getRole_id());
-            st.setString(8, user.getNotify());
-            st.setString(9, "no");
-            count = st.executeUpdate();
+        Connection connection = null;
+        PreparedStatement pst = null;
+        try {
+            connection = DBHelper.getInstance().getConnection();
+            pst = connection.prepareStatement(SQL_INSERT_USER);
+            connection.setAutoCommit(false);
+            pst.setString(1, user.getLogin());
+            pst.setString(2, Security.hashPassword(user.getPassword()));
+            pst.setString(3, user.getFirstName());
+            pst.setString(4, user.getLastName());
+            pst.setString(5, user.getPhoneNumber());
+            pst.setString(6, user.getEmail());
+            pst.setInt(7, user.getRole_id());
+            pst.setString(8, user.getNotify());
+            pst.setString(9, "no");
+            count = pst.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
+            rollback(connection);
             ex.printStackTrace();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            close(connection);
+            close(pst);
         }
         return count > 0;
     }
 
 
     public static void changeMoney(Integer orderId, Integer value, Integer money) {
-        try (Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement st = connection.prepareStatement(SQL_CHANGE_MONEY)) {
-            st.setInt(1, money - value);
-            st.setInt(2, OrderDao.getUserId(orderId));
-            st.executeUpdate();
+        Connection connection = null;
+        PreparedStatement pst = null;
+        try {
+            connection = DBHelper.getInstance().getConnection();
+            pst = connection.prepareStatement(SQL_CHANGE_MONEY);
+            connection.setAutoCommit(false);
+            pst.setInt(1, money - value);
+            pst.setInt(2, OrderDao.getUserId(orderId));
+            pst.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
+            rollback(connection);
             ex.printStackTrace();
+        } finally {
+            close(connection);
+            close(pst);
         }
     }
 
     public static boolean changePassword(String email, String password) {
         int count = 0;
-        try (Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement st = connection.prepareStatement(SQL_CHANGE_PASSWORD)) {
-            st.setString(1, Security.hashPassword(password));
-            st.setString(2, email);
-            count = st.executeUpdate();
+        Connection connection = null;
+        PreparedStatement pst = null;
+        try {
+            connection = DBHelper.getInstance().getConnection();
+            pst = connection.prepareStatement(SQL_CHANGE_PASSWORD);
+            connection.setAutoCommit(false);
+            pst.setString(1, Security.hashPassword(password));
+            pst.setString(2, email);
+            count = pst.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
+            rollback(connection);
             ex.printStackTrace();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            close(connection);
+            close(pst);
         }
         return count > 0;
     }
 
     public static boolean refillMoney(Integer userId, Integer value, Integer money) {
         int count = 0;
-        try (Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement st = connection.prepareStatement(SQL_CHANGE_MONEY)) {
-            st.setInt(1, money + value);
-            st.setInt(2, userId);
-            count = st.executeUpdate();
+        Connection connection = null;
+        PreparedStatement pst = null;
+        try {
+            connection = DBHelper.getInstance().getConnection();
+            pst = connection.prepareStatement(SQL_CHANGE_MONEY);
+            connection.setAutoCommit(false);
+            pst.setInt(1, money + value);
+            pst.setInt(2, userId);
+            count = pst.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
+            rollback(connection);
             ex.printStackTrace();
+        } finally {
+            close(connection);
+            close(pst);
         }
         return count > 0;
     }
 
     public static User editUser(User user) {
         int count = 0, k = 1;
-        PreparedStatement st = null;
-        try (Connection connection = DBHelper.getInstance().getConnection()) {
+        Connection connection = null;
+        PreparedStatement pst = null;
+        try {
+            connection = DBHelper.getInstance().getConnection();
+            connection.setAutoCommit(false);
             if (user.getPassword().equals("Password1")) {
-                st = connection.prepareStatement(SQL_EDIT_USER);
+                pst = connection.prepareStatement(SQL_EDIT_USER);
             } else {
-                st = connection.prepareStatement(SQL_EDIT_USER_AND_PASSWORD);
-                st.setString(1, Security.hashPassword(user.getPassword()));
+                pst = connection.prepareStatement(SQL_EDIT_USER_AND_PASSWORD);
+                pst.setString(1, Security.hashPassword(user.getPassword()));
                 k++;
             }
-            st.setString(k, user.getFirstName());
-            st.setString(++k, user.getLastName());
-            st.setString(++k, user.getPhoneNumber());
-            st.setString(++k, user.getEmail());
-            st.setString(++k, user.getNotify());
-            st.setInt(++k, user.getId());
-            count = st.executeUpdate();
+            pst.setString(k, user.getFirstName());
+            pst.setString(++k, user.getLastName());
+            pst.setString(++k, user.getPhoneNumber());
+            pst.setString(++k, user.getEmail());
+            pst.setString(++k, user.getNotify());
+            pst.setInt(++k, user.getId());
+            count = pst.executeUpdate();
             user.setPassword("");
-
+            connection.commit();
         } catch (SQLException ex) {
+            rollback(connection);
             ex.printStackTrace();
-            try {
-                assert st != null;
-                st.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            close(connection);
+            close(pst);
         }
         if (count > 0) return user;
         else return null;
@@ -278,106 +316,92 @@ public class UserDao {
     }
 
     public static void blockUser(Integer id) throws MessagingException, UnsupportedEncodingException {
-        try (Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement pst = connection.prepareStatement(SQL_BLOCK_USER)) {
+        Connection connection = null;
+        PreparedStatement pst = null;
+        try {
+            connection = DBHelper.getInstance().getConnection();
+            pst = connection.prepareStatement(SQL_BLOCK_USER);
+            connection.setAutoCommit(false);
             pst.setInt(1, id);
             pst.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
+            rollback(connection);
             ex.printStackTrace();
+        } finally {
+            close(connection);
+            close(pst);
         }
-        String[] message = CreateMessage.blockUser();
-        SendEmail.send(getUserEmail(id), message[0], message[1]);
+        SendEmail.send(getUserEmail(id), CreateMessage.blockUser());
     }
 
     public static void unBlockUser(Integer id) throws MessagingException, UnsupportedEncodingException {
-        try (Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement pst = connection.prepareStatement(SQL_UN_BLOCK_USER)) {
+        Connection connection = null;
+        PreparedStatement pst = null;
+        try {
+            connection = DBHelper.getInstance().getConnection();
+            pst = connection.prepareStatement(SQL_UN_BLOCK_USER);
+            connection.setAutoCommit(false);
             pst.setInt(1, id);
             pst.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
+            rollback(connection);
             ex.printStackTrace();
+        } finally {
+            close(connection);
+            close(pst);
         }
-        String[] message = CreateMessage.unBlockUser();
-        SendEmail.send(getUserEmail(id), message[0], message[1]);
+        SendEmail.send(getUserEmail(id), CreateMessage.unBlockUser());
     }
 
     public static void deleteUser(Integer id) throws MessagingException, UnsupportedEncodingException {
         String email = getUserEmail(id);
         OrderDao.deleteOrder(id);
-        try (Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement pst = connection.prepareStatement(SQL_DELETE_USER)) {
+        Connection connection = null;
+        PreparedStatement pst = null;
+        try {
+            connection = DBHelper.getInstance().getConnection();
+            pst = connection.prepareStatement(SQL_DELETE_USER);
+            connection.setAutoCommit(false);
             pst.setInt(1, id);
             pst.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            rollback(connection);
+            ex.printStackTrace();
+        } finally {
+            close(connection);
+            close(pst);
+        }
+        SendEmail.send(email, CreateMessage.deleteUser());
+    }
+    private static void close(PreparedStatement st) {
+        if (st != null) {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void close(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void rollback(Connection connection) {
+        try {
+            connection.rollback();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        String[] message = CreateMessage.deleteUser();
-        SendEmail.send(email, message[0], message[1]);
     }
 
-    public static ValidList valid(User user, String password, int ch) {
-        ValidList validList = new ValidList();
-        validList.init();
-        if (ch == 1) {
-            if (UserDao.loginIsValid(user.getLogin())) {
-                if (UserDao.loginNameValid(user.getLogin())) validList.setValidLoginName(user.getLogin());
-                else validList.setInvalidLoginName(user.getLogin());
-            } else validList.setInvalidLogin(user.getLogin());
-        }
-        if (ch == 3 || ch == 1) {
-            if (UserDao.emailIsValid(user.getEmail())) {
-                if (UserDao.emailNameValid(user.getEmail())) validList.setValidEmailName(user.getEmail());
-                else validList.setInvalidEmailName(user.getEmail());
-            } else validList.setInvalidEmail(user.getEmail());
-        }
-        if (UserDao.firstNameValid(user.getFirstName())) validList.setValidFirstName(user.getFirstName());
-        else validList.setInValidFirsName(user.getFirstName());
-        if (UserDao.lastNameValid(user.getLastName())) validList.setValidLastName(user.getLastName());
-        else validList.setInvalidLastName(user.getLastName());
-        if (UserDao.phoneNumberValid(user.getPhoneNumber()) || user.getPhoneNumber().equals(""))
-            validList.setValidPhoneNumber(user.getPhoneNumber());
-        else validList.setInvalidPhoneNumber(user.getPhoneNumber());
-        if (user.getPassword().equals(password)) {
-            if (UserDao.passwordValid(password)) validList.setInvalidPasswordName("InvalidPasswordName");
-        } else validList.setInvalidPassword("InvalidPassword");
-        return validList;
-    }
-
-    public static boolean validation(ValidList validList) {
-        int count = 0;
-        if (validList.getInvalidEmail() != null) count++;
-        if (validList.getInvalidLogin() != null) count++;
-        if (validList.getInvalidPassword() != null) count++;
-        if (validList.getInvalidEmailName() != null) count++;
-        if (validList.getInvalidFirstName() != null) count++;
-        if (validList.getInvalidLastName() != null) count++;
-        if (validList.getInvalidLoginName() != null) count++;
-        if (validList.getInvalidPasswordName() != null) count++;
-        if (validList.getInvalidPhoneNumber() != null) count++;
-        return count == 0;
-    }
-
-    public static boolean firstNameValid(String firstName) {
-        return firstName.matches("^[a-zA-ZА-Яа-яЇїіІ]{4,20}");
-    }
-
-    public static boolean lastNameValid(String lastName) {
-        return lastName.matches("^[a-zA-ZА-Яа-яЇїіІ]{4,20}");
-    }
-
-    public static boolean phoneNumberValid(String phoneNumber) {
-        return phoneNumber.matches("\\+380\\d{9}") || phoneNumber.matches("0\\d{9}$");
-    }
-
-    public static boolean loginNameValid(String login) {
-        return login.matches("^[a-zA-Z1-9]{4,20}");
-    }
-
-    public static boolean emailNameValid(String email) {
-        return email.matches("^([a-z\\d_-]+\\.)*[a-z\\d_-]+@[a-z\\d_-]+(\\.[a-z\\d_-]+)*\\.[a-z]{2,6}$");
-    }
-
-    public static boolean passwordValid(String password) {
-        return !password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$");
-    }
 }

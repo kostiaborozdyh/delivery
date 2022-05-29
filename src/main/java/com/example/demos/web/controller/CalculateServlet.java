@@ -21,6 +21,7 @@ public class CalculateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         final String cityFrom = request.getParameter("cityFrom");
         final String cityTo = request.getParameter("cityTo");
         final String weight = request.getParameter("weight");
@@ -36,17 +37,17 @@ public class CalculateServlet extends HttpServlet {
             price = Calculate.deliveryPrice(distanceList.get(0).getDistance(), volume, weight);
             InfoTable infoTable = new InfoTable(distanceList.get(0).getCityFrom(), distanceList.get(0).getCityTo(), distanceList.get(0).getDistance(), price, volume, Integer.parseInt(weight));
             if (address != null) {
-                request.getSession().setAttribute("newOrder", infoTable);
-                request.getSession().setAttribute("orderAddress", address);
-                request.getSession().setAttribute("orderInfo", info);
+                session.setAttribute("newOrder", infoTable);
+                session.setAttribute("orderAddress", address);
+                session.setAttribute("orderInfo", info);
             } else {
-                request.getSession().setAttribute("calculateTable", infoTable);
+                session.setAttribute("calculateTable", infoTable);
             }
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         if (address != null) {
-            request.getSession().setAttribute("btn", "unblock");
+            session.setAttribute("btn", "unblock");
             response.sendRedirect("/user/createOrder.jsp");
         } else {
             response.sendRedirect("/calculate.jsp");

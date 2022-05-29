@@ -3,6 +3,7 @@ package com.example.demos.web.controller;
 import com.example.demos.model.dao.UserDao;
 import com.example.demos.model.entity.User;
 import com.example.demos.model.entity.ValidList;
+import com.example.demos.model.utils.Validation;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -31,8 +32,8 @@ public class RegistrationServlet extends HttpServlet {
         } else {
             user.setNotify("yes");
         }
-        ValidList validList = UserDao.valid(user, request.getParameter("secondPassword"), 1);
-        if (UserDao.validation(validList)) {
+        ValidList validList = Validation.valid(user, request.getParameter("secondPassword"), 1);
+        if (Validation.count(validList)) {
             UserDao.insertUser(user);
             response.sendRedirect("/login.jsp");
             request.getSession().setAttribute("successful", "successful");

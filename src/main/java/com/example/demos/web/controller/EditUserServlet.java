@@ -3,6 +3,7 @@ package com.example.demos.web.controller;
 import com.example.demos.model.dao.UserDao;
 import com.example.demos.model.entity.User;
 import com.example.demos.model.entity.ValidList;
+import com.example.demos.model.utils.Validation;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -43,14 +44,14 @@ public class EditUserServlet extends HttpServlet {
          if(password.equals("")) {
              password = "Password1";
              user2.setPassword(password);
-             validList = UserDao.valid(user2,password,c);
+             validList = Validation.valid(user2,password,c);
          }
          else {
              user2.setPassword(password);
-             validList = UserDao.valid(user2,request.getParameter("secondPassword"),c);
+             validList = Validation.valid(user2,request.getParameter("secondPassword"),c);
          }
 
-         if (UserDao.validation(validList)) {
+         if (Validation.count(validList)) {
             user = UserDao.editUser(user2);
              if (user!=null) {
                  request.getSession().setAttribute("user", user);

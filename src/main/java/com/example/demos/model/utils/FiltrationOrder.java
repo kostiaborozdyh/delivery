@@ -99,7 +99,6 @@ public class FiltrationOrder {
             infoTable = infoTable.stream().sorted(Comparator.comparing(InfoTable::getCityTo)).collect(Collectors.toList());
         if (sort.equals("sortByMaxCityToTable"))
             infoTable = infoTable.stream().sorted((x, y) -> (y.getCityTo().compareTo(x.getCityTo()))).collect(Collectors.toList());
-
         return infoTable;
     }
 

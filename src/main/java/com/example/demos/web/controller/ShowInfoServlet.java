@@ -20,6 +20,7 @@ public class ShowInfoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         StringBuilder cityFrom = new StringBuilder();
         StringBuilder cityTo = new StringBuilder();
         for (int i = 0; i < 5; i++) {
@@ -34,17 +35,17 @@ public class ShowInfoServlet extends HttpServlet {
             List<InfoTable> infoTable = Table.getInfoTable(cityFrom.toString(), cityTo.toString());
             List<Integer> list = Calculate.getPaginationList(infoTable);
             if (list == null) {
-                request.getSession().setAttribute("infoTableShort", infoTable);
+                session.setAttribute("infoTableShort", infoTable);
             } else {
-                request.getSession().setAttribute("infoTableShort", Calculate.getFiveElements(infoTable, 1));
+                session.setAttribute("infoTableShort", Calculate.getFiveElements(infoTable, 1));
             }
-            request.getSession().setAttribute("infoTable", infoTable);
-            request.getSession().setAttribute("list", list);
-            request.getSession().setAttribute("pageNumber", 1);
+            session.setAttribute("infoTable", infoTable);
+            session.setAttribute("list", list);
+            session.setAttribute("pageNumber", 1);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        request.getSession().removeAttribute("table");
+        session.removeAttribute("table");
         response.sendRedirect("/info.jsp");
     }
 }

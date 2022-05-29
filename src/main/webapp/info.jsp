@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
                 <a href="/index.jsp" class="nav-item nav-link ">Головна</a>
-                <a href="#" class="nav-item nav-link">Про нас</a>
+                <a href="/aboutUs.jsp" class="nav-item nav-link">Про нас</a>
                 <a href="/info.jsp" class="nav-item nav-link active">Напрямки доставки</a>
                 <a href="/calculate.jsp" class="nav-item nav-link">Розрахувати вартість посилки</a>
                 <a href="/reviews.jsp" class="nav-item nav-link">Відгуки</a>
@@ -256,22 +256,11 @@
     </c:if>
 </div>
 <script src="/script/script.js"></script>
+<%--<script src="/script/editScript.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&language=uk&libraries=places&callback=initAutocomplete"
+        async defer></script>--%>
 </body>
 </html>
-<%--
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&libraries=places&callback=initAutocomplete"
-      async defer></script>
 
-<script>
-  function initAutocomplete() {
-      new google.maps.places.Autocomplete(
-          (document.getElementById('autocomplete')),
-          {types: ['geocode']}
-      );
-      new google.maps.places.Autocomplete(
-          (document.getElementById('autocompleteSec')),
-          {types: ['geocode']}
-      );
-  }
-</script>
---%>
+
+

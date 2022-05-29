@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 public class SendEmail {
-    public static void send(String email, String subject, String message) throws  MessagingException, UnsupportedEncodingException
+    public static void send(String email, String[] message) throws  MessagingException, UnsupportedEncodingException
     {
         //Set Mail properties
         Properties props = System.getProperties();
@@ -29,8 +29,8 @@ public class SendEmail {
         mimeMessage.setHeader("Content-Type", "text/plain; charset=UTF-8");
         mimeMessage.setFrom(new InternetAddress("manager.delivery.holder@gmail.com", "manager delivery holder"));
         mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
-        mimeMessage.setSubject(subject, "utf-8");
-        mimeMessage.setContent(message, "text/plain; charset=UTF-8");
+        mimeMessage.setSubject(message[0], "utf-8");
+        mimeMessage.setContent(message[1], "text/plain; charset=UTF-8");
 
         //Send the email
         Transport.send(mimeMessage);

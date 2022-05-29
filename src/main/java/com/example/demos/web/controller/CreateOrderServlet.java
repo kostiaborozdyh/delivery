@@ -25,14 +25,14 @@ public class CreateOrderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        InfoTable infoTable = (InfoTable) request.getSession().getAttribute("newOrder");
-
-        final String info = (String) request.getSession().getAttribute("orderInfo");
+        HttpSession session = request.getSession();
+        InfoTable infoTable = (InfoTable) session.getAttribute("newOrder");
+        final String info = (String) session.getAttribute("orderInfo");
         final String cityFrom = infoTable.getCityFrom();
         final String cityTo = infoTable.getCityTo();
-        final String address = (String) request.getSession().getAttribute("orderAddress");
+        final String address = (String) session.getAttribute("orderAddress");
         final String weight = infoTable.getWeight().toString();
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) session.getAttribute("user");
         int volume = infoTable.getVolume();
         int price;
         List<Distance> distanceList;
@@ -46,17 +46,16 @@ public class CreateOrderServlet extends HttpServlet {
         }
 
         if (user.getNotify().equals("yes")) {
-            String[] str = CreateMessage.messageCreateOrder(cityFrom, cityTo, distanceList.get(0).getDistance(), price);
             try {
-                SendEmail.send(user.getEmail(), str[0], str[1]);
+                SendEmail.send(user.getEmail(), CreateMessage.messageCreateOrder(cityFrom, cityTo, distanceList.get(0).getDistance(), price));
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
         }
-        request.getSession().removeAttribute("newOrder");
-        request.getSession().removeAttribute("orderInfo");
-        request.getSession().removeAttribute("orderAddress");
-        request.getSession().removeAttribute("btn");
+        session.removeAttribute("newOrder");
+        session.removeAttribute("orderInfo");
+        session.removeAttribute("orderAddress");
+        session.removeAttribute("btn");
         response.sendRedirect("/user/order.jsp");
 
     }

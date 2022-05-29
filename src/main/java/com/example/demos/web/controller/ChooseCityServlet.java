@@ -20,31 +20,32 @@ public class ChooseCityServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String on = request.getParameter("on");
         if(on!=null) {
-            request.getSession().removeAttribute("pageNumberOrder");
+            session.removeAttribute("pageNumberOrder");
         }
         String city;
-        if (request.getSession().getAttribute("city") == null) {
+        if (session.getAttribute("city") == null) {
             city = request.getParameter("city");
             city = JsonParser.cutName(city);
-            request.getSession().setAttribute("city", city);
+            session.setAttribute("city", city);
         } else {
-            city = (String) request.getSession().getAttribute("city");
+            city = (String) session.getAttribute("city");
         }
         List<Order> orderList = OrderDao.getOrderList(city);
-        if (request.getSession().getAttribute("pageNumberOrder") == null) {
+        if (session.getAttribute("pageNumberOrder") == null) {
             List<Integer> list = Calculate.getPaginationList(orderList);
             if (list == null) {
-                request.getSession().setAttribute("shortOrders", orderList);
+                session.setAttribute("shortOrders", orderList);
             } else {
-                request.getSession().setAttribute("shortOrders", Calculate.getFiveElements(orderList, 1));
+                session.setAttribute("shortOrders", Calculate.getFiveElements(orderList, 1));
             }
-            request.getSession().setAttribute("listNumberOrder", list);
-            request.getSession().setAttribute("pageNumberOrder", 1);
+            session.setAttribute("listNumberOrder", list);
+            session.setAttribute("pageNumberOrder", 1);
         }
 
-        request.getSession().setAttribute("orders", orderList);
+        session.setAttribute("orders", orderList);
         response.sendRedirect("/employee/ordersTable.jsp");
     }
 }

@@ -1,6 +1,7 @@
 package com.example.demos.web.controller;
 
 import com.example.demos.model.dao.UserDao;
+import com.example.demos.model.utils.Validation;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,24 +18,25 @@ public class RestoreServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
-        request.getSession().invalidate();
+        HttpSession session = request.getSession();
+        session.invalidate();
         String userLogin = null;
         String userEmail = null;
-        if (!UserDao.emailNameValid(login)) {
-            if (!UserDao.loginNameValid(login)) {
-                request.getSession().setAttribute("invalidM", "invalid");
+        if (!Validation.emailNameValid(login)) {
+            if (!Validation.loginNameValid(login)) {
+                session.setAttribute("invalidM", "invalid");
             } else {
                 if (!UserDao.loginIsValid(login)) {
                     userLogin = login;
                 } else {
-                    request.getSession().setAttribute("invalidLogin", "invalidLogin");
+                    session.setAttribute("invalidLogin", "invalidLogin");
                 }
             }
         } else {
             if (!UserDao.emailIsValid(login)) {
                 userEmail = login;
             } else {
-                request.getSession().setAttribute("invalidEmail", "invalidLEmail");
+                session.setAttribute("invalidEmail", "invalidLEmail");
             }
         }
 
@@ -42,9 +44,9 @@ public class RestoreServlet extends HttpServlet {
             response.sendRedirect("/restore/restore.jsp");
         } else {
             if (userEmail != null) {
-                request.getSession().setAttribute("email", userEmail);
+                session.setAttribute("email", userEmail);
             } else {
-                request.getSession().setAttribute("email", UserDao.getUserEmail(userLogin));
+                session.setAttribute("email", UserDao.getUserEmail(userLogin));
             }
             response.sendRedirect("/restore/restorePassword.jsp");
         }

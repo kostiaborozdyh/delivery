@@ -16,16 +16,15 @@ public class GiveServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-                Integer id = (Integer)request.getSession().getAttribute("id");
-                String code = request.getParameter("code");
-                String trueCode = (String) request.getSession().getAttribute("code");
-                if(code.equals(trueCode)) {
-                    OrderDao.giveOrder(id);
-                    response.sendRedirect("/chooseCity");
-                }
-                else {
-                    request.getSession().setAttribute("invalidCode","invalidCode");
-                    response.sendRedirect("/employee/enterCode.jsp");
-                }
+        Integer id = (Integer) request.getSession().getAttribute("id");
+        String code = request.getParameter("code");
+        String trueCode = (String) request.getSession().getAttribute("code");
+        if (code.equals(trueCode)) {
+            OrderDao.giveOrder(id);
+            response.sendRedirect("/chooseCity");
+        } else {
+            request.getSession().setAttribute("invalidCode", "invalidCode");
+            response.sendRedirect("/employee/enterCode.jsp");
+        }
     }
 }

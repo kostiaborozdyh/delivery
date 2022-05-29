@@ -22,10 +22,9 @@ public class PutOnRecordServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
         OrderDao.putOnRecord(id);
-        if(UserDao.getUserNotify(OrderDao.getUserId(id))){
-            String[] message = CreateMessage.putOnRecord(id);
+        if (UserDao.getUserNotify(OrderDao.getUserId(id))) {
             try {
-                SendEmail.send(UserDao.getUserEmail(OrderDao.getUserId(id)),message[0],message[1]);
+                SendEmail.send(UserDao.getUserEmail(OrderDao.getUserId(id)), CreateMessage.putOnRecord(id));
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }

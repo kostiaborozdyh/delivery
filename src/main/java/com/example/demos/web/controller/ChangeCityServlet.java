@@ -14,9 +14,10 @@ public class ChangeCityServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().removeAttribute("city");
-        request.getSession().removeAttribute("orders");
-        request.getSession().removeAttribute("pageNumberOrder");
+        HttpSession session = request.getSession();
+        session.removeAttribute("city");
+        session.removeAttribute("orders");
+        session.removeAttribute("pageNumberOrder");
         response.sendRedirect("/employee/ordersTable.jsp");
     }
 }

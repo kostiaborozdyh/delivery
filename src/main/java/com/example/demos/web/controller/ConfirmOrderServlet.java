@@ -19,9 +19,8 @@ public class ConfirmOrderServlet extends HttpServlet {
                 OrderDao.changeOrderStatus(orderId);
                 if (UserDao.getUserNotify(OrderDao.getUserId(orderId))) {
                     String email = UserDao.getUserEmail(OrderDao.getOrder(orderId).getUserLogin());
-                    String[] message = CreateMessage.messageChangePaymentStatus(OrderDao.getOrder(orderId).getPrice());
                     try {
-                        SendEmail.send(email, message[0], message[1]);
+                        SendEmail.send(email, CreateMessage.messageChangePaymentStatus(OrderDao.getOrder(orderId).getPrice()));
                     } catch (MessagingException e) {
                         throw new RuntimeException(e);
                     }
