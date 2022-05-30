@@ -25,14 +25,18 @@ public class RegistrationServlet extends HttpServlet {
         user.setLastName(request.getParameter("lastName"));
         user.setEmail(request.getParameter("email"));
         user.setPhoneNumber(request.getParameter("phoneNumber"));
+
         user.setRole_id(1);
         String[] notify = request.getParameterValues("notify");
+
         if (notify == null) {
             user.setNotify("no");
         } else {
             user.setNotify("yes");
         }
+
         ValidList validList = Validation.valid(user, request.getParameter("secondPassword"), 1);
+
         if (Validation.count(validList)) {
             UserDao.insertUser(user);
             response.sendRedirect("/login.jsp");
@@ -41,7 +45,5 @@ public class RegistrationServlet extends HttpServlet {
             request.getSession().setAttribute("validList", validList);
             response.sendRedirect("/registration.jsp");
         }
-
-
     }
 }

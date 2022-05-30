@@ -1,6 +1,6 @@
 package com.example.demos.model.utils;
 
-import com.example.demos.model.entity.Distance;
+import com.example.demos.model.entity.InfoTable;
 import com.example.demos.model.entity.Point;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -12,8 +12,8 @@ import java.util.List;
 
 public class JsonParser {
 
-    public static List<Distance> parseGoogleApiDistance(String jsonStr) throws ParseException {
-        List<Distance> distanceList = new ArrayList<>();
+    public static List<InfoTable> parseGoogleApiDistance(String jsonStr) throws ParseException {
+        List<InfoTable> distanceList = new ArrayList<>();
         ArrayList<String> cityFromList;
         ArrayList<String> cityToList;
         int i = 0, j;
@@ -33,7 +33,7 @@ public class JsonParser {
                     elements) {
                 JSONObject elementObj = (JSONObject) element;
                 JSONObject distancesObj = (JSONObject) elementObj.get("distance");
-                distanceList.add(new Distance(cutName(cityFromList.get(i)), cutName(cityToList.get(j)), Integer.parseInt(distancesObj.get("value").toString()) / 1000));
+                distanceList.add(new InfoTable(cutName(cityFromList.get(i)), cutName(cityToList.get(j)), Integer.parseInt(distancesObj.get("value").toString()) / 1000));
                 j++;
             }
             i++;

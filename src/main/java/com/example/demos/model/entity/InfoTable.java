@@ -68,14 +68,13 @@ public class InfoTable {
     @Override
     public String toString() {
         return "InfoTable{" +
-                "cityTo='" + cityTo + '\'' +
+                "cityFrom='" + cityFrom + '\'' +
+                ", cityTo='" + cityTo + '\'' +
                 ", distance=" + distance +
-                ", price=" + price +
                 '}';
     }
 
-
-    public InfoTable(Integer id,String cityFrom, String cityTo, Integer distance, Integer price) {
+    public InfoTable(Integer id, String cityFrom, String cityTo, Integer distance, Integer price) {
         this.id = id;
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
@@ -90,6 +89,11 @@ public class InfoTable {
         this.price = price;
         this.volume = volume;
         this.weight = weight;
+    }
+    public InfoTable(String cityFrom, String cityTo, Integer distance){
+        this.cityFrom = cityFrom;
+        this.cityTo = cityTo;
+        this.distance = distance;
     }
     public InfoTable(){
 

@@ -1,7 +1,6 @@
 package com.example.demos.web.controller;
 
 import com.example.demos.model.dao.OrderDao;
-import com.example.demos.model.entity.Distance;
 import com.example.demos.model.entity.InfoTable;
 import com.example.demos.model.entity.User;
 import com.example.demos.model.utils.Calculate;
@@ -35,7 +34,7 @@ public class CreateOrderServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         int volume = infoTable.getVolume();
         int price;
-        List<Distance> distanceList;
+        List<InfoTable> distanceList;
         try {
             distanceList = GoogleMaps.getDistance(cityFrom, cityTo);
             price = Calculate.deliveryPrice(distanceList.get(0).getDistance(), volume, weight);

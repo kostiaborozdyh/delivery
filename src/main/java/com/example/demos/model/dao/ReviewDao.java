@@ -2,6 +2,7 @@ package com.example.demos.model.dao;
 
 import com.example.demos.DB.DBHelper;
 import com.example.demos.model.entity.Review;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewDao {
+    private static final Logger log = Logger.getLogger(ReviewDao.class);
 
     public static final String SQL_GET_REVIEWS = "SELECT d.id,  u.first_name, d.response, d.date\n" +
             "FROM delivery.reviews as d\n" +
@@ -16,6 +18,7 @@ public class ReviewDao {
     public static final String SQL_INSERT_REVIEW = "INSERT INTO delivery.reviews(user_id,response,date)  VALUES (?,?,?)";
 
     public static List<Review> getReviews() {
+        log.info("Вибірка всіх відгуків");
         List<Review> reviewList = new ArrayList<>();
         try (Connection con = DBHelper.getInstance().getConnection();
              PreparedStatement pst = con.prepareStatement(SQL_GET_REVIEWS)) {
@@ -28,16 +31,16 @@ public class ReviewDao {
                     review.setDate(rs.getDate("date").toLocalDate());
                     reviewList.add(review);
                 }
+                log.info("Вибірка всіх відгуків завершена");
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Помилка вибірки всіх відгуків " + ex);
         }
         return reviewList;
     }
 
     public static void addReview(Integer id, String response, LocalDate date) {
+        log.info("Додавання відгуку");
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -49,9 +52,10 @@ public class ReviewDao {
             pst.setDate(3, Date.valueOf(date));
             pst.executeUpdate();
             connection.commit();
+            log.info("Додавання відгуку завершено");
         } catch (SQLException ex) {
+            log.error("Помилка, додавання відгуку "+ex);
             rollback(connection);
-            ex.printStackTrace();
         } finally {
             close(pst);
             close(connection);

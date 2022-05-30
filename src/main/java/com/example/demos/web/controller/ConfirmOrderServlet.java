@@ -15,19 +15,19 @@ import java.io.IOException;
 public class ConfirmOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-                final Integer orderId = Integer.parseInt(request.getParameter("id"));
-                OrderDao.changeOrderStatus(orderId);
-                if (UserDao.getUserNotify(OrderDao.getUserId(orderId))) {
-                    String email = UserDao.getUserEmail(OrderDao.getOrder(orderId).getUserLogin());
-                    try {
-                        SendEmail.send(email, CreateMessage.messageChangePaymentStatus(OrderDao.getOrder(orderId).getPrice()));
-                    } catch (MessagingException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                request.setAttribute("id", orderId);
-                request.getSession().removeAttribute("orderList");
-                request.getRequestDispatcher("/info").forward(request, response);
+        final Integer orderId = Integer.parseInt(request.getParameter("id"));
+        OrderDao.changeOrderStatus(orderId);
+        if (UserDao.getUserNotify(OrderDao.getUserId(orderId))) {
+            String email = UserDao.getUserEmail(OrderDao.getOrder(orderId).getUserLogin());
+            try {
+                SendEmail.send(email, CreateMessage.messageChangePaymentStatus(OrderDao.getOrder(orderId).getPrice()));
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        request.setAttribute("id", orderId);
+        request.getSession().removeAttribute("orderList");
+        request.getRequestDispatcher("/info").forward(request, response);
     }
 
     @Override

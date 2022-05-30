@@ -9,6 +9,7 @@ import java.io.*;
 import java.util.List;
 
 import com.example.demos.model.entity.Order;
+import com.example.demos.model.utils.Calculate;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -28,11 +29,11 @@ import com.itextpdf.layout.property.VerticalAlignment;
 public class PdfOrderServlet extends HttpServlet {
     public final String FONT = "D:\\servlet\\demos\\src\\main\\webapp\\font\\FreeSans.ttf";
 
-
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         // Get the text that will be added to the PDF
         String text = "Заявки на відправлення вантажу";
+        System.out.println(FONT);
         PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));

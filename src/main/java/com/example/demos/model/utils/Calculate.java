@@ -7,7 +7,6 @@ import com.example.demos.model.entity.Point;
 import org.json.simple.parser.ParseException;
 
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,10 +34,10 @@ public class Calculate {
     }
 
     public static LocalDate newArrivalTime(LocalDate dateOfCreate, LocalDate dateOfArrival) {
-        return LocalDate.now().plusDays(days(dateOfCreate, dateOfArrival));
+        return LocalDate.now().plusDays(diffDays(dateOfCreate, dateOfArrival));
     }
 
-    public static int days(LocalDate dateOfSending, LocalDate dateOfArrival) {
+    public static int diffDays(LocalDate dateOfSending, LocalDate dateOfArrival) {
         int length1 = dateOfSending.getDayOfYear();
         int length2 = dateOfArrival.getDayOfYear();
         if (dateOfArrival.getYear() != dateOfSending.getYear()) {
@@ -48,32 +47,6 @@ public class Calculate {
         }
     }
 
-    public static Point getPointAtTheMoment(Integer id) throws IOException, ParseException {
-        Order order = OrderDao.getOrder(id);
-        Point cityFromPoint = GoogleMaps.getCityCoordinates(order.getCityFrom());
-        Point cityToPoint = GoogleMaps.getCityCoordinates(order.getCityTo());
-        int days = days(order.getDateOfSending(), order.getDateOfArrival());
-        int time = LocalDateTime.now().getHour();
-        if (order.getDateOfSending().equals(LocalDate.now()) && time < 22) return cityFromPoint;
-        if ((order.getDateOfArrival().equals(LocalDate.now()) && time > 15) || (order.getDateOfArrival().isBefore(LocalDate.now())))
-            return cityToPoint;
-        int diffDays = days(order.getDateOfSending(), LocalDate.now());
-        if (diffDays == 0) time = time - 22;
-        else time = time + (diffDays - 1) * 24 + 2;
-        return currentPoint(cityFromPoint, cityToPoint, days, time);
-    }
-
-    private static Point currentPoint(Point cityFromPoint, Point cityToPoint, int days, int time) {
-        double latCityFrom = Double.parseDouble(cityFromPoint.getLatitude());
-        double lngCityFrom = Double.parseDouble(cityFromPoint.getLongitude());
-        double latCityTo = Double.parseDouble(cityToPoint.getLatitude());
-        double lngCityTo = Double.parseDouble(cityToPoint.getLongitude());
-        double diffLat = (latCityFrom - latCityTo) / (days * 24 - 7);
-        double diffLng = (lngCityFrom - lngCityTo) / (days * 24 - 7);
-        String lat = String.valueOf(latCityFrom - diffLat * time);
-        String lng = String.valueOf(lngCityFrom - diffLng * time);
-        return new Point(lat, lng);
-    }
     public static Set<String> cityFromSet(List<Order> orderList) {
         Set<String> stringSet = new HashSet<>();
         for (Order order :
@@ -109,12 +82,42 @@ public class Calculate {
         List<T> list = new ArrayList<>();
         int lastIndex = index * 5;
         if (inputList.size() < index * 5) {
-            lastIndex = inputList.size() % ((index - 1)*5)+((index - 1)*5);
+            lastIndex = inputList.size() % ((index - 1) * 5) + ((index - 1) * 5);
         }
         for (int i = (index - 1) * 5; i < lastIndex; i++) {
             list.add(inputList.get(i));
         }
         return list;
+    }
+
+    public static Point getPointAtTheMoment(Integer id) throws ParseException {
+        Order order = OrderDao.getOrder(id);
+        Point cityFromPoint = GoogleMaps.getCityCoordinates(order.getCityFrom());
+        Point cityToPoint = GoogleMaps.getCityCoordinates(order.getCityTo());
+        int days = diffDays(order.getDateOfSending(), order.getDateOfArrival());
+        int time = LocalDateTime.now().getHour();
+        if (order.getDateOfSending().equals(LocalDate.now()) && time < 22) {
+            return cityFromPoint;
+        }
+        if ((order.getDateOfArrival().equals(LocalDate.now()) && time > 15) || (order.getDateOfArrival().isBefore(LocalDate.now()))) {
+            return cityToPoint;
+        }
+        int diffDays = diffDays(order.getDateOfSending(), LocalDate.now());
+        if (diffDays == 0) time = time - 22;
+        else time = time + (diffDays - 1) * 24 + 2;
+        return currentPoint(cityFromPoint, cityToPoint, days, time);
+    }
+
+    public static Point currentPoint(Point cityFromPoint, Point cityToPoint, int days, int time) {
+        double latCityFrom = Double.parseDouble(cityFromPoint.getLatitude());
+        double lngCityFrom = Double.parseDouble(cityFromPoint.getLongitude());
+        double latCityTo = Double.parseDouble(cityToPoint.getLatitude());
+        double lngCityTo = Double.parseDouble(cityToPoint.getLongitude());
+        double diffLat = (latCityFrom - latCityTo) / (days * 24 - 7);
+        double diffLng = (lngCityFrom - lngCityTo) / (days * 24 - 7);
+        String lat = String.valueOf(latCityFrom - diffLat * time);
+        String lng = String.valueOf(lngCityFrom - diffLng * time);
+        return new Point(lat, lng);
     }
 
 }

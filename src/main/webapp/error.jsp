@@ -31,24 +31,24 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
                 <c:if test="${sessionScope.role=='user' || sessionScope.role==null}">
-                    <a href="/index.jsp" class="nav-item nav-link active">Головна</a>
+                    <a href="/index.jsp" class="nav-item nav-link active"><fmt:message key="home"/></a>
                 </c:if>
                 <c:if test="${sessionScope.role=='manager'}">
-                    <a href="/man/orderList.jsp" class="nav-item nav-link active">Головна</a>
+                    <a href="/man/orderList.jsp" class="nav-item nav-link active"><fmt:message key="home"/></a>
                 </c:if>
                 <c:if test="${sessionScope.role=='admin'}">
-                    <a href="/adm/usersTable.jsp" class="nav-item nav-link active">Головна</a>
+                    <a href="/adm/usersTable.jsp" class="nav-item nav-link active"><fmt:message key="home"/></a>
                 </c:if>
                 <c:if test="${sessionScope.role=='employee'}">
-                    <a href="/employee/ordersTable.jsp" class="nav-item nav-link active">Головна</a>
+                    <a href="/employee/ordersTable.jsp" class="nav-item nav-link active"><fmt:message key="home"/></a>
                 </c:if>
             </div>
         </div>
         <div class="nav navbar-nav navbar-right">
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Укр</a>
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.firstLang}</a>
                 <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Англ</a>
+                    <a href="/changeLanguage?id=6" class="dropdown-item">${sessionScope.secondLang}</a>
                 </div>
             </div>
         </div>

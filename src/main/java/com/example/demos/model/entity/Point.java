@@ -19,6 +19,9 @@ public class Point {
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
+    public Point(){
+
+    }
 
     public Point(String latitude,String longitude) {
         this.longitude = longitude;

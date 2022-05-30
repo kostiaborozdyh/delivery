@@ -7,6 +7,7 @@ import com.example.demos.model.entity.User;
 import com.example.demos.model.entity.ValidList;
 import com.example.demos.model.utils.Validation;
 import com.example.demos.security.Security;
+import org.apache.log4j.Logger;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
+    private static final Logger log = Logger.getLogger(UserDao.class);
     public static final String SQL_GET_USER_VALID = "SELECT * FROM user u WHERE u.login=? AND u.password=?";
     public static final String SQL_GET_USER_VALID_FROM_EMAIL = "SELECT * FROM user u WHERE u.email=? AND u.password=?";
     public static final String SQL_GET_USER = "SELECT * FROM user u WHERE u.login=?";
@@ -39,6 +41,7 @@ public class UserDao {
             "WHERE d.id=?";
 
     public static User userValid(String login, String password) {
+        log.info("Перевірка користувача " + login);
         User user = null;
         PreparedStatement pst;
         try (Connection con = DBHelper.getInstance().getConnection()) {
@@ -64,15 +67,15 @@ public class UserDao {
                     user.setBan(rs.getString("ban"));
                 }
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.info("Перевірка користувача" + login + " завершено");
+        } catch (Exception ex) {
+            log.error("Помилка, перевірка користувача" + ex);
         }
         return user;
     }
 
     public static boolean getUserNotify(Integer id) {
+        log.info("Перевірка користувача з id " + id + " на підписку");
         String notify = null;
         try (Connection con = DBHelper.getInstance().getConnection();
              PreparedStatement pst = con.prepareStatement(SQL_GET_USER_FROM_ID)) {
@@ -82,15 +85,15 @@ public class UserDao {
                     notify = rs.getString("notify");
                 }
             }
+            log.info("Перевірка користувача з id " + id + " на підписку завершено");
         } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Помилка,Перевірка користувача з id " + id + " на підписку" + ex);
         }
         return (notify.equals("yes"));
     }
 
     public static boolean loginIsValid(String login) {
+        log.info("Перевріка чи існує логін " + login);
         String userLogin = null;
         try (Connection con = DBHelper.getInstance().getConnection();
              PreparedStatement pst = con.prepareStatement(SQL_GET_USER)) {
@@ -100,13 +103,15 @@ public class UserDao {
                     userLogin = rs.getString("login");
                 }
             }
+            log.info("Перевріка чи існує логін " + login + " завершено");
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error("Помилка, перевріка чи існує логін " + login + ex);
         }
         return (userLogin == null);
     }
 
     public static boolean emailIsValid(String email) {
+        log.info("Перевріка чи існує email " + email);
         String userEmail = null;
         try (Connection con = DBHelper.getInstance().getConnection();
              PreparedStatement pst = con.prepareStatement(SQL_GET_EMAIL)) {
@@ -116,14 +121,16 @@ public class UserDao {
                     userEmail = rs.getString("email");
                 }
             }
+            log.info("Перевріка чи існує email " + email + " завершено");
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error("Помилка, перевріка чи існує email " + email + ex);
         }
         return (userEmail == null);
     }
 
 
     public static boolean insertUser(User user) {
+        log.info("Вставлення юзера " + user.getLogin());
         int count = 0;
         Connection connection = null;
         PreparedStatement pst = null;
@@ -142,11 +149,10 @@ public class UserDao {
             pst.setString(9, "no");
             count = pst.executeUpdate();
             connection.commit();
-        } catch (SQLException ex) {
+            log.info("Вставлення юзера " + user.getLogin() + " завершено");
+        } catch (Exception ex) {
             rollback(connection);
-            ex.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Помилка, вставлення юзера " + user.getLogin() + ex);
         } finally {
             close(connection);
             close(pst);
@@ -154,8 +160,8 @@ public class UserDao {
         return count > 0;
     }
 
-
     public static void changeMoney(Integer orderId, Integer value, Integer money) {
+        log.info("Зняття грошей у юзера по ордеру " + orderId);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -166,9 +172,10 @@ public class UserDao {
             pst.setInt(2, OrderDao.getUserId(orderId));
             pst.executeUpdate();
             connection.commit();
+            log.info("Зняття грошей у юзера по ордеру " + orderId + " завершено");
         } catch (SQLException ex) {
             rollback(connection);
-            ex.printStackTrace();
+            log.error("Помилка, зняття грошей у юзера по ордеру " + orderId + ex);
         } finally {
             close(connection);
             close(pst);
@@ -176,6 +183,7 @@ public class UserDao {
     }
 
     public static boolean changePassword(String email, String password) {
+        log.info("Заміна паролю для юзера " + email);
         int count = 0;
         Connection connection = null;
         PreparedStatement pst = null;
@@ -187,11 +195,10 @@ public class UserDao {
             pst.setString(2, email);
             count = pst.executeUpdate();
             connection.commit();
-        } catch (SQLException ex) {
+            log.info("Заміна паролю для юзера " + email + " завершено");
+        } catch (Exception ex) {
             rollback(connection);
-            ex.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Помилка, заміна паролю для юзера " + email + ex);
         } finally {
             close(connection);
             close(pst);
@@ -200,6 +207,7 @@ public class UserDao {
     }
 
     public static boolean refillMoney(Integer userId, Integer value, Integer money) {
+        log.info("Поповдення рахунку для юзера з id " + userId);
         int count = 0;
         Connection connection = null;
         PreparedStatement pst = null;
@@ -211,9 +219,10 @@ public class UserDao {
             pst.setInt(2, userId);
             count = pst.executeUpdate();
             connection.commit();
+            log.info("Поповдення рахунку для юзера з id " + userId + " завершено");
         } catch (SQLException ex) {
             rollback(connection);
-            ex.printStackTrace();
+            log.error("Помилка, поповдення рахунку для юзера з id " + userId + ex);
         } finally {
             close(connection);
             close(pst);
@@ -222,13 +231,14 @@ public class UserDao {
     }
 
     public static User editUser(User user) {
+        log.info("Редагування користувача з логіном " + user.getLogin());
         int count = 0, k = 1;
         Connection connection = null;
         PreparedStatement pst = null;
         try {
             connection = DBHelper.getInstance().getConnection();
             connection.setAutoCommit(false);
-            if (user.getPassword().equals("Password1")) {
+            if (user.getPassword().equals("")) {
                 pst = connection.prepareStatement(SQL_EDIT_USER);
             } else {
                 pst = connection.prepareStatement(SQL_EDIT_USER_AND_PASSWORD);
@@ -244,11 +254,10 @@ public class UserDao {
             count = pst.executeUpdate();
             user.setPassword("");
             connection.commit();
-        } catch (SQLException ex) {
+            log.info("Редагування користувача з логіном " + user.getLogin() + " завершено");
+        } catch (Exception ex) {
             rollback(connection);
-            ex.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Помилка, редагування користувача з логіном " + user.getLogin() + ex);
         } finally {
             close(connection);
             close(pst);
@@ -258,6 +267,7 @@ public class UserDao {
     }
 
     public static String getUserEmail(String login) {
+        log.info("Вибірка email юзера по логіну " + login);
         String email = null;
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_EMAIL)) {
@@ -268,14 +278,15 @@ public class UserDao {
                 }
 
             }
-
+            log.info("Вибірка email юзера по логіну " + login + " завершено");
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error("Помилка, вибірка email юзера по логіну " + login + ex);
         }
         return email;
     }
 
     public static String getUserEmail(Integer id) {
+        log.info("Вибірка email юзера по id " + id);
         String email = null;
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_EMAIL_BY_ID)) {
@@ -284,16 +295,16 @@ public class UserDao {
                 while (rs.next()) {
                     email = rs.getString("email");
                 }
-
             }
-
+            log.info("Вибірка email юзера по id " + id + " завершено");
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error("Помилка, вибірка email юзера по id " + id + ex);
         }
         return email;
     }
 
     public static List<User> getUsers() {
+        log.info("Вибірка всіх юзерів");
         List<User> userList = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USERS)) {
@@ -309,13 +320,15 @@ public class UserDao {
                     userList.add(user);
                 }
             }
+            log.info("Вибірка всіх юзерів зевершено");
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error("Помилка, вибірка всіх юзерів" + ex);
         }
         return userList;
     }
 
     public static void blockUser(Integer id) throws MessagingException, UnsupportedEncodingException {
+        log.info("Блокування юзера по id " + id);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -325,9 +338,10 @@ public class UserDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
+            log.info("Блокування юзера по id " + id + " завершено");
         } catch (SQLException ex) {
             rollback(connection);
-            ex.printStackTrace();
+            log.error("Помилка, блокування юзера по id" + id + ex);
         } finally {
             close(connection);
             close(pst);
@@ -336,6 +350,7 @@ public class UserDao {
     }
 
     public static void unBlockUser(Integer id) throws MessagingException, UnsupportedEncodingException {
+        log.info("Розблокування юзера по id " + id);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -345,9 +360,10 @@ public class UserDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
+            log.info("Розблокування юзера по id " + id + " завершено");
         } catch (SQLException ex) {
             rollback(connection);
-            ex.printStackTrace();
+            log.error("Помилка, розблокування юзера по id" + id + ex);
         } finally {
             close(connection);
             close(pst);
@@ -356,6 +372,7 @@ public class UserDao {
     }
 
     public static void deleteUser(Integer id) throws MessagingException, UnsupportedEncodingException {
+        log.info("Видалення юзера по id " + id);
         String email = getUserEmail(id);
         OrderDao.deleteOrder(id);
         Connection connection = null;
@@ -367,15 +384,17 @@ public class UserDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
+            log.info("Видалення юзера по id " + id + " завершено");
         } catch (SQLException ex) {
             rollback(connection);
-            ex.printStackTrace();
+            log.error("Помилка, видалення юзера по id" + id + ex);
         } finally {
             close(connection);
             close(pst);
         }
         SendEmail.send(email, CreateMessage.deleteUser());
     }
+
     private static void close(PreparedStatement st) {
         if (st != null) {
             try {

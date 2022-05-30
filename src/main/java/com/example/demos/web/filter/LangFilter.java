@@ -5,7 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 public class LangFilter implements Filter {
+
+
     @Override
     public void destroy() {
     }
@@ -20,6 +24,8 @@ public class LangFilter implements Filter {
         HttpSession session = request.getSession();
         if (session.getAttribute("lang") == null) {
             session.setAttribute("lang", "ua");
+            session.setAttribute("firstLang", "ua");
+            session.setAttribute("secondLang", "en");
         }
         servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");

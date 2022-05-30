@@ -2,7 +2,6 @@ package com.example.demos.web.controller;
 
 import com.example.demos.model.utils.Calculate;
 import com.example.demos.model.utils.GoogleMaps;
-import com.example.demos.model.entity.Distance;
 import com.example.demos.model.entity.InfoTable;
 import org.json.simple.parser.ParseException;
 
@@ -32,7 +31,7 @@ public class CalculateServlet extends HttpServlet {
         final String info = request.getParameter("info");
         int price, volume;
         try {
-            List<Distance> distanceList = GoogleMaps.getDistance(cityFrom, cityTo);
+            List<InfoTable> distanceList = GoogleMaps.getDistance(cityFrom, cityTo);
             volume = Calculate.volume(height, length, width);
             price = Calculate.deliveryPrice(distanceList.get(0).getDistance(), volume, weight);
             InfoTable infoTable = new InfoTable(distanceList.get(0).getCityFrom(), distanceList.get(0).getCityTo(), distanceList.get(0).getDistance(), price, volume, Integer.parseInt(weight));

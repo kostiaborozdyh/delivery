@@ -9,28 +9,60 @@ public class Validation {
     public static ValidList valid(User user, String password, int ch) {
         ValidList validList = new ValidList();
         validList.init();
-        if (ch == 1) {
-            if (UserDao.loginIsValid(user.getLogin())) {
-                if (loginNameValid(user.getLogin())) validList.setValidLoginName(user.getLogin());
-                else validList.setInvalidLoginName(user.getLogin());
-            } else validList.setInvalidLogin(user.getLogin());
+
+
+        if (UserDao.loginIsValid(user.getLogin()) || ch != 1) {
+            if (loginNameValid(user.getLogin())) {
+                validList.setValidLoginName(user.getLogin());
+            } else {
+                validList.setInvalidLoginName(user.getLogin());
+            }
+        } else {
+            validList.setInvalidLogin(user.getLogin());
         }
-        if (ch == 3 || ch == 1) {
-            if (UserDao.emailIsValid(user.getEmail())) {
-                if (emailNameValid(user.getEmail())) validList.setValidEmailName(user.getEmail());
-                else validList.setInvalidEmailName(user.getEmail());
-            } else validList.setInvalidEmail(user.getEmail());
+
+
+        if (UserDao.emailIsValid(user.getEmail()) || ch == 2) {
+            if (emailNameValid(user.getEmail())) {
+                validList.setValidEmailName(user.getEmail());
+            } else {
+                validList.setInvalidEmailName(user.getEmail());
+            }
+        } else {
+            validList.setInvalidEmail(user.getEmail());
         }
-        if (firstNameValid(user.getFirstName())) validList.setValidFirstName(user.getFirstName());
-        else validList.setInValidFirsName(user.getFirstName());
-        if (lastNameValid(user.getLastName())) validList.setValidLastName(user.getLastName());
-        else validList.setInvalidLastName(user.getLastName());
-        if (phoneNumberValid(user.getPhoneNumber()) || user.getPhoneNumber().equals(""))
+
+
+        if (firstNameValid(user.getFirstName())) {
+            validList.setValidFirstName(user.getFirstName());
+        } else {
+            validList.setInValidFirsName(user.getFirstName());
+        }
+
+
+        if (lastNameValid(user.getLastName())) {
+            validList.setValidLastName(user.getLastName());
+        } else {
+            validList.setInvalidLastName(user.getLastName());
+        }
+
+
+        if (phoneNumberValid(user.getPhoneNumber()) || user.getPhoneNumber().equals("")) {
             validList.setValidPhoneNumber(user.getPhoneNumber());
-        else validList.setInvalidPhoneNumber(user.getPhoneNumber());
+        } else {
+            validList.setInvalidPhoneNumber(user.getPhoneNumber());
+        }
+
+
         if (user.getPassword().equals(password)) {
-            if (passwordValid(password)) validList.setInvalidPasswordName("InvalidPasswordName");
-        } else validList.setInvalidPassword("InvalidPassword");
+            if (passwordValid(password) && !password.equals("")) {
+                validList.setInvalidPasswordName("InvalidPasswordName");
+            }
+        } else {
+            validList.setInvalidPassword("InvalidPassword");
+        }
+
+
         return validList;
     }
 
@@ -47,6 +79,7 @@ public class Validation {
         if (validList.getInvalidPhoneNumber() != null) count++;
         return count == 0;
     }
+
     public static boolean firstNameValid(String firstName) {
         return firstName.matches("^[a-zA-ZА-Яа-яЇїіІ]{4,20}");
     }

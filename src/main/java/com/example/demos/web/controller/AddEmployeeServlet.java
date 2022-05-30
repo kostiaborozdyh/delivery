@@ -20,6 +20,7 @@ public class AddEmployeeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().removeAttribute("validList");
+
         User user = new User();
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
@@ -27,20 +28,26 @@ public class AddEmployeeServlet extends HttpServlet {
         user.setLastName(request.getParameter("lastName"));
         user.setEmail(request.getParameter("email"));
         user.setPhoneNumber(request.getParameter("phoneNumber"));
+
         String employee = request.getParameter("employee");
         user.setNotify("no");
-        if(employee.equals("employee")) user.setRole_id(4);
-        else user.setRole_id(2);
-        ValidList validList = Validation.valid(user,request.getParameter("secondPassword"),1);
-        if(Validation.count(validList)) {
+
+        if (employee.equals("employee")) {
+            user.setRole_id(4);
+        } else {
+            user.setRole_id(2);
+        }
+
+        ValidList validList = Validation.valid(user, request.getParameter("secondPassword"), 1);
+
+        if (Validation.count(validList)) {
             if (UserDao.insertUser(user)) {
                 response.sendRedirect("/adm/usersTable.jsp");
             } else {
                 response.sendRedirect("/error.jsp");
             }
-        }
-        else {
-            request.getSession().setAttribute("validList",validList);
+        } else {
+            request.getSession().setAttribute("validList", validList);
             response.sendRedirect("/adm/createEmployeeAccount.jsp");
         }
     }

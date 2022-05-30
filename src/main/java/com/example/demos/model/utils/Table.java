@@ -9,15 +9,15 @@ import java.util.List;
 
 public class Table {
     public static List<InfoTable> getInfoTable(String cityFrom, String cityTo) throws IOException, ParseException {
-        List<InfoTable> infoTable = new ArrayList<>();
-        List<Distance> distances = GoogleMaps.getDistance(cityFrom,cityTo);
+        List<InfoTable> distances = GoogleMaps.getDistance(cityFrom,cityTo);
         int index = 0;
-        for (Distance distance :
+        for (InfoTable distance :
                 distances) {
-            infoTable.add(new InfoTable(index, distance.getCityFrom(), distance.getCityTo(), distance.getDistance(), Calculate.avgPrice(distance.getDistance())));
+            distance.setId(index);
+            distance.setPrice(Calculate.avgPrice(distance.getDistance()));
             index++;
         }
-        return infoTable;
+        return distances;
     }
 
 }

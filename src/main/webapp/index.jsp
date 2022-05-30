@@ -11,7 +11,7 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="text"/>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${sessionScope.lang}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +36,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="/index.jsp" class="nav-item nav-link active">Головна</a>
+                <a href="/index.jsp" class="nav-item nav-link active"><fmt:message key="home"/></a>
                 <a href="/aboutUs.jsp" class="nav-item nav-link">Про нас</a>
                 <a href="/info.jsp" class="nav-item nav-link">Напрямки доставки</a>
                 <a href="/calculate.jsp" class="nav-item nav-link">Розрахувати вартість посилки</a>
@@ -52,9 +52,9 @@
                     <span class="nav-item nav-link">/</span>
                     <a href="/registration.jsp" class="nav-item nav-link">Реєстарція</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Укр</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.firstLang}</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Англ</a>
+                            <a href="/changeLanguage?id=1" class="dropdown-item">${sessionScope.secondLang}</a>
                         </div>
                     </div>
                 </div>
@@ -76,9 +76,9 @@
             </div>
             <div class="nav navbar-nav navbar-right">
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Укр</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.firstLang}</a>
                     <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">Англ</a>
+                        <a href="/changeLanguage?id=1" class="dropdown-item">${sessionScope.secondLang}</a>
                     </div>
                 </div>
             </div>
