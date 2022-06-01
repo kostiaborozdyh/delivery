@@ -60,7 +60,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-auto">
-            <p>Сторінку яку ви намагаєтесь найти немає(((((((</p>
+            <p><fmt:message key="error"/></p>
         </div>
     </div>
 </div>

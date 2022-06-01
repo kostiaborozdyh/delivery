@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <title>Реєстрація</title>
+    <title><fmt:message key="registration"/></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -111,16 +111,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="/adm/usersTable.jsp" class="nav-item nav-link">Користувачі</a>
-                <a href="/adm/createEmployeeAccount.jsp" class="nav-item nav-link active">Зареєструвати працівника</a>
+                <a href="/adm/usersTable.jsp" class="nav-item nav-link"><fmt:message key="userTable"/></a>
+                <a href="/adm/createEmployeeAccount.jsp" class="nav-item nav-link active"><fmt:message key="registrationNewEmployee"/></a>
             </div>
         </div>
         <div class="nav navbar-nav navbar-right">
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.user.login}</a>
                 <div class="dropdown-menu ">
-                    <a href="/editUser.jsp" class="dropdown-item">Редагування</a>
-                    <a href="/lout" class="dropdown-item">Вихід</a>
+                    <a href="/editUser.jsp" class="dropdown-item"><fmt:message key="editing"/></a>
+                    <a href="/lout" class="dropdown-item"><fmt:message key="signOut"/></a>
                 </div>
             </div>
         </div>
@@ -139,90 +139,90 @@
         <div class="col-12 col-xs-offset-4">
             <div class="row justify-content-center">
                 <div class="col-md-auto">
-                    <h2 class="text-center">Реєстрація працівника</h2>
+                    <h2 class="text-center"><fmt:message key="registrationNewEmployee"/></h2>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-2">Логін<text style = "color:red;">*</text></label>
+            <label class="control-label col-xs-2"><fmt:message key="login"/><text style = "color:red;">*</text></label>
             <div class="col-xs-10">
                 <input type="text" class="form-control" name="login" value="${sessionScope.validList.validLoginName}" required="required">
             </div>
             <c:if test = "${sessionScope.validList.invalidLogin != null}">
-                <text style = "color:red;">Користувач з логіном ${sessionScope.validList.invalidLogin} уже існує</text>
+                <text style = "color:red;"><fmt:message key="userWithLogin"/> ${sessionScope.validList.invalidLogin}  <fmt:message key="alreadyExists"/></text>
             </c:if>
             <c:if test = "${sessionScope.validList.invalidLoginName != null}">
-                <text style = "color:red;">Логін ${sessionScope.validList.invalidLoginName} повинен складатися з великих або маленьких літер та містити не менеше 4х символів</text>
+                <text style = "color:red;"><fmt:message key="login"/> ${sessionScope.validList.invalidLoginName} <fmt:message key="mustBeUppercase"/></text>
             </c:if>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-2">Ім'я<text style = "color:red;">*</text></label>
+            <label class="control-label col-xs-2"><fmt:message key="firstName"/><text style = "color:red;">*</text></label>
             <div class="col-xs-10">
                 <input type="text" class="form-control" name="firstName" value="${sessionScope.validList.validFirstName}" required="required">
             </div>
             <c:if test = "${sessionScope.validList.invalidFirstName != null}">
-                <text style = "color:red;">Ім'я - ${sessionScope.validList.invalidFirstName} повинно складатися тільки з букв і бути більше 3х символів</text>
+                <text style = "color:red;"><fmt:message key="firstName"/> - ${sessionScope.validList.invalidFirstName} <fmt:message key="mustConsistOfLetters"/></text>
             </c:if>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-2">Прізвище<text style = "color:red;">*</text></label>
+            <label class="control-label col-xs-2"><fmt:message key="lastName"/><text style = "color:red;">*</text></label>
             <div class="col-xs-10">
                 <input type="text" class="form-control" name="lastName" value="${sessionScope.validList.validLastName}" required="required">
             </div>
             <c:if test = "${sessionScope.validList.invalidLastName != null}">
-                <text style = "color:red;">Прізвище - ${sessionScope.validList.invalidLastName} повинно складатися тільки з букв і бути більше 3х символів</text><br>
+                <text style = "color:red;"><fmt:message key="lastName"/> - ${sessionScope.validList.invalidLastName} <fmt:message key="mustConsistOfLetters"/></text><br>
             </c:if>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-2">Пароль<text style = "color:red;">*</text></label>
+            <label class="control-label col-xs-2"><fmt:message key="password"/><text style = "color:red;">*</text></label>
             <div class="col-xs-10">
                 <input type="password" class="form-control" name="password" required="required">
             </div>
             <c:if test = "${sessionScope.validList.invalidPassword != null}">
-                <text style = "color:red;">Паролі повинні співпадати</text>
+                <text style = "color:red;"><fmt:message key="passwordMatch"/></text>
             </c:if>
             <c:if test = "${sessionScope.validList.invalidPasswordName != null}">
-                <text style = "color:red;">Пароль обов'язково повинен містити цифру, велику та малу латинську літеру і бути не менше 8 символів</text>
+                <text style = "color:red;"><fmt:message key="passwordMustContain"/></text>
             </c:if>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-2">Повторити пароль<text style = "color:red;">*</text></label>
+            <label class="control-label col-xs-2"><fmt:message key="repeatPassword"/><text style = "color:red;">*</text></label>
             <div class="col-xs-10">
                 <input type="password" class="form-control" name="secondPassword" required="required">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-2">Пошта<text style = "color:red;">*</text></label>
+            <label class="control-label col-xs-2"><fmt:message key="email"/><text style = "color:red;">*</text></label>
             <div class="col-xs-10">
                 <input type="email" class="form-control" name="email" value="${sessionScope.validList.validEmailName}" required="required" >
             </div>
             <c:if test = "${sessionScope.validList.invalidEmail != null}">
-                <text style = "color:red;">Користувач з email ${sessionScope.validList.invalidEmail} уже існує</text>
+                <text style = "color:red;"><fmt:message key="userWithEmail"/> ${sessionScope.validList.invalidEmail} <fmt:message key="alreadyExists"/></text>
             </c:if>
             <c:if test = "${sessionScope.validList.invalidEmailName != null}">
-                <text style = "color:red;">Email - ${sessionScope.validList.invalidEmailName} повинен дотримуватися стандартів email</text>
+                <text style = "color:red;"><fmt:message key="email"/> - ${sessionScope.validList.invalidEmailName} <fmt:message key="mustAdhereEmailStandards"/></text>
             </c:if>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-2">Телефон</label>
+            <label class="control-label col-xs-2"><fmt:message key="phoneNumber"/></label>
             <div class="col-xs-10">
                 <input type="text" class="form-control" name="phoneNumber" value="${sessionScope.validList.validPhoneNumber}">
             </div>
             <c:if test = "${sessionScope.validList.invalidPhoneNumber != null}">
-                <text style = "color:red;">телефон - ${sessionScope.validList.invalidPhoneNumber} повинен мати 10 цифр та починатися з 0 або +380</text>
+                <text style = "color:red;"><fmt:message key="phoneNumber"/> - ${sessionScope.validList.invalidPhoneNumber} <fmt:message key="mustBeDigits"/></text>
             </c:if>
         </div>
         <div class="d-flex w-100">
             <div class="d-inline-block text-center w-25">
-                <input type="radio" name="employee" value="manager" class="align-middle me-2"><label>Менеджер</label>
+                <input type="radio" name="employee" value="manager" class="align-middle me-2"><label><fmt:message key="manager"/></label>
             </div>
             <div class="d-inline-block text-center w-25">
-                <input type="radio" name="employee" value="employee" class="align-middle me-2"><label>Працівник</label>
+                <input type="radio" name="employee" value="employee" class="align-middle me-2"><label><fmt:message key="employee"/></label>
             </div>
         </div>
         <div class="form-group justify-content-center d-flex">
             <div class="col-12 text-center">
-                <button type="submit" class="btn btn-primary btn-lg">Зареєструвати</button>
+                <button type="submit" class="btn btn-primary btn-lg"><fmt:message key="register"/></button>
             </div>
         </div>
     </form>

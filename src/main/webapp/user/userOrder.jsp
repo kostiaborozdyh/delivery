@@ -40,12 +40,12 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
                 <a href="/index.jsp" class="nav-item nav-link active"><fmt:message key="home"/></a>
-                <a href="/aboutUs.jsp" class="nav-item nav-link">Про нас</a>
-                <a href="/info" class="nav-item nav-link">Тарифи</a>
-                <a href="/calculateBag" class="nav-item nav-link">Розрахувати вартість посилки</a>
-                <a href="/reviews.jsp" class="nav-item nav-link">Відгуки</a>
-                <a href="/user/createOrder.jsp" class="nav-item nav-link">Оформлення замовлення</a>
-                <a href="/user/order.jsp" class="nav-item nav-link active">Мої заявки</a>
+                <a href="/aboutUs.jsp" class="nav-item nav-link"><fmt:message key="aboutUs"/></a>
+                <a href="/info.jsp" class="nav-item nav-link"><fmt:message key="deliveryDirections"/></a>
+                <a href="/calculate.jsp" class="nav-item nav-link"><fmt:message key="calculateCost"/></a>
+                <a href="/reviews.jsp" class="nav-item nav-link"><fmt:message key="reviews"/></a>
+                <a href="/user/createOrder.jsp" class="nav-item nav-link "><fmt:message key="makingOrder"/></a>
+                <a href="/user/order.jsp" class="nav-item nav-link active"><fmt:message key="myOrders"/></a>
             </div>
         </div>
         <div class="nav navbar-nav navbar-right">
@@ -55,9 +55,9 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.user.login}</a>
                 <div class="dropdown-menu ">
-                    <a href="/user/refill.jsp" class="dropdown-item">Поповнення</a>
-                    <a href="/editUser.jsp" class="dropdown-item">Редагування</a>
-                    <a href="/lout" class="dropdown-item">Вихід</a>
+                    <a href="/user/refill.jsp" class="dropdown-item"><fmt:message key="refill"/></a>
+                    <a href="/editUser.jsp" class="dropdown-item"><fmt:message key="editing"/></a>
+                    <a href="/lout" class="dropdown-item"><fmt:message key="signOut"/></a>
                 </div>
             </div>
         </div>
@@ -74,27 +74,27 @@
 <div class="container">
     <div class="row justify-content-center mt-3 mb-3">
         <div class="col-md-auto">
-            <h4>Інформація про замовлення</h4>
+            <h4><fmt:message key="orderInformation"/></h4>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-4">
             <div class="rounded bg-light p-3">
-                <p class="mb-2">Номер замовлення: ${sessionScope.infoOrder.id}</p>
-                <p class="mb-2">Опис: ${sessionScope.infoOrder.description}</p>
-                <p class="mb-2">Вага: ${sessionScope.infoOrder.weight}кг</p>
-                <p class="mb-2">Об'єм: ${sessionScope.infoOrder.volume}м<sup>3</sup></p>
-                <p class="mb-2">Вартітсь доставки: ${sessionScope.infoOrder.price}</p>
-                <p class="mb-2">Місто відправки: ${sessionScope.infoOrder.cityFrom}</p>
-                <p class="mb-2">Місто доставки: ${sessionScope.infoOrder.cityTo}</p>
-                <p class="mb-2">Адреса: ${sessionScope.infoOrder.address}</p>
-                <p class="mb-2">Дата створення заявки: ${sessionScope.infoOrder.dateCreate}</p>
+                <p class="mb-2">Id: ${sessionScope.infoOrder.id}</p>
+                <p class="mb-2"><fmt:message key="description"/>: ${sessionScope.infoOrder.description}</p>
+                <p class="mb-2"><fmt:message key="cargoWeight"/> ${sessionScope.infoOrder.weight}кг</p>
+                <p class="mb-2"><fmt:message key="cargoVolume"/> ${sessionScope.infoOrder.volume}м<sup>3</sup></p>
+                <p class="mb-2"><fmt:message key="deliveryPrice"/> ${sessionScope.infoOrder.price}</p>
+                <p class="mb-2"><fmt:message key="cityDeparture"/> ${sessionScope.infoOrder.cityFrom}</p>
+                <p class="mb-2"><fmt:message key="deliveryCity"/> ${sessionScope.infoOrder.cityTo}</p>
+                <p class="mb-2"><fmt:message key="deliveryAddress"/> ${sessionScope.infoOrder.address}</p>
+                <p class="mb-2"><fmt:message key="orderCreationDate"/> ${sessionScope.infoOrder.dateCreate}</p>
                 <c:if test="${sessionScope.infoOrder.dateOfSending!=null}">
-                    <p class="mb-2">Дата відправлення: ${sessionScope.infoOrder.dateOfSending}</p>
+                    <p class="mb-2"><fmt:message key="departureDate"/> ${sessionScope.infoOrder.dateOfSending}</p>
                 </c:if>
-                <p class="mb-2">Дата доставки: ${sessionScope.infoOrder.dateOfArrival}</p>
-                <p class="mb-2">Статус оплати: ${sessionScope.infoOrder.paymentStatus}</p>
-                <p class="mb-2">Місце знаходження: ${sessionScope.infoOrder.locationStatus}</p>
+                <p class="mb-2"><fmt:message key="deliveryDate"/> ${sessionScope.infoOrder.dateOfArrival}</p>
+                <p class="mb-2"><fmt:message key="paymentStatus"/>: ${sessionScope.infoOrder.paymentStatus}</p>
+                <p class="mb-2"><fmt:message key="locationParcel"/>: ${sessionScope.infoOrder.locationStatus}</p>
                 </p>
             </div>
         </div>
@@ -103,30 +103,34 @@
         <div class="col-3 btnsl">
             <c:if test = "${(sessionScope.money<sessionScope.infoOrder.price) && ((sessionScope.infoOrder.paymentStatus == 'Очікує оплату') ||(sessionScope.infoOrder.paymentStatus == 'На розгляді')) }">
                 <abbr title="Недостатньо грошей, потрібно поповнити рахунок" >
-                    <p><a href="*" class="btn btn-danger b1" onclick="return false">Оплатить</a></p>
+                    <p><a href="*" class="btn btn-danger b1" onclick="return false"><fmt:message key="pay"/></a></p>
                 </abbr>
             </c:if>
             <c:if test = "${(sessionScope.money>=sessionScope.infoOrder.price) && (sessionScope.infoOrder.paymentStatus == 'На розгляді')}">
                 <abbr title="Ваша заявка на розгляді" >
-                    <p><a href="*" class="btn btn-danger b1" onclick="return false">Оплатить</a></p>
+                    <p><a href="*" class="btn btn-danger b1" onclick="return false"><fmt:message key="pay"/></a></p>
                 </abbr>
             </c:if>
 
             <c:if test = "${(sessionScope.money>=sessionScope.infoOrder.price) && (sessionScope.infoOrder.paymentStatus == 'Очікує оплату') }">
                 <abbr title="Оплатити зявку" >
-                    <p><a href="/pay?id=${sessionScope.infoOrder.id}&value=${sessionScope.infoOrder.price}&money=${sessionScope.money}" class="btn btn-success b1">Оплатить</a></p>
+                    <p><a href="/pay?id=${sessionScope.infoOrder.id}&value=${sessionScope.infoOrder.price}&money=${sessionScope.money}" class="btn btn-success b1"><fmt:message key="pay"/></a></p>
                 </abbr>
             </c:if>
             <c:if test = "${sessionScope.infoOrder.paymentStatus == 'Оплачено' }">
                 <abbr title="Заявка оплачена" >
-                    <p><a href="#" class="btn btn-secondary b1">Оплатить</a></p>
+                    <p><a href="#" class="btn btn-secondary b1"><fmt:message key="pay"/></a></p>
                 </abbr>
             </c:if>
-            <p><a href="/info?id=${sessionScope.infoOrder.id}" class="btn btn-warning b1">Оновити &raquo;</a></p>
+            <p><a href="/info?id=${sessionScope.infoOrder.id}" class="btn btn-warning b1"><fmt:message key="update"/> &raquo;</a></p>
         </div>
         <div class="col-3 btnsl">
-            <p><a href="/showLocation?id=${sessionScope.infoOrder.id}" class="btn btn-info b1">Місце розташування посилки</a></p>
-            <p><a href="/resetOrder" class="btn btn-primary b1">Повернутися до заявок</a></p>
+            <p><a href="/showLocation?id=${sessionScope.infoOrder.id}" class="btn btn-info b1"
+                            <c:if test = "${sessionScope.infoOrder.locationStatus == 'В місті відправлення'}">
+                             onclick="return false"
+                            </c:if>>
+                    <fmt:message key="locationParcel"/></a></p>
+            <p><a href="/resetOrder" class="btn btn-primary b1"><fmt:message key="returnToOrders"/></a></p>
         </div>
     </div>
 </div>

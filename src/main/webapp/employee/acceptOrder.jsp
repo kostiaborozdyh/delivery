@@ -16,7 +16,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Склад</title>
+    <title><fmt:message key="storage"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <style type="text/css">
@@ -38,8 +38,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="/employee/ordersTable.jsp" class="nav-item nav-link">Cклад</a>
-                <a href="/employee/acceptOrder.jsp" class="nav-item nav-link active">Прийняти посилки</a>
+                <a href="/employee/ordersTable.jsp" class="nav-item nav-link"><fmt:message key="storage"/></a>
+                <a href="/employee/acceptOrder.jsp" class="nav-item nav-link active"><fmt:message key="acceptanceGoods"/></a>
             </div>
         </div>
         <div class="nav navbar-nav navbar-right">
@@ -49,8 +49,8 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.user.login}</a>
                 <div class="dropdown-menu ">
-                    <a href="/editUser.jsp" class="dropdown-item">Редагування</a>
-                    <a href="/lout" class="dropdown-item">Вихід</a>
+                    <a href="/editUser.jsp" class="dropdown-item"><fmt:message key="editing"/></a>
+                    <a href="/lout" class="dropdown-item"><fmt:message key="signOut"/></a>
                 </div>
             </div>
         </div>
@@ -67,19 +67,19 @@
 <div class="container">
     <div class="row justify-content-center mt-3 mb-3">
         <div class="col-md-auto">
-            <h4>Прийняття посилок</h4>
+            <h4><fmt:message key="acceptanceGoods"/></h4>
         </div>
     </div>
     <c:if test="${sessionScope.orderList!=null}">
         <div class="row">
             <table class="table table-borderless">
                 <tr>
-                    <th class="bg-light">Номер товару</th>
-                    <th class="bg-light">Опис</th>
-                    <th class="bg-light">Місто відправлення</th>
-                    <th class="bg-light">Місто отримання</th>
-                    <th class="bg-light">Статус оплати</th>
-                    <th class="bg-light">Облік</th>
+                    <th class="bg-light">Id</th>
+                    <th class="bg-light"><fmt:message key="description"/></th>
+                    <th class="bg-light"><fmt:message key="cityOfDeparture"/></th>
+                    <th class="bg-light"><fmt:message key="cityOfReceipt"/></th>
+                    <th class="bg-light"><fmt:message key="paymentStatus"/></th>
+                    <th class="bg-light"><fmt:message key="accounting"/></th>
                 </tr>
                 <c:forEach var="order" items="${sessionScope.orderList}">
                     <tr>
@@ -90,7 +90,7 @@
                         <td class="bg-light">${order.paymentStatus}</td>
                         <td class="bg-light">
                             <form method="post" action="/putOnRecord?id=${order.id}">
-                                <input type="submit" class="btn btn-outline-primary" value="Поставити на облік">
+                                <input type="submit" class="btn btn-outline-primary" value="<fmt:message key="registerGoods"/>">
                             </form>
                         </td>
                     </tr>

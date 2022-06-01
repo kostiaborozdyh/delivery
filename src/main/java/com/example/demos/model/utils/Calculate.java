@@ -4,7 +4,6 @@ package com.example.demos.model.utils;
 import com.example.demos.model.dao.OrderDao;
 import com.example.demos.model.entity.Order;
 import com.example.demos.model.entity.Point;
-import org.json.simple.parser.ParseException;
 
 
 import java.time.LocalDate;
@@ -15,6 +14,9 @@ import java.util.List;
 import java.util.Set;
 
 public class Calculate {
+    private Calculate(){
+
+    }
     public static Integer avgPrice(Integer distance) {
         if (distance == 0) return 100;
         return distance * 15 / 10;
@@ -65,7 +67,7 @@ public class Calculate {
         return stringSet;
     }
 
-    public static <T> List<Integer> getPaginationList(List<T> inputList) {
+    public static <T> List<Integer> getPaginationList(List<T> inputList)  {
         List<Integer> list = new ArrayList<>();
         int size = inputList.size();
         int a = 0;
@@ -90,7 +92,7 @@ public class Calculate {
         return list;
     }
 
-    public static Point getPointAtTheMoment(Integer id) throws ParseException {
+    public static Point getPointAtTheMoment(Integer id)  {
         Order order = OrderDao.getOrder(id);
         Point cityFromPoint = GoogleMaps.getCityCoordinates(order.getCityFrom());
         Point cityToPoint = GoogleMaps.getCityCoordinates(order.getCityTo());

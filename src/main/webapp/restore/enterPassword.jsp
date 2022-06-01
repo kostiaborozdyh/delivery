@@ -16,7 +16,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Зміна паролю</title>
+    <title><fmt:message key="changePassword"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <u:width width="width"/>
@@ -31,14 +31,15 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
                 <a href="/index.jsp" class="nav-item nav-link"><fmt:message key="home"/></a>
-                <a href="/aboutUs.jsp" class="nav-item nav-link">Про нас</a>
-                <a href="/info.jsp" class="nav-item nav-link">Тарифи</a>
-                <a href="/calculate.jsp" class="nav-item nav-link">Розрахувати вартість посилки</a>
+                <a href="/aboutUs.jsp" class="nav-item nav-link"><fmt:message key="aboutUs"/></a>
+                <a href="/info.jsp" class="nav-item nav-link"><fmt:message key="deliveryDirections"/></a>
+                <a href="/calculate.jsp" class="nav-item nav-link"><fmt:message key="calculateCost"/></a>
+                <a href="/reviews.jsp" class="nav-item nav-link"><fmt:message key="reviews"/></a>
             </div>
             <div class="navbar-nav ms-auto">
-                <a href="/login.jsp" class="nav-item nav-link">Вхід</a>
+                <a href="/login.jsp" class="nav-item nav-link"><fmt:message key="signIn"/></a>
                 <span class="nav-item nav-link">/</span>
-                <a href="/registration.jsp" class="nav-item nav-link">Реєстарція</a>
+                <a href="/registration.jsp" class="nav-item nav-link"><fmt:message key="registration"/></a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.firstLang}</a>
                     <div class="dropdown-menu">
@@ -52,35 +53,35 @@
 <div class="container">
     <div class="row justify-content-center mt-3 mb-3">
         <div class="col-md-auto">
-            <h4>Зміна паролю</h4>
+            <h4><fmt:message key="changePassword"/></h4>
         </div>
     </div>
     <form method="post" action="/enterPassword">
         <div class="row justify-content-center">
             <div class="col-3">
                 <div class="form-group mb-3">
-                    <label class="control-label col-xs-4 mb-1">Новий пароль<text style = "color:red;">*</text></label>
+                    <label class="control-label col-xs-4 mb-1"><fmt:message key="password"/><text style = "color:red;">*</text></label>
                     <input type="password" name="password" class="form-control" required="required">
                 </div>
                 <c:if test = "${sessionScope.passwordNameInvalid != null}">
                     <div class="form-group mb-3">
-                        <text style="color:red">Пароль обов'язково повинен містити цифру, велику та малу латинську літеру і бути не менше 8 символів</text><br>
+                        <text style="color:red"><fmt:message key="passwordMustContain"/></text><br>
                     </div>
                 </c:if>
                 <c:if test = "${sessionScope.passwordInvalid != null}">
                     <div class="form-group mb-3">
-                        <text style="color:red">Паролі повинні співпадати</text><br>
+                        <text style="color:red"><fmt:message key="passwordMatch"/></text><br>
                     </div>
                 </c:if>
                 <div class="form-group mb-3">
-                    <label class="control-label col-xs-4 mb-1">Повторити пароль<text style = "color:red;">*</text></label>
+                    <label class="control-label col-xs-4 mb-1"><fmt:message key="repeatPassword"/><text style = "color:red;">*</text></label>
                     <input type="password" name="secondPassword" class="form-control" required="required">
                 </div>
             </div>
         </div>
         <div class="row justify-content-center mt-3">
             <div class="col-md-auto">
-                <p><input type="submit" class="btn btn-success" value="Замінити пароль"></p>
+                <p><input type="submit" class="btn btn-success" value="<fmt:message key="changePassword"/>"></p>
             </div>
         </div>
     </form>

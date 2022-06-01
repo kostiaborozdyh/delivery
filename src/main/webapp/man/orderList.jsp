@@ -15,12 +15,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Fluid Layout</title>
+    <title><fmt:message key="userRequests"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <style type="text/css">
         .table td, th {
             text-align: center;
+            vertical-align: middle;
             border: 5px solid white;
         }
 
@@ -57,15 +58,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="/man/orderList.jsp" class="nav-item nav-link active">Заявки користувачів</a>
+                <a href="/man/orderList.jsp" class="nav-item nav-link active"><fmt:message key="userRequests"/></a>
             </div>
         </div>
         <div class="nav navbar-nav navbar-right">
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.user.login}</a>
                 <div class="dropdown-menu ">
-                    <a href="/editUser.jsp" class="dropdown-item">Редагування</a>
-                    <a href="/lout" class="dropdown-item">Вихід</a>
+                    <a href="/editUser.jsp" class="dropdown-item"><fmt:message key="editing"/></a>
+                    <a href="/lout" class="dropdown-item"><fmt:message key="signOut"/></a>
                 </div>
             </div>
         </div>
@@ -82,11 +83,11 @@
 <div class="container-fluid">
     <div class="row justify-content-center mt-3 mb-3">
         <div class="col-md-auto">
-            <h4>Заявки</h4>
+            <h4><fmt:message key="userRequests"/></h4>
         </div>
     </div>
     <div class="row">
-        <h5 class="text mb-0 mt-3 mb-3">Фільтрація</h5><br>
+        <h5 class="text mb-0 mt-3 mb-3"><fmt:message key="filtration"/></h5><br>
     </div>
     <form method="post" action="/filtrationOrder" id="form">
         <div class="row">
@@ -94,15 +95,15 @@
                 <div class="col-md-auto">
                     <div class="rounded bg-light p-2 mb-3 sort">
                         <div class="input-group-prepend">
-                            <p class="pt-3 d-flex align-items-center">Ціна доставки</p>
+                            <p class="pt-3 d-flex align-items-center"><fmt:message key="deliveryPriceSort"/></p>
                             <div class="d-flex flex-column divtbl h-75">
                                 <div class="form-outline mb-3">
-                                    <label class="form-label" for="typeNumber1">Ціна від</label>
+                                    <label class="form-label" for="typeNumber1"><fmt:message key="priceFrom"/></label>
                                     <input type="number" id="typeNumber1" name="minPrice" min="0"
                                            value="${sessionScope.minPrice}" class="form-control"/>
                                 </div>
                                 <div class="form-outline mb-3">
-                                    <label class="form-label" for="typeNumber2">Ціна до</label>
+                                    <label class="form-label" for="typeNumber2"><fmt:message key="priceTo"/></label>
                                     <input type="number" id="typeNumber2" name="maxPrice" min="0"
                                            value="${sessionScope.maxPrice}" class="form-control"/>
                                 </div>
@@ -114,21 +115,21 @@
             <div class="col-2 sort">
                 <div class="col-md-auto">
                     <div class="rounded bg-light p-2 sort">
-                        <p class="h-25 d-flex align-items-center">Статус заявки</p>
+                        <p class="h-25 d-flex align-items-center"><fmt:message key="orderStatus"/></p>
                         <div class="d-flex flex-column divtbl h-75">
                             <div class="input-group-text mb-1">
                                 <label><input type="checkbox" class="form-check-input" name="paymentStatus"
                                               value="На розгляді" <c:if test="${sessionScope.status1 != null}">
-                                              checked</c:if>>На розгляді</label>
+                                              checked</c:if>><fmt:message key="underConsideration"/></label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="checkbox" class="form-check-input" name="paymentStatus"
                                               value="Очікує оплату"
-                                <c:if test="${sessionScope.status2 != null}"> checked</c:if> >Очікує оплату</label>
+                                <c:if test="${sessionScope.status2 != null}"> checked</c:if> ><fmt:message key="awaitingPayment"/></label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="checkbox" class="form-check-input" name="paymentStatus" value="Оплачено"
-                                <c:if test="${sessionScope.status3 != null}"> checked</c:if> >Оплачено</label>
+                                <c:if test="${sessionScope.status3 != null}"> checked</c:if> ><fmt:message key="paid"/></label>
                             </div>
                         </div>
                     </div>
@@ -137,31 +138,31 @@
             <div class="col-2 sort">
                 <div class="col-md-auto">
                     <div class="rounded bg-light p-2 sort">
-                        <p class="h-25 d-flex align-items-center">Місцезнаходження посилки</p>
+                        <p class="h-25 d-flex align-items-center"><fmt:message key="locationParcel"/></p>
                         <div class="d-flex flex-column divl h-50">
                             <div class="input-group-text mb-1">
                                 <label>
                                     <input type="checkbox" class="form-check-input" name="locationStatus"
                                            value="В місті відправлення" <c:if test="${sessionScope.location1 != null}">
-                                           checked</c:if>>В місті відправлення
+                                           checked</c:if>><fmt:message key="cityOfDepartureSort"/>
                                 </label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="checkbox" class="form-check-input" name="locationStatus"
                                               value="В дорозі"
-                                <c:if test="${sessionScope.location2 != null}"> checked</c:if> >В дорозі</label>
+                                <c:if test="${sessionScope.location2 != null}"> checked</c:if> ><fmt:message key="inWay"/></label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label>
                                     <input type="checkbox" class="form-check-input" name="locationStatus"
                                            value="У відділенні пошти"
-                                    <c:if test="${sessionScope.location3 != null}"> checked</c:if> >У відділенні пошти
+                                    <c:if test="${sessionScope.location3 != null}"> checked</c:if> ><fmt:message key="postOffice"/>
                                 </label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="checkbox" class="form-check-input" name="locationStatus"
                                               value="Отримано"
-                                <c:if test="${sessionScope.location4 != null}"> checked</c:if> >Отримано</label>
+                                <c:if test="${sessionScope.location4 != null}"> checked</c:if> ><fmt:message key="received"/></label>
                             </div>
                         </div>
                     </div>
@@ -170,20 +171,20 @@
             <div class="col-2 sort">
                 <div class="col-md-auto">
                     <div class="rounded bg-light p-2 sort">
-                        <p class="pt-4 d-flex align-items-center">Дата посилки</p>
+                        <p class="pt-4 d-flex align-items-center"><fmt:message key="parcelDate"/></p>
                         <div class="d-flex flex-column h-50">
-                            <p class="mb-1">Дата Відправки</p>
-                            <label class="d-flex"><p class="w-25">Від </p><input class="w-75 h-75" type="date"
+                            <p class="mb-1"><fmt:message key="dateOfDispatch"/></p>
+                            <label class="d-flex"><p class="w-25"><fmt:message key="from"/> </p><input class="w-75 h-75" type="date"
                                                                                  name="minDateCreate"
                                                                                  value="${sessionScope.minDateCreate}"></label>
-                            <label class="d-flex"><p class="w-25">До </p><input class="w-75 h-75" type="date"
+                            <label class="d-flex"><p class="w-25"><fmt:message key="to"/> </p><input class="w-75 h-75" type="date"
                                                                                 name="maxDateCreate"
                                                                                 value="${sessionScope.maxDateCreate}"></label>
-                            <p class="mb-1">Дата Прибуття</p>
-                            <label class="d-flex"><p class="w-25">Від </p><input type="date" class="w-75 h-75"
+                            <p class="mb-1"><fmt:message key="dateOfArrival"/></p>
+                            <label class="d-flex"><p class="w-25"><fmt:message key="from"/> </p><input type="date" class="w-75 h-75"
                                                                                  name="minDateOfArrival"
                                                                                  value="${sessionScope.minDateOfArrival}"></label>
-                            <label class="d-flex"><p class="w-25">До </p><input type="date" class="w-75 h-75"
+                            <label class="d-flex"><p class="w-25"><fmt:message key="to"/> </p><input type="date" class="w-75 h-75"
                                                                                 name="maxDateOfArrival"
                                                                                 value="${sessionScope.maxDateOfArrival}"></label>
                         </div>
@@ -193,15 +194,15 @@
             <div class="col-2 sort">
                 <div class="col-md-auto">
                     <div class="rounded bg-light p-2 sort">
-                        <p class="pt-4 d-flex align-items-center">Міста посилки</p>
+                        <p class="pt-4 d-flex align-items-center"><fmt:message key="parcelCities"/></p>
                         <div class="d-flex flex-column h-75">
-                            <label for="exampleFormControlSelect1">Міста відправки</label>
+                            <label for="exampleFormControlSelect1"><fmt:message key="citiesOfDeparture"/></label>
                             <select multiple class="form-control" name="cityFrom[]" id="exampleFormControlSelect1" size="2">
                                 <c:forEach var="order" items="${sessionScope.cityFromSet}">
                                     <option>${order}</option>
                                 </c:forEach>
                             </select>
-                            <label for="exampleFormControlSelect2" class="mt-4">Міста доставвки</label>
+                            <label for="exampleFormControlSelect2" class="mt-4"><fmt:message key="deliveryCities"/></label>
                             <select multiple class="form-control" name="cityTo[]" id="exampleFormControlSelect2" size="2">
                                 <c:forEach var="order" items="${sessionScope.cityToSet}">
                                     <option>${order}</option>
@@ -214,25 +215,23 @@
             <div class="col-2 sort">
                 <div class="rounded bg-light p-2 mb-3 sort">
                     <div class="input-group-prepend">
-                        <p class="pt-4 d-flex align-items-center">Сортування заявок</p>
+                        <p class="pt-4 d-flex align-items-center"><fmt:message key="sortingOrders"/></p>
                         <div class="d-flex flex-column divl h-75 pt-3">
                             <div class="input-group-text mb-1">
                                 <label><input type="radio" name="sort" value="sortByMinPrice"  <c:if
-                                        test="${sessionScope.sort == 'sortByMinPrice'}"> checked</c:if>>По ціні↑</label>
+                                        test="${sessionScope.sort == 'sortByMinPrice'}"> checked</c:if>><fmt:message key="byPrice"/>↑</label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="radio" name="sort" value="sortByMaxPrice" <c:if
-                                        test="${sessionScope.sort == 'sortByMaxPrice'}"> checked</c:if>>По ціні↓</label>
+                                        test="${sessionScope.sort == 'sortByMaxPrice'}"> checked</c:if>><fmt:message key="byPrice"/>↓</label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="radio" name="sort" value="sortByMinDateCreate" <c:if
-                                        test="${sessionScope.sort == 'sortByMinDateCreate'}"> checked</c:if>>По Даті
-                                    створення↑</label>
+                                        test="${sessionScope.sort == 'sortByMinDateCreate'}"> checked</c:if>><fmt:message key="byDateCreation"/>↑</label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="radio" name="sort" value="sortByMaxDateCreate" <c:if
-                                        test="${sessionScope.sort == 'sortByMaxDateCreate'}"> checked</c:if>>По Даті
-                                    створення↓</label>
+                                        test="${sessionScope.sort == 'sortByMaxDateCreate'}"> checked</c:if>><fmt:message key="byDateCreation"/>↓</label>
                             </div>
                         </div>
                     </div>
@@ -242,30 +241,30 @@
     </form>
     <div class="row mt-3">
         <div class="col-6 d-flex btnsl">
-            <p><a href="/resetOrder" class="btn btn-warning b1">Оновити</a></p>
-            <p><a href="/pdfOrderList" target="_blank" class="btn btn-primary b1">Звіт</a></p>
+            <p><a href="/resetOrder" class="btn btn-warning b1"><fmt:message key="update"/></a></p>
+            <p><a href="/pdfOrderList" target="_blank" class="btn btn-primary b1"><fmt:message key="report"/></a></p>
         </div>
         <div class="col-6 d-flex btnsl justify-content-end">
-            <p><input type="submit" class="btn btn-success b1" form="form" value="Сортувати"></p>
+            <p><input type="submit" class="btn btn-success b1" form="form" value="<fmt:message key="sorting"/>"></p>
             <form method="post" action="/resetOrder">
-                <input type="submit" class="btn btn-success b1" value="Скинути фільтри">
+                <input type="submit" class="btn btn-success b1" value="<fmt:message key="resetFilters"/>">
             </form>
         </div>
     </div>
     <div class="row">
         <table class="table table-borderless">
             <tr>
-                <th class="bg-light">Номер</th>
-                <th class="bg-light">Опис</th>
-                <th class="bg-light">Ціна</th>
-                <th class="bg-light">Місто Відправлення</th>
-                <th class="bg-light">Місто отримання</th>
-                <th class="bg-light">Дата створення</th>
-                <th class="bg-light">Дата прибуття</th>
-                <th class="bg-light">Статус</th>
-                <th class="bg-light">Місце знаходження</th>
-                <th class="bg-light">Замовник</th>
-                <th class="bg-light">Детальніше</th>
+                <th class="bg-light">Id</th>
+                <th class="bg-light"><fmt:message key="description"/></th>
+                <th class="bg-light"><fmt:message key="price"/></th>
+                <th class="bg-light"><fmt:message key="cityOfDeparture"/></th>
+                <th class="bg-light"><fmt:message key="cityOfReceipt"/></th>
+                <th class="bg-light"><fmt:message key="dateOfCreation"/></th>
+                <th class="bg-light"><fmt:message key="dateOfArrival"/></th>
+                <th class="bg-light"><fmt:message key="status"/></th>
+                <th class="bg-light"><fmt:message key="location"/></th>
+                <th class="bg-light"><fmt:message key="customer"/></th>
+                <th class="bg-light"><fmt:message key="readMore"/></th>
             </tr>
             <c:forEach var="order" items="${sessionScope.shortOrders}">
                 <tr>
@@ -281,7 +280,7 @@
                     <td class="bg-light">${order.userLogin}</td>
                     <td class="bg-light">
                         <abbr title="детальніше про замовлення" >
-                            <a href="/info?id=${order.id}" class="btn btn-outline-primary">Детальніше</a>
+                            <a href="/info?id=${order.id}" class="btn btn-outline-primary"><fmt:message key="readMore"/></a>
                         </abbr>
                     </td>
                 </tr>
@@ -294,7 +293,7 @@
                 <nav>
                     <ul class="pagination">
                         <li class="page-item">
-                            <a href="/changePage?id=${sessionScope.pageNumberOrder-1}&fun=2" class="page-link">Попередня</a>
+                            <a href="/changePage?id=${sessionScope.pageNumberOrder-1}&fun=2" class="page-link"><fmt:message key="previous"/></a>
                         </li>
                         <c:forEach var="n" items="${sessionScope.listNumberOrder}">
                             <li class="page-item <c:if test="${sessionScope.pageNumberOrder==n}">active</c:if>">
@@ -302,7 +301,7 @@
                             </li>
                         </c:forEach>
                         <li class="page-item">
-                            <a href="/changePage?id=${sessionScope.pageNumberOrder+1}&fun=2" class="page-link">Наступна</a>
+                            <a href="/changePage?id=${sessionScope.pageNumberOrder+1}&fun=2" class="page-link"><fmt:message key="next"/></a>
                         </li>
                     </ul>
                 </nav>

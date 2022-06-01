@@ -28,12 +28,7 @@ public class EditUserServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String email = request.getParameter("email");
         String[] notify = request.getParameterValues("notify");
-        User user2;
-        try {
-            user2 = (User) user.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
+        User user2 = user.cloneUser();
         if (notify == null) user2.setNotify("no");
         else user2.setNotify("yes");
         if (email.equals(user2.getEmail()) || email.equals("")) c = 2;

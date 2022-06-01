@@ -1,6 +1,7 @@
 package com.example.demos.model.entity;
 
-public class InfoTable {
+
+public class InfoTable  {
     private Integer id;
     private String cityFrom;
     private String cityTo;

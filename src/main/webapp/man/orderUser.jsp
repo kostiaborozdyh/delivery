@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Заявка користувача</title>
+    <title><fmt:message key="userRequest"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <style type="text/css">
@@ -40,15 +40,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="/man/orderList.jsp" class="nav-item nav-link active">Заявки користувачів</a>
+                <a href="/man/orderList.jsp" class="nav-item nav-link active"><fmt:message key="userRequests"/></a>
             </div>
         </div>
         <div class="nav navbar-nav navbar-right">
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.user.login}</a>
                 <div class="dropdown-menu ">
-                    <a href="/editUser.jsp" class="dropdown-item">Редагування</a>
-                    <a href="/lout" class="dropdown-item">Вихід</a>
+                    <a href="/editUser.jsp" class="dropdown-item"><fmt:message key="editing"/></a>
+                    <a href="/lout" class="dropdown-item"><fmt:message key="signOut"/></a>
                 </div>
             </div>
         </div>
@@ -65,24 +65,24 @@
 <div class="container">
     <div class="row justify-content-center mt-3 mb-3">
         <div class="col-md-auto">
-            <h4>Інформація про замовлення</h4>
+            <h4><fmt:message key="orderInformation"/></h4>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-4">
             <div class="rounded bg-light p-3">
-                <p class="mb-2">Номер замовлення: ${sessionScope.infoOrder.id}</p>
-                <p class="mb-2">Опис: ${sessionScope.infoOrder.description}</p>
-                <p class="mb-2">Вага: ${sessionScope.infoOrder.weight}кг</p>
-                <p class="mb-2">Об'єм: ${sessionScope.infoOrder.volume}м<sup>3</sup></p>
-                <p class="mb-2">Вартітсь доставки: ${sessionScope.infoOrder.price}</p>
-                <p class="mb-2">Місто відправки: ${sessionScope.infoOrder.cityFrom}</p>
-                <p class="mb-2">Місто доставки: ${sessionScope.infoOrder.cityTo}</p>
-                <p class="mb-2">Адреса: ${sessionScope.infoOrder.address}</p>
-                <p class="mb-2">Дата створення заявки: ${sessionScope.infoOrder.dateCreate}</p>
-                <p class="mb-2">Дата доставки: ${sessionScope.infoOrder.dateOfArrival}</p>
-                <p class="mb-2">Статус оплати: ${sessionScope.infoOrder.paymentStatus}</p>
-                <p class="mb-0 pb-0">Замовник: ${sessionScope.infoOrder.userLogin}</p>
+                <p class="mb-2">Id: ${sessionScope.infoOrder.id}</p>
+                <p class="mb-2"><fmt:message key="description"/>: ${sessionScope.infoOrder.description}</p>
+                <p class="mb-2"><fmt:message key="cargoWeight"/> ${sessionScope.infoOrder.weight}<fmt:message key="kg"/></p>
+                <p class="mb-2"><fmt:message key="cargoVolume"/> ${sessionScope.infoOrder.volume}<fmt:message key="m"/><sup>3</sup></p>
+                <p class="mb-2"><fmt:message key="deliveryPrice"/> ${sessionScope.infoOrder.price}</p>
+                <p class="mb-2"><fmt:message key="cityDeparture"/> ${sessionScope.infoOrder.cityFrom}</p>
+                <p class="mb-2"><fmt:message key="deliveryCity"/> ${sessionScope.infoOrder.cityTo}</p>
+                <p class="mb-2"><fmt:message key="deliveryAddress"/> ${sessionScope.infoOrder.address}</p>
+                <p class="mb-2"><fmt:message key="orderCreationDate"/> ${sessionScope.infoOrder.dateCreate}</p>
+                <p class="mb-2"><fmt:message key="deliveryDate"/> ${sessionScope.infoOrder.dateOfArrival}</p>
+                <p class="mb-2"><fmt:message key="paymentStatus"/>: ${sessionScope.infoOrder.paymentStatus}</p>
+                <p class="mb-0 pb-0"><fmt:message key="customer"/>: ${sessionScope.infoOrder.userLogin}</p>
             </div>
         </div>
     </div>
@@ -90,12 +90,12 @@
         <div class="col-5 btnsl d-flex">
             <c:if test="${sessionScope.infoOrder.paymentStatus == 'На розгляді'}">
                 <p><a href="/confirmOrder?id=${sessionScope.infoOrder.id}"
-                      class="btn btn-success b1">Підтвердити замовлення</a></p>
+                      class="btn btn-success b1"><fmt:message key="confirmOrder"/></a></p>
             </c:if>
             <c:if test="${sessionScope.infoOrder.paymentStatus != 'На розгляді'}">
-                <p><a href="#" class="btn btn-secondary b1">Підтвердити замовлення</a></p>
+                <p><a href="#" class="btn btn-secondary b1"><fmt:message key="confirmOrder"/></a></p>
             </c:if>
-            <p><a href="/man/orderList.jsp" class="btn btn-warning b1">Повернутись до замовлень</a></p>
+            <p><a href="/man/orderList.jsp" class="btn btn-warning b1"><fmt:message key="returnToOrders"/></a></p>
         </div>
     </div>
 </div>

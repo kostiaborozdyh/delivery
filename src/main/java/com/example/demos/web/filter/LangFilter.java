@@ -23,7 +23,7 @@ public class LangFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
         if (session.getAttribute("lang") == null) {
-            session.setAttribute("lang", "ua");
+            session.setAttribute("lang", "uk");
             session.setAttribute("firstLang", "ua");
             session.setAttribute("secondLang", "en");
         }

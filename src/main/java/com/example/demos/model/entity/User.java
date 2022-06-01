@@ -1,6 +1,6 @@
 package com.example.demos.model.entity;
 
-public class User implements Cloneable {
+public class User {
     private Integer id;
     private String login;
     private String password;
@@ -8,7 +8,7 @@ public class User implements Cloneable {
     private String lastName;
     private String phoneNumber;
     private String email;
-    private Integer role_id;
+    private Integer roleId;
     private Integer money;
     private String notify;
     private String ban;
@@ -85,12 +85,12 @@ public class User implements Cloneable {
         this.email = email;
     }
 
-    public Integer getRole_id() {
-        return role_id;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRole_id(Integer role_id) {
-        this.role_id = role_id;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public Integer getMoney() {
@@ -111,12 +111,27 @@ public class User implements Cloneable {
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", role_id='" + role_id + '\'' +
+                ", role_id='" + roleId + '\'' +
                 ", money=" + money +
                 '}';
     }
-    public Object clone() throws CloneNotSupportedException
-    {
-        return super.clone();
+
+    public User(Integer id, String login, String firstName, String lastName, String phoneNumber, String email, Integer roleId, Integer money, String notify) {
+        this.id = id;
+        this.login = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.roleId = roleId;
+        this.money = money;
+        this.notify = notify;
     }
+    public User(){
+
+    }
+    public User cloneUser() {
+        return new User(this.id, this.login, this.firstName, this.lastName, this.phoneNumber, this.email, this.roleId, this.money, this.notify);
+    }
+
 }

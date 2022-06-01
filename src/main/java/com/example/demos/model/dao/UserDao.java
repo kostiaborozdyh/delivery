@@ -4,7 +4,6 @@ import com.example.demos.DB.DBHelper;
 import com.example.demos.model.utils.CreateMessage;
 import com.example.demos.model.utils.SendEmail;
 import com.example.demos.model.entity.User;
-import com.example.demos.model.entity.ValidList;
 import com.example.demos.model.utils.Validation;
 import com.example.demos.security.Security;
 import org.apache.log4j.Logger;
@@ -43,7 +42,7 @@ public class UserDao {
     public static User userValid(String login, String password) {
         log.info("Перевірка користувача " + login);
         User user = null;
-        PreparedStatement pst;
+        PreparedStatement pst = null;
         try (Connection con = DBHelper.getInstance().getConnection()) {
             if (Validation.emailNameValid(login)) {
                 pst = con.prepareStatement(SQL_GET_USER_VALID_FROM_EMAIL);
@@ -61,7 +60,7 @@ public class UserDao {
                     user.setLastName(rs.getString("last_name"));
                     user.setPhoneNumber(rs.getString("phone_number"));
                     user.setEmail(rs.getString("email"));
-                    user.setRole_id(rs.getInt("role_id"));
+                    user.setRoleId(rs.getInt("role_id"));
                     user.setMoney(rs.getInt("money"));
                     user.setNotify(rs.getString("notify"));
                     user.setBan(rs.getString("ban"));
@@ -70,6 +69,8 @@ public class UserDao {
             log.info("Перевірка користувача" + login + " завершено");
         } catch (Exception ex) {
             log.error("Помилка, перевірка користувача" + ex);
+        }finally {
+            close(pst);
         }
         return user;
     }
@@ -144,7 +145,7 @@ public class UserDao {
             pst.setString(4, user.getLastName());
             pst.setString(5, user.getPhoneNumber());
             pst.setString(6, user.getEmail());
-            pst.setInt(7, user.getRole_id());
+            pst.setInt(7, user.getRoleId());
             pst.setString(8, user.getNotify());
             pst.setString(9, "no");
             count = pst.executeUpdate();

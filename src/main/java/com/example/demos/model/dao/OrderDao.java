@@ -13,6 +13,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class OrderDao {
+    private OrderDao(){
+
+    }
     private static final Logger log = Logger.getLogger(OrderDao.class);
 
     public static final String SQL_INSERT_ORDER = "INSERT INTO delivery.order(description,weight,volume,price,city_from,city_to,address,date_create,date_of_arrival,user_id,payment_status_id,location_status_id)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";

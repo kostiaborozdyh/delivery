@@ -10,7 +10,6 @@ public class Validation {
         ValidList validList = new ValidList();
         validList.init();
 
-
         if (UserDao.loginIsValid(user.getLogin()) || ch != 1) {
             if (loginNameValid(user.getLogin())) {
                 validList.setValidLoginName(user.getLogin());

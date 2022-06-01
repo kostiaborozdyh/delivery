@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Місцерозташування посилки</title>
+    <title><fmt:message key="locationParcel"/></title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -27,7 +27,7 @@
         }
     </style>
     <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&callback=initMap&v=weekly&language=uk"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&callback=initMap&v=weekly&language=${sessionScope.lang}"
             defer
     ></script>
     <script>
@@ -60,12 +60,12 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
                 <a href="/index.jsp" class="nav-item nav-link active"><fmt:message key="home"/></a>
-                <a href="/aboutUs.jsp" class="nav-item nav-link">Про нас</a>
-                <a href="/info" class="nav-item nav-link">Тарифи</a>
-                <a href="/calculateBag" class="nav-item nav-link">Розрахувати вартість посилки</a>
-                <a href="/reviews.jsp" class="nav-item nav-link">Відгуки</a>
-                <a href="/user/createOrder.jsp" class="nav-item nav-link">Оформлення замовлення</a>
-                <a href="/user/order.jsp" class="nav-item nav-link">Мої заявки</a>
+                <a href="/aboutUs.jsp" class="nav-item nav-link"><fmt:message key="aboutUs"/></a>
+                <a href="/info.jsp" class="nav-item nav-link"><fmt:message key="deliveryDirections"/></a>
+                <a href="/calculate.jsp" class="nav-item nav-link"><fmt:message key="calculateCost"/></a>
+                <a href="/reviews.jsp" class="nav-item nav-link"><fmt:message key="reviews"/></a>
+                <a href="/user/createOrder.jsp" class="nav-item nav-link"><fmt:message key="makingOrder"/></a>
+                <a href="/user/order.jsp" class="nav-item nav-link active"><fmt:message key="myOrders"/></a>
             </div>
         </div>
         <div class="nav navbar-nav navbar-right">
@@ -75,9 +75,9 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.user.login}</a>
                 <div class="dropdown-menu ">
-                    <a href="/user/refill.jsp" class="dropdown-item">Поповнення</a>
-                    <a href="/editUser.jsp" class="dropdown-item">Редагування</a>
-                    <a href="/lout" class="dropdown-item">Вихід</a>
+                    <a href="/user/refill.jsp" class="dropdown-item"><fmt:message key="refill"/></a>
+                    <a href="/editUser.jsp" class="dropdown-item"><fmt:message key="editing"/></a>
+                    <a href="/lout" class="dropdown-item"><fmt:message key="signOut"/></a>
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
 <div class="container">
     <div class="row justify-content-center mt-3 mb-3">
         <div class="col-md-auto">
-            <h4>Місце розташування посилки</h4>
+            <h4><fmt:message key="locationParcel"/></h4>
         </div>
         <div class="row justify-content-center mt-2 mb-3">
             <div class="col-md-auto">
@@ -103,7 +103,7 @@
         </div>
         <div class="row justify-content-center mb-3">
             <div class="col-md-auto">
-                <p><a href="/resetOrder" class="btn btn-primary">Повернутися до заявок</a></p>
+                <p><a href="/resetOrder" class="btn btn-primary"><fmt:message key="returnToOrders"/></a></p>
             </div>
         </div>
     </div>

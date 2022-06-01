@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("invalid", "block");
                 response.sendRedirect("/login.jsp");
             } else {
-                int roleId = user.getRole_id();
+                int roleId = user.getRoleId();
                 switch (roleId) {
                     case 1: {
                         session.setAttribute("user", user);

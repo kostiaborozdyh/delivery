@@ -1,6 +1,8 @@
 package com.example.demos.web.filter;
 
+import com.example.demos.model.dao.UserDao;
 import com.example.demos.security.Security;
+import org.apache.log4j.Logger;
 
 import javax.mail.MessagingException;
 import javax.servlet.*;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RestoreFilter implements Filter {
+
     @Override
     public void destroy() {
     }
@@ -19,7 +22,6 @@ public class RestoreFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {
-
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         if (request.getSession().getAttribute("email") == null) {
@@ -35,6 +37,5 @@ public class RestoreFilter implements Filter {
             }
             filterChain.doFilter(servletRequest, servletResponse);
         }
-
     }
 }

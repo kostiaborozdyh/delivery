@@ -33,9 +33,9 @@ public class AddEmployeeServlet extends HttpServlet {
         user.setNotify("no");
 
         if (employee.equals("employee")) {
-            user.setRole_id(4);
+            user.setRoleId(4);
         } else {
-            user.setRole_id(2);
+            user.setRoleId(2);
         }
 
         ValidList validList = Validation.valid(user, request.getParameter("secondPassword"), 1);

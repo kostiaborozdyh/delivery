@@ -16,7 +16,7 @@
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>Оформлення замовлення</title>
+   <title><fmt:message key="makingOrder"/></title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
    <u:width width="width"/>
@@ -31,12 +31,12 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
          <div class="navbar-nav">
             <a href="/index.jsp" class="nav-item nav-link "><fmt:message key="home"/></a>
-            <a href="/aboutUs.jsp" class="nav-item nav-link">Про нас</a>
-            <a href="/info.jsp" class="nav-item nav-link">Тарифи</a>
-            <a href="/calculate.jsp" class="nav-item nav-link">Розрахувати вартість посилки</a>
-            <a href="/reviews.jsp" class="nav-item nav-link">Відгуки</a>
-            <a href="/user/createOrder.jsp" class="nav-item nav-link active">Оформлення замовлення</a>
-            <a href="/user/order.jsp" class="nav-item nav-link">Мої заявки</a>
+            <a href="/aboutUs.jsp" class="nav-item nav-link"><fmt:message key="aboutUs"/></a>
+            <a href="/info.jsp" class="nav-item nav-link"><fmt:message key="deliveryDirections"/></a>
+            <a href="/calculate.jsp" class="nav-item nav-link"><fmt:message key="calculateCost"/></a>
+            <a href="/reviews.jsp" class="nav-item nav-link"><fmt:message key="reviews"/></a>
+            <a href="/user/createOrder.jsp" class="nav-item nav-link active"><fmt:message key="makingOrder"/></a>
+            <a href="/user/order.jsp" class="nav-item nav-link"><fmt:message key="myOrders"/></a>
          </div>
       </div>
       <div class="nav navbar-nav navbar-right">
@@ -46,9 +46,9 @@
          <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.user.login}</a>
             <div class="dropdown-menu ">
-               <a href="/user/refill.jsp" class="dropdown-item">Поповнення</a>
-               <a href="/editUser.jsp" class="dropdown-item">Редагування</a>
-               <a href="/lout" class="dropdown-item">Вихід</a>
+               <a href="/user/refill.jsp" class="dropdown-item"><fmt:message key="refill"/></a>
+               <a href="/editUser.jsp" class="dropdown-item"><fmt:message key="editing"/></a>
+               <a href="/lout" class="dropdown-item"><fmt:message key="signOut"/></a>
             </div>
          </div>
       </div>
@@ -65,7 +65,7 @@
 <div class="container">
    <div class="row justify-content-center mt-3 mb-3">
       <div class="col-md-auto">
-         <h4>Оформлення заявки на доставку</h4>
+         <h4><fmt:message key="makingOrder"/></h4>
       </div>
    </div>
    <div class="row justify-content-center">
@@ -78,49 +78,49 @@
                         <div class="rounded bg-light p-4 mb-3">
                            <div class="input-group-prepend">
                               <div class="form-group mb-2">
-                                 <label class="control-label col-xs-4 mb-1">Інформація про товар<text style = "color:red;">*</text></label>
+                                 <label class="control-label col-xs-4 mb-1"><fmt:message key="productInformation"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
                                     <textarea name="info" required="required" class="form-control"></textarea>
                                  </div>
                               </div>
                               <div class="form-group mb-2">
-                                 <label class="control-label col-xs-4 mb-1">Місто відправки<text style = "color:red;">*</text></label>
+                                 <label class="control-label col-xs-4 mb-1"><fmt:message key="cityOfDispatch"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
                                     <input type="text" class="form-control" name="cityFrom" required="required">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
-                                 <label class="control-label col-xs-4 mb-1">Місто доставки<text style = "color:red;">*</text></label>
+                                 <label class="control-label col-xs-4 mb-1"><fmt:message key="cityOfDelivery"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
                                     <input type="text" class="form-control" name="cityTo" required="required">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
-                                 <label class="control-label col-xs-4 mb-1">Адреса<text style = "color:red;">*</text></label>
+                                 <label class="control-label col-xs-4 mb-1"><fmt:message key="deliveryCityAddress"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
                                     <input type="text" class="form-control" name="address" required="required">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
-                                 <label class="control-label col-xs-4 mb-1">Вага<text style = "color:red;">*</text></label>
+                                 <label class="control-label col-xs-4 mb-1"><fmt:message key="parcelWeight"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
                                     <input type="number" min="1" class="form-control" name="weight" required="required">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
-                                 <label class="control-label col-xs-4 mb-1">Висота<text style = "color:red;">*</text></label>
+                                 <label class="control-label col-xs-4 mb-1"><fmt:message key="parcelHeight"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
                                     <input type="number" min="1" class="form-control" name="height" required="required">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
-                                 <label class="control-label col-xs-4 mb-1">Довжина<text style = "color:red;">*</text></label>
+                                 <label class="control-label col-xs-4 mb-1"><fmt:message key="parcelLength"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
                                     <input type="number" min="1" class="form-control" name="length" required="required">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
-                                 <label class="control-label col-xs-4 mb-1">Ширина<text style = "color:red;">*</text></label>
+                                 <label class="control-label col-xs-4 mb-1"><fmt:message key="parcelWidth"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
                                     <input type="number" min="1" class="form-control" name="width" required="required">
                                  </div>
@@ -136,32 +136,34 @@
                   <div class="col-md-auto">
                      <div class="row justify-content-center">
                         <div class="col-md-auto">
-                           <h5>Інформація про доставку</h5>
-                           <p>Інформація про товар: ${sessionScope.orderInfo}<br>
-                              Доставка з міста: ${sessionScope.newOrder.cityFrom}<br>
-                              Пункт Призначення: ${sessionScope.newOrder.cityTo} <br>
-                              Адреса: ${sessionScope.orderAddress}<br>
-                              Вага вантажу: <c:if test="${sessionScope.newOrder!=null}">
+                           <h5><fmt:message key="deliveryInformation"/></h5>
+                           <p><fmt:message key="productInformation"/>: ${sessionScope.orderInfo}<br>
+                              <fmt:message key="departurePoint"/> ${sessionScope.newOrder.cityFrom}<br>
+                              <fmt:message key="destination"/> ${sessionScope.newOrder.cityTo} <br>
+                              <fmt:message key="deliveryAddress"/> ${sessionScope.orderAddress}<br>
+                              <fmt:message key="cargoWeight"/> <c:if test="${sessionScope.newOrder!=null}">
                                  ${sessionScope.newOrder.weight} кг
                               </c:if><br>
-                              Об'єм вантажу: <c:if test="${sessionScope.newOrder!=null}">
+                              <fmt:message key="cargoVolume"/> <c:if test="${sessionScope.newOrder!=null}">
                                  ${sessionScope.newOrder.volume} м<sup>3</sup>
                               </c:if><br>
-                              Вартість: ${sessionScope.newOrder.price}
+                              <fmt:message key="deliveryPrice"/> <c:if test="${sessionScope.newOrder!=null}">
+                                                                     ${sessionScope.newOrder.price}$
+                                                                  </c:if>
                            </p>
                            <div class="row mt-4">
                               <div class="col-md-auto">
-                                 <p><input type="submit" value="Розрахувати &raquo;" form="form" class="btn btn-success"></p>
+                                 <p><input type="submit" value="<fmt:message key="calculate"/> &raquo;" form="form" class="btn btn-success"></p>
                               </div>
                            </div>
                            <div class="row mt-4">
                               <div class="col-md-auto">
                                  <c:if test="${sessionScope.btn==null}">
-                                    <p><a href="#" class="btn btn-secondary">Оформити заявку &raquo;</a></p>
+                                    <p><a href="#" class="btn btn-secondary"><fmt:message key="makeAnApplication"/> &raquo;</a></p>
                                  </c:if>
                                  <c:if test="${sessionScope.btn=='unblock'}">
                                     <form method="post" action="/createOrder">
-                                       <p><input type="submit" value="Оформити заявку" class="btn btn-primary"></p>
+                                       <p><input type="submit" value="<fmt:message key="makeAnApplication"/>" class="btn btn-primary"></p>
                                     </form>
                                  </c:if>
                               </div>

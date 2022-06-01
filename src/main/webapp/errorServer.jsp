@@ -60,7 +60,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-auto">
-            <p>Сталася помилка на сервері, зв'яжіться з нами((((((((</p>
+            <p><fmt:message key="serverError"/></p>
         </div>
     </div>
 </div>

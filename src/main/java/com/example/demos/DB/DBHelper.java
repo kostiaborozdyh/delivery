@@ -12,6 +12,9 @@ import java.sql.SQLException;
  */
 public class DBHelper {
 
+    private static final String CONNECTION_URL = "jdbc:mysql://localhost/delivery";
+    public static final String USERNAME = "root";
+    public static final String PASSWORD = "qazwsxedcA7?";
     private static volatile DBHelper instance;
 
     private final HikariDataSource ds;
@@ -20,9 +23,9 @@ public class DBHelper {
         //configuring db connection and pooling with recommended params
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        config.setJdbcUrl("jdbc:mysql://localhost/delivery");
-        config.setUsername("root");
-        config.setPassword("qazwsxedcA7?");
+        config.setJdbcUrl(CONNECTION_URL);
+        config.setUsername(USERNAME);
+        config.setPassword(PASSWORD);
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

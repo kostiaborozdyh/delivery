@@ -16,7 +16,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Про нас</title>
+    <title><fmt:message key="aboutUs"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <u:width width="width"/>
@@ -31,20 +31,20 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
                 <a href="/index.jsp" class="nav-item nav-link "><fmt:message key="home"/></a>
-                <a href="/aboutUs.jsp" class="nav-item nav-link active">Про нас</a>
-                <a href="/info.jsp" class="nav-item nav-link">Тарифи</a>
-                <a href="/calculate.jsp" class="nav-item nav-link">Розрахувати вартість посилки</a>
-                <a href="/reviews.jsp" class="nav-item nav-link">Відкуги</a>
+                <a href="/aboutUs.jsp" class="nav-item nav-link active"><fmt:message key="aboutUs"/></a>
+                <a href="/info.jsp" class="nav-item nav-link"><fmt:message key="deliveryDirections"/></a>
+                <a href="/calculate.jsp" class="nav-item nav-link"><fmt:message key="calculateCost"/></a>
+                <a href="/reviews.jsp" class="nav-item nav-link"><fmt:message key="reviews"/></a>
                 <c:if test="${sessionScope.role=='user'}">
-                    <a href="/user/createOrder.jsp" class="nav-item nav-link">Оформлення замовлення</a>
-                    <a href="/user/order.jsp" class="nav-item nav-link">Мої заявки</a>
+                    <a href="/user/createOrder.jsp" class="nav-item nav-link"><fmt:message key="makingOrder"/></a>
+                    <a href="/user/order.jsp" class="nav-item nav-link"><fmt:message key="myOrders"/></a>
                 </c:if>
             </div>
             <c:if test="${sessionScope.role==null}">
                 <div class="navbar-nav ms-auto">
-                    <a href="/login.jsp" class="nav-item nav-link">Вхід</a>
+                    <a href="/login.jsp" class="nav-item nav-link"><fmt:message key="signIn"/></a>
                     <span class="nav-item nav-link">/</span>
-                    <a href="/registration.jsp" class="nav-item nav-link">Реєстарція</a>
+                    <a href="/registration.jsp" class="nav-item nav-link"><fmt:message key="registration"/></a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.firstLang}</a>
                         <div class="dropdown-menu">
@@ -62,9 +62,9 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.user.login}</a>
                     <div class="dropdown-menu ">
-                        <a href="/user/refill.jsp" class="dropdown-item">Поповнення</a>
-                        <a href="/editUser.jsp" class="dropdown-item">Редагування</a>
-                        <a href="/lout" class="dropdown-item">Вихід</a>
+                        <a href="/user/refill.jsp" class="dropdown-item"><fmt:message key="refill"/></a>
+                        <a href="/editUser.jsp" class="dropdown-item"><fmt:message key="editing"/></a>
+                        <a href="/lout" class="dropdown-item"><fmt:message key="signOut"/></a>
                     </div>
                 </div>
             </div>
@@ -82,14 +82,14 @@
 <div class="container">
     <div class="row justify-content-center mt-3 mb-3">
         <div class="col-md-auto">
-            <h4>Про нас</h4>
+            <h4><fmt:message key="aboutUs"/></h4>
         </div>
     </div>
     <div class="row justify-content-center mt-3 mb-3">
         <div class="rounded bg-light p-3 col-6">
-            <p>Delivery Holder – поштово-вантажна компанія, що забезпечує легку доставку кожному клієнту - до відділення,за адресою. Компанія надає логістичні та дистрибуційні послуги, доставляючи як найдрібніші посилки, так і великі вантажі. Delivery Holder дозволяє тисячам підприємців створювати і розвивати бізнес не тільки в Україні, а й за кордоном. Мережа компанії налічує більше 15000 відділень по всій Україні та понад 15000 відділень за межами України, а кількість відправлень за 2021 рік перевищила 600 млн посилок та вантажів</p>
+            <p>Delivery Holder – <fmt:message key="textAboutUs"/></p>
 
-            <p><b>Контакти:</b> manager.delivery.holder@gmail.com</p>
+            <p><b><fmt:message key="contacts"/>:</b> manager.delivery.holder@gmail.com</p>
         </div>
     </div>
 </div>

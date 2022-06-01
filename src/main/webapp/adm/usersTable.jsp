@@ -15,13 +15,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Користувачі</title>
+    <title><fmt:message key="userTable"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <style type="text/css">
         .table td,th {
             text-align: center;
             border: 5px solid white;
+            vertical-align: middle;
         }
         .bt1 {
             width: 130px;
@@ -40,16 +41,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="/adm/usersTable.jsp" class="nav-item nav-link active">Користувачі</a>
-                <a href="/adm/createEmployeeAccount.jsp" class="nav-item nav-link">Зареєструвати працівника</a>
+                <a href="/adm/usersTable.jsp" class="nav-item nav-link active"><fmt:message key="userTable"/></a>
+                <a href="/adm/createEmployeeAccount.jsp" class="nav-item nav-link"><fmt:message key="registrationNewEmployee"/></a>
             </div>
         </div>
         <div class="nav navbar-nav navbar-right">
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.user.login}</a>
                 <div class="dropdown-menu ">
-                    <a href="/editUser.jsp" class="dropdown-item">Редагування</a>
-                    <a href="/lout" class="dropdown-item">Вихід</a>
+                    <a href="/editUser.jsp" class="dropdown-item"><fmt:message key="editing"/></a>
+                    <a href="/lout" class="dropdown-item"><fmt:message key="signOut"/></a>
                 </div>
             </div>
         </div>
@@ -66,19 +67,19 @@
 <div class="container">
     <div class="row justify-content-center mt-3 mb-3">
         <div class="col-md-auto">
-            <h4>Користувачі</h4>
+            <h4><fmt:message key="userTable"/></h4>
         </div>
     </div>
     <div class="row">
         <table class="table table-borderless">
             <tr>
                 <th class="bg-light">Id</th>
-                <th class="bg-light">Логін</th>
-                <th class="bg-light">Ім'я</th>
-                <th class="bg-light">Прізвище</th>
-                <th class="bg-light">Пошта</th>
-                <th class="bg-light">Блокування</th>
-                <th class="bg-light">Видалення</th>
+                <th class="bg-light"><fmt:message key="login"/></th>
+                <th class="bg-light"><fmt:message key="firstName"/></th>
+                <th class="bg-light"><fmt:message key="lastName"/></th>
+                <th class="bg-light"><fmt:message key="email"/></th>
+                <th class="bg-light"><fmt:message key="blocking"/></th>
+                <th class="bg-light"><fmt:message key="delete"/></th>
             </tr>
             <c:forEach var="user" items="${sessionScope.shortUsers}">
                 <tr>
@@ -90,18 +91,18 @@
                 <td class="bg-light">
                     <c:if test="${user.ban=='no'}">
                         <form method="post" action="/blockUser?id=${user.id}">
-                            <p><input type="submit" class="btn btn-warning bt1" value="Заблокувати"></p>
+                            <p><input type="submit" class="btn btn-warning bt1" value="<fmt:message key="block"/>"></p>
                         </form>
                     </c:if>
                     <c:if test="${user.ban=='yes'}">
                         <form method="post" action="/unblockUser?id=${user.id}">
-                            <input type="submit" class="btn btn-success bt1" value="Розблокувати">
+                            <input type="submit" class="btn btn-success bt1" value="<fmt:message key="unblock"/>">
                         </form>
                     </c:if>
                 </td>
                 <td class="bg-light">
                     <form method="post" action="/deleteUser?id=${user.id}">
-                        <p><input type="submit"  class="btn btn-danger" value="Видалити"></p>
+                        <p><input type="submit"  class="btn btn-danger" value="<fmt:message key="delete"/>"></p>
                     </form>
                 </td>
                 </tr>
@@ -114,7 +115,7 @@
                 <nav>
                     <ul class="pagination">
                         <li class="page-item">
-                            <a href="/changePage?id=${sessionScope.pageNumberUser-1}&fun=3" class="page-link">Попередня</a>
+                            <a href="/changePage?id=${sessionScope.pageNumberUser-1}&fun=3" class="page-link"><fmt:message key="previous"/></a>
                         </li>
                         <c:forEach var="n" items="${sessionScope.listNumberUser}">
                             <li class="page-item <c:if test="${sessionScope.pageNumberUser==n}">active</c:if>">
@@ -122,7 +123,7 @@
                             </li>
                         </c:forEach>
                         <li class="page-item">
-                            <a href="/changePage?id=${sessionScope.pageNumberUser+1}&fun=3" class="page-link">Наступна</a>
+                            <a href="/changePage?id=${sessionScope.pageNumberUser+1}&fun=3" class="page-link"><fmt:message key="next"/></a>
                         </li>
                     </ul>
                 </nav>

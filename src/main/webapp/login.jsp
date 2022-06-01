@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <title>Авторизація</title>
+    <title><fmt:message key="signIn"/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -124,15 +124,15 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
                 <a href="/index.jsp" class="nav-item nav-link "><fmt:message key="home"/></a>
-                <a href="/aboutUs.jsp" class="nav-item nav-link">Про нас</a>
-                <a href="/info.jsp" class="nav-item nav-link">Напрямки доставки</a>
-                <a href="/calculate.jsp" class="nav-item nav-link">Розрахувати вартість посилки</a>
-                <a href="/reviews.jsp" class="nav-item nav-link">Відгуки</a>
+                <a href="/aboutUs.jsp" class="nav-item nav-link"><fmt:message key="aboutUs"/></a>
+                <a href="/info.jsp" class="nav-item nav-link"><fmt:message key="deliveryDirections"/></a>
+                <a href="/calculate.jsp" class="nav-item nav-link"><fmt:message key="calculateCost"/></a>
+                <a href="/reviews.jsp" class="nav-item nav-link"><fmt:message key="reviews"/></a>
             </div>
             <div class="navbar-nav ms-auto">
-                <a href="/login.jsp" class="nav-item nav-link active">Вхід</a>
+                <a href="/login.jsp" class="nav-item nav-link active"><fmt:message key="signIn"/></a>
                 <span class="nav-item nav-link">/</span>
-                <a href="/registration.jsp" class="nav-item nav-link">Реєстарція</a>
+                <a href="/registration.jsp" class="nav-item nav-link"><fmt:message key="registration"/></a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">${sessionScope.firstLang}</a>
                     <div class="dropdown-menu">
@@ -148,47 +148,47 @@
         <div class="col-md-auto">
             <div class="row justify-content-center">
                 <div class="col-md-auto">
-                    <h2 class="text-center">Авторизація</h2>
+                    <h2 class="text-center"><fmt:message key="signIn"/></h2>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-2">Логін</label>
+            <label class="control-label col-xs-2"><fmt:message key="login"/></label>
             <div class="col-xs-10">
                 <c:if test="${sessionScope.changePassword !=null}">
-                    <text style="color: #3598dc">Використовуйте новий пароль для входу на сторінку</text>
+                    <text style="color: #3598dc"><fmt:message key="useNewPassword"/></text>
                     <br>
                 </c:if>
                 <c:if test="${sessionScope.successful !=null}">
-                    <text style="color: #3598dc">Реєстрація пройшла успішно. Використовуйте свої данні для авторизації
+                    <text style="color: #3598dc"><fmt:message key="registrationWasSuccessful"/>
                     </text>
                     <br>
                 </c:if>
-                <input type="text" class="form-control" name="login" required="required" placeholder="Логін">
+                <input type="text" class="form-control" name="login" required="required" placeholder="<fmt:message key="login"/>">
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-2">Пароль</label>
+            <label class="control-label col-xs-2"><fmt:message key="password"/></label>
             <div class="col-xs-10">
-                <input type="password" class="form-control" name="password" required="required" placeholder="Пароль">
+                <input type="password" class="form-control" name="password" required="required" placeholder="<fmt:message key="password"/>">
                 <c:if test="${sessionScope.invalid =='invalid'}">
-                    <text style="color: red">Логін або пароль неправильний</text>
+                    <text style="color: red"><fmt:message key="loginOrPassword"/></text>
                     <br>
                 </c:if>
                 <c:if test="${sessionScope.invalid =='block'}">
-                    <text style="color: red">Ваш акаунт заблоковано</text>
+                    <text style="color: red"><fmt:message key="yourAccountBlocked"/></text>
                     <br>
                 </c:if>
             </div>
         </div>
         <div class="form-group">
             <div class="col-xs-8 col-xs-offset-4">
-                <p class="text-center"><button type="submit" class="btn btn-primary btn-lg">Вхід</button></p>
+                <p class="text-center"><button type="submit" class="btn btn-primary btn-lg"><fmt:message key="signIn"/></button></p>
             </div>
         </div>
     </form>
-    <div class="text-center">Забули пароль?<a href="/restore/restore.jsp">Відновити пароль</a></div>
-    <div class="text-center">Ще не зареєстровані?<a href="/registration.jsp">Реєстрація!</a></div>
+    <div class="text-center"><fmt:message key="forgotYourPassword"/> <a href="/restore/restore.jsp"><fmt:message key="recoverPassword"/></a></div>
+    <div class="text-center"><fmt:message key="notRegistered"/> <a href="/registration.jsp"><fmt:message key="registration"/>!</a></div>
 </div>
 </body>
 </html>

@@ -26,7 +26,7 @@ public class RegistrationServlet extends HttpServlet {
         user.setEmail(request.getParameter("email"));
         user.setPhoneNumber(request.getParameter("phoneNumber"));
 
-        user.setRole_id(1);
+        user.setRoleId(1);
         String[] notify = request.getParameterValues("notify");
 
         if (notify == null) {

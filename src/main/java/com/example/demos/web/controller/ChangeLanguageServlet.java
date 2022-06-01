@@ -18,7 +18,7 @@ public class ChangeLanguageServlet extends HttpServlet {
         } else {
             session.setAttribute("firstLang","ua");
             session.setAttribute("secondLang","en");
-            session.setAttribute("lang","ua");
+            session.setAttribute("lang","uk");
         }
         switch (id){
             case 1: response.sendRedirect("/index.jsp");                                break;

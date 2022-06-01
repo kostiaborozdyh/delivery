@@ -34,14 +34,18 @@ public class FiltrationOrderServlet extends HttpServlet {
         String sort = request.getParameter("sort");
         Set<String> cityFrom = null;
         Set<String> cityTo = null;
-        if (request.getParameterValues("cityFrom[]") != null)
+        if (request.getParameterValues("cityFrom[]") != null) {
             cityFrom = new HashSet<>(Arrays.asList(request.getParameterValues("cityFrom[]")));
-        if (request.getParameterValues("cityTo[]") != null)
+        }
+        if (request.getParameterValues("cityTo[]") != null) {
             cityTo = new HashSet<>(Arrays.asList(request.getParameterValues("cityTo[]")));
-        if (cityFrom == null && session.getAttribute("cityFrom") != null)
+        }
+        if (cityFrom == null && session.getAttribute("cityFrom") != null) {
             cityFrom = (Set<String>) session.getAttribute("cityFrom");
-        if (cityTo == null && session.getAttribute("cityTo") != null)
+        }
+        if (cityTo == null && session.getAttribute("cityTo") != null) {
             cityTo = (Set<String>) session.getAttribute("cityTo");
+        }
         session.setAttribute("minPrice", minPrice);
         session.setAttribute("maxPrice", maxPrice);
         if (paymentStatus != null) {
@@ -50,11 +54,18 @@ public class FiltrationOrderServlet extends HttpServlet {
             if (Arrays.asList(paymentStatus).contains("Оплачено")) session.setAttribute("status3", "status3");
         }
         if (location != null) {
-            if (Arrays.asList(location).contains("В місті відправлення"))
+            if (Arrays.asList(location).contains("В місті відправлення")) {
                 session.setAttribute("location1", "location1");
-            if (Arrays.asList(location).contains("В дорозі")) session.setAttribute("location2", "location2");
-            if (Arrays.asList(location).contains("У відділенні пошти")) session.setAttribute("location3", "location3");
-            if (Arrays.asList(location).contains("Отримано")) session.setAttribute("location4", "location4");
+            }
+            if (Arrays.asList(location).contains("В дорозі")) {
+                session.setAttribute("location2", "location2");
+            }
+            if (Arrays.asList(location).contains("У відділенні пошти")) {
+                session.setAttribute("location3", "location3");
+            }
+            if (Arrays.asList(location).contains("Отримано")) {
+                session.setAttribute("location4", "location4");
+            }
         }
         session.setAttribute("minDateCreate", minDateCreate);
         session.setAttribute("maxDateCreate", maxDateCreate);
@@ -64,9 +75,11 @@ public class FiltrationOrderServlet extends HttpServlet {
         session.setAttribute("cityTo", cityTo);
         session.setAttribute("sort", sort);
         List<Order> orderList;
-        if (session.getAttribute("role").equals("user"))
+        if (session.getAttribute("role").equals("user")) {
             orderList = OrderDao.getUserOrders((User) session.getAttribute("user"));
-        else orderList = OrderDao.getOrderList();
+        } else {
+            orderList = OrderDao.getOrderList();
+        }
         orderList = FiltrationOrder.price(minPrice, maxPrice, orderList);
         orderList = FiltrationOrder.paymentStatus(paymentStatus, orderList);
         orderList = FiltrationOrder.location(location, orderList);
