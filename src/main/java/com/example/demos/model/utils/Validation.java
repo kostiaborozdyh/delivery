@@ -5,12 +5,67 @@ import com.example.demos.model.entity.User;
 import com.example.demos.model.entity.ValidList;
 
 public class Validation {
+    private static ValidList validList;
+    private static User user;
 
-    public static ValidList valid(User user, String password, int ch) {
-        ValidList validList = new ValidList();
+    public static ValidList valid(User userCheck, boolean checkLogin, boolean checkEmail) {
+        validList = new ValidList();
+        user = userCheck;
         validList.init();
 
-        if (UserDao.loginIsValid(user.getLogin()) || ch != 1) {
+        if (checkLogin) {
+            checkLogin();
+        }
+
+        if (checkEmail) {
+            checkEmail();
+        }
+
+        checkFirstName();
+        checkLastName();
+        checkPhoneNumber();
+        checkPassword();
+
+        return validList;
+    }
+
+    private static void checkPassword() {
+        if (user.getPassword().equals(user.getSecondPassword())) {
+            if (passwordValid(user.getPassword()) && !user.getPassword().equals("")) {
+                validList.setInvalidPasswordName("InvalidPasswordName");
+            }
+        } else {
+            validList.setInvalidPassword("InvalidPassword");
+        }
+    }
+
+    private static void checkPhoneNumber() {
+        if (phoneNumberValid(user.getPhoneNumber()) || user.getPhoneNumber().equals("")) {
+            validList.setValidPhoneNumber(user.getPhoneNumber());
+        } else {
+            validList.setInvalidPhoneNumber(user.getPhoneNumber());
+        }
+    }
+
+    private static void checkFirstName() {
+        if (nameValid(user.getFirstName())) {
+            validList.setValidFirstName(user.getFirstName());
+        } else {
+            validList.setInValidFirsName(user.getFirstName());
+        }
+    }
+
+    private static void checkLastName() {
+        if (nameValid(user.getLastName())) {
+            validList.setValidLastName(user.getLastName());
+        } else {
+            validList.setInvalidLastName(user.getLastName());
+        }
+    }
+
+
+    private static void checkLogin() {
+        if (UserDao.loginIsValid(user.getLogin())) {
             if (loginNameValid(user.getLogin())) {
                 validList.setValidLoginName(user.getLogin());
             } else {
@@ -19,9 +74,10 @@ public class Validation {
         } else {
             validList.setInvalidLogin(user.getLogin());
         }
+    }
 
-
-        if (UserDao.emailIsValid(user.getEmail()) || ch == 2) {
+    private static void checkEmail() {
+        if (UserDao.emailIsValid(user.getEmail())) {
             if (emailNameValid(user.getEmail())) {
                 validList.setValidEmailName(user.getEmail());
             } else {
@@ -30,39 +86,6 @@ public class Validation {
         } else {
             validList.setInvalidEmail(user.getEmail());
         }
-
-
-        if (firstNameValid(user.getFirstName())) {
-            validList.setValidFirstName(user.getFirstName());
-        } else {
-            validList.setInValidFirsName(user.getFirstName());
-        }
-
-
-        if (lastNameValid(user.getLastName())) {
-            validList.setValidLastName(user.getLastName());
-        } else {
-            validList.setInvalidLastName(user.getLastName());
-        }
-
-
-        if (phoneNumberValid(user.getPhoneNumber()) || user.getPhoneNumber().equals("")) {
-            validList.setValidPhoneNumber(user.getPhoneNumber());
-        } else {
-            validList.setInvalidPhoneNumber(user.getPhoneNumber());
-        }
-
-
-        if (user.getPassword().equals(password)) {
-            if (passwordValid(password) && !password.equals("")) {
-                validList.setInvalidPasswordName("InvalidPasswordName");
-            }
-        } else {
-            validList.setInvalidPassword("InvalidPassword");
-        }
-
-
-        return validList;
     }
 
     public static boolean count(ValidList validList) {
@@ -79,13 +102,10 @@ public class Validation {
         return count == 0;
     }
 
-    public static boolean firstNameValid(String firstName) {
+    public static boolean nameValid(String firstName) {
         return firstName.matches("^[a-zA-ZА-Яа-яЇїіІ]{4,20}");
     }
 
-    public static boolean lastNameValid(String lastName) {
-        return lastName.matches("^[a-zA-ZА-Яа-яЇїіІ]{4,20}");
-    }
 
     public static boolean phoneNumberValid(String phoneNumber) {
         return phoneNumber.matches("\\+380\\d{9}") || phoneNumber.matches("0\\d{9}$");

@@ -214,7 +214,7 @@
         </div>
         <div class="d-flex w-100">
             <div class="d-inline-block text-center w-25">
-                <input type="radio" name="employee" value="manager" class="align-middle me-2"><label><fmt:message key="manager"/></label>
+                <input type="radio" name="employee" value="manager" class="align-middle me-2" checked><label><fmt:message key="manager"/></label>
             </div>
             <div class="d-inline-block text-center w-25">
                 <input type="radio" name="employee" value="employee" class="align-middle me-2"><label><fmt:message key="employee"/></label>

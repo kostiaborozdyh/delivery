@@ -91,6 +91,14 @@ public class Calculate {
         }
         return list;
     }
+    public static <T> int pageId(int id,List<T> list){
+        if (id == 0) {
+            id = 1;
+        } else if (id == list.size() + 1) {
+            id = list.size();
+        }
+        return id;
+    }
 
     public static Point getPointAtTheMoment(Integer id)  {
         Order order = OrderDao.getOrder(id);

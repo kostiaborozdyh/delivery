@@ -17,15 +17,18 @@ public class EnterPasswordServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("password").equals(request.getParameter("secondPassword"))) {
-            if (Validation.passwordValid(request.getParameter("password"))) {
+        String password = request.getParameter("password");
+        String secondPassword = request.getParameter("secondPassword");
+        String emailUser = (String) request.getSession().getAttribute("email");
+
+        if (password.equals(secondPassword)) {
+            if (Validation.passwordValid(password)) {
                 request.getSession().setAttribute("passwordNameInvalid", "pass");
                 response.sendRedirect("/restore/enterPassword.jsp");
             } else {
-                if (UserDao.changePassword((String) request.getSession().getAttribute("email"), request.getParameter("password"))) {
-                    request.getSession().setAttribute("changePassword", "yes");
-                    response.sendRedirect("/login.jsp");
-                }
+                UserDao.changePassword(emailUser, password);
+                request.getSession().setAttribute("changePassword", "yes");
+                response.sendRedirect("/login.jsp");
             }
         } else {
             request.getSession().setAttribute("passwordInvalid", "pass");

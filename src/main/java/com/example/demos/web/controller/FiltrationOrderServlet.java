@@ -49,9 +49,15 @@ public class FiltrationOrderServlet extends HttpServlet {
         session.setAttribute("minPrice", minPrice);
         session.setAttribute("maxPrice", maxPrice);
         if (paymentStatus != null) {
-            if (Arrays.asList(paymentStatus).contains("На розгляді")) session.setAttribute("status1", "status1");
-            if (Arrays.asList(paymentStatus).contains("Очікує оплату")) session.setAttribute("status2", "status2");
-            if (Arrays.asList(paymentStatus).contains("Оплачено")) session.setAttribute("status3", "status3");
+            if (Arrays.asList(paymentStatus).contains("На розгляді")) {
+                session.setAttribute("status1", "status1");
+            }
+            if (Arrays.asList(paymentStatus).contains("Очікує оплату")) {
+                session.setAttribute("status2", "status2");
+            }
+            if (Arrays.asList(paymentStatus).contains("Оплачено")) {
+                session.setAttribute("status3", "status3");
+            }
         }
         if (location != null) {
             if (Arrays.asList(location).contains("В місті відправлення")) {

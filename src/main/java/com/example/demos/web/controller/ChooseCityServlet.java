@@ -22,9 +22,11 @@ public class ChooseCityServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String on = request.getParameter("on");
+
         if(on!=null) {
             session.removeAttribute("pageNumberOrder");
         }
+
         String city;
         if (session.getAttribute("city") == null) {
             city = request.getParameter("city");
@@ -33,7 +35,9 @@ public class ChooseCityServlet extends HttpServlet {
         } else {
             city = (String) session.getAttribute("city");
         }
+
         List<Order> orderList = OrderDao.getOrderList(city);
+
         if (session.getAttribute("pageNumberOrder") == null) {
             List<Integer> list = Calculate.getPaginationList(orderList);
             if (list == null) {
@@ -44,6 +48,7 @@ public class ChooseCityServlet extends HttpServlet {
             session.setAttribute("listNumberOrder", list);
             session.setAttribute("pageNumberOrder", 1);
         }
+
 
         session.setAttribute("orders", orderList);
         response.sendRedirect("/employee/ordersTable.jsp");

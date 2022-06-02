@@ -20,31 +20,54 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ValidList validList;
-        int c = 3;
+        boolean checkEmail;
+
         User user = (User) request.getSession().getAttribute("user");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
+        String secondPassword = request.getParameter("secondPassword");
         String phoneNumber = request.getParameter("phoneNumber");
         String email = request.getParameter("email");
         String[] notify = request.getParameterValues("notify");
+
         User user2 = user.cloneUser();
-        if (notify == null) user2.setNotify("no");
-        else user2.setNotify("yes");
-        if (email.equals(user2.getEmail()) || email.equals("")) c = 2;
-        if (!firstName.equals("")) user2.setFirstName(firstName);
-        if (!lastName.equals("")) user2.setLastName(lastName);
-        if (!phoneNumber.equals("")) user2.setPhoneNumber(phoneNumber);
-        if (!email.equals("")) user2.setEmail(email);
+
+        if (notify == null) {
+            user2.setNotify("no");
+        } else {
+            user2.setNotify("yes");
+        }
+
+        if (email.equals(user2.getEmail()) || email.equals("")) {
+            checkEmail = false;
+        } else {
+            user2.setEmail(email);
+            checkEmail = true;
+        }
+
+        if (!firstName.equals("")) {
+            user2.setFirstName(firstName);
+        }
+        if (!lastName.equals("")) {
+            user2.setLastName(lastName);
+        }
+        if (!phoneNumber.equals("")) {
+            user2.setPhoneNumber(phoneNumber);
+        }
+        if (!email.equals("")) {
+            user2.setEmail(email);
+        }
+
         user2.setPassword(password);
-        validList = Validation.valid(user2, request.getParameter("secondPassword"), c);
+        user2.setSecondPassword(secondPassword);
+        validList = Validation.valid(user2, false, checkEmail);
 
         if (Validation.count(validList)) {
+
             user = UserDao.editUser(user2);
-            if (user != null) {
-                request.getSession().setAttribute("user", user);
-                request.getSession().removeAttribute("validList");
-            }
+            request.getSession().setAttribute("user", user);
+            request.getSession().removeAttribute("validList");
 
         } else request.getSession().setAttribute("validList", validList);
 

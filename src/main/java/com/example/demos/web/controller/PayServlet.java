@@ -15,12 +15,14 @@ public class PayServlet extends HttpServlet {
             final Integer orderId = Integer.parseInt(request.getParameter("id"));
             final Integer value = Integer.parseInt(request.getParameter("value"));
             final Integer money = Integer.parseInt(request.getParameter("money"));
+
             User user = (User) request.getSession().getAttribute("user");
             user.setMoney(money - value);
+
             OrderDao.changePayStatus(orderId, value, money);
             request.getSession().setAttribute("money", money - value);
-            request.getSession().removeAttribute("orders");
-            response.sendRedirect("/user/order.jsp");
+
+            response.sendRedirect("/resetOrder");
     }
 
     @Override

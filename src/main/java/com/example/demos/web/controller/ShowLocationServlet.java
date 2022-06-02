@@ -14,9 +14,12 @@ public class ShowLocationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
+
         Point currentPoint = Calculate.getPointAtTheMoment(id);
+
         request.getSession().setAttribute("latitude", currentPoint.getLatitude());
         request.getSession().setAttribute("longitude", currentPoint.getLongitude());
+
         response.sendRedirect("/user/location.jsp");
     }
 

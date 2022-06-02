@@ -20,15 +20,17 @@ public class RefillServlet extends HttpServlet {
         final int value = Integer.parseInt(request.getParameter("value"));
         User user = (User) request.getSession().getAttribute("user");
         int money;
+
         if (user.getMoney() == null) {
             money = 0;
         } else {
             money = user.getMoney();
         }
-        if (UserDao.refillMoney(user.getId(), value, money)) {
-            user.setMoney(money + value);
-            request.getSession().setAttribute("money", money + value);
-        }
+
+        UserDao.refillMoney(user.getId(), value, money);
+        user.setMoney(money + value);
+
+        request.getSession().setAttribute("money", money + value);
         response.sendRedirect("/user/refill.jsp");
     }
 }

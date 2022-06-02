@@ -15,7 +15,7 @@ import java.util.List;
 public class ShowInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("/info.jsp");
+
     }
 
     @Override
@@ -26,25 +26,33 @@ public class ShowInfoServlet extends HttpServlet {
         for (int i = 0; i < 5; i++) {
             String strFrom = request.getParameter("cityFrom" + (i + 1));
             String strTo = request.getParameter("cityTo" + (i + 1));
-            if (strFrom != null) cityFrom.append("|").append(strFrom);
-            if (strTo != null) cityTo.append("|").append(strTo);
+            if (strFrom != null){
+                cityFrom.append("|").append(strFrom);
+            }
+            if (strTo != null){
+                cityTo.append("|").append(strTo);
+            }
         }
         cityFrom.deleteCharAt(0);
         cityTo.deleteCharAt(0);
         try {
             List<InfoTable> infoTable = Table.getInfoTable(cityFrom.toString(), cityTo.toString());
             List<Integer> list = Calculate.getPaginationList(infoTable);
+
             if (list == null) {
                 session.setAttribute("infoTableShort", infoTable);
             } else {
                 session.setAttribute("infoTableShort", Calculate.getFiveElements(infoTable, 1));
             }
+
             session.setAttribute("infoTable", infoTable);
             session.setAttribute("list", list);
             session.setAttribute("pageNumber", 1);
+
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+
         session.removeAttribute("table");
         response.sendRedirect("/info.jsp");
     }

@@ -37,6 +37,7 @@ public class ResetOrderServlet extends HttpServlet {
         session.removeAttribute("cityToSet");
         session.removeAttribute("sort");
         session.removeAttribute("pageNumberOrder");
+
         if(session.getAttribute("role").equals("user")) {
             session.setAttribute("orders", OrderDao.getUserOrders((User) request.getSession().getAttribute("user")));
             response.sendRedirect("/user/order.jsp");
@@ -45,5 +46,6 @@ public class ResetOrderServlet extends HttpServlet {
             session.setAttribute("orders", OrderDao.getOrderList());
             response.sendRedirect("/man/orderList.jsp");
         }
+
     }
 }

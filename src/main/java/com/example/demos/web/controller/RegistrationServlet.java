@@ -21,11 +21,11 @@ public class RegistrationServlet extends HttpServlet {
         User user = new User();
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
+        user.setSecondPassword(request.getParameter("secondPassword"));
         user.setFirstName(request.getParameter("firstName"));
         user.setLastName(request.getParameter("lastName"));
         user.setEmail(request.getParameter("email"));
         user.setPhoneNumber(request.getParameter("phoneNumber"));
-
         user.setRoleId(1);
         String[] notify = request.getParameterValues("notify");
 
@@ -35,7 +35,7 @@ public class RegistrationServlet extends HttpServlet {
             user.setNotify("yes");
         }
 
-        ValidList validList = Validation.valid(user, request.getParameter("secondPassword"), 1);
+        ValidList validList = Validation.valid(user, true,true);
 
         if (Validation.count(validList)) {
             UserDao.insertUser(user);

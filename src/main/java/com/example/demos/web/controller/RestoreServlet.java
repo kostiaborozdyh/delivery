@@ -21,28 +21,36 @@ public class RestoreServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         HttpSession session = request.getSession();
+
         String userLogin = null;
         String userEmail = null;
+
         if (!Validation.emailNameValid(login)) {
             if (!Validation.loginNameValid(login)) {
                 session.setAttribute("invalidM", "invalid");
             } else {
+
                 if (!UserDao.loginIsValid(login)) {
                     userLogin = login;
                 } else {
                     session.setAttribute("invalidLogin", "invalidLogin");
                 }
+
             }
         } else {
+
             if (!UserDao.emailIsValid(login)) {
                 userEmail = login;
             } else {
                 session.setAttribute("invalidEmail", "invalidLEmail");
             }
+
         }
+
         if (userEmail == null && userLogin == null) {
             response.sendRedirect("/restore/restore.jsp");
         } else {
+
             if (userEmail != null) {
                 session.setAttribute("email", userEmail);
             } else {
@@ -50,6 +58,7 @@ public class RestoreServlet extends HttpServlet {
                 session.setAttribute("email", result);
             }
             response.sendRedirect("/restore/restorePassword.jsp");
+
         }
     }
 }

@@ -15,16 +15,16 @@ import java.io.IOException;
 public class SendEmailOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user") != null) {
             Integer id = Integer.valueOf(request.getParameter("idOrder"));
             User user = (User) request.getSession().getAttribute("user");
+
             try {
                 SendEmail.send(user.getEmail(), CreateMessage.messageSendOrder(OrderDao.getOrder(id)));
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
+
             response.sendRedirect("/user/order.jsp");
-        } else response.sendRedirect("/main.jsp");
     }
 
     @Override

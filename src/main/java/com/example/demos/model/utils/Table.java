@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
-    public static List<InfoTable> getInfoTable(String cityFrom, String cityTo) throws IOException, ParseException {
+    public static List<InfoTable> getInfoTable(String cityFrom, String cityTo) throws  ParseException {
         List<InfoTable> distances = GoogleMaps.getDistance(cityFrom,cityTo);
         int index = 0;
         for (InfoTable distance :

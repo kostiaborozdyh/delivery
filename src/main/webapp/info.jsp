@@ -223,15 +223,15 @@
                     <nav>
                         <ul class="pagination">
                             <li class="page-item">
-                                <a href="/changePage?id=${sessionScope.pageNumber-1}" class="page-link"><fmt:message key="previous"/></a>
+                                <a href="/changePage?id=${sessionScope.pageNumber-1}&fun=1" class="page-link"><fmt:message key="previous"/></a>
                             </li>
                             <c:forEach var="n" items="${sessionScope.list}">
                                 <li class="page-item <c:if test="${sessionScope.pageNumber==n}">active</c:if>">
-                                    <a href="/changePage?id=${n}" class="page-link">${n}</a>
+                                    <a href="/changePage?id=${n}&fun=1" class="page-link">${n}</a>
                                 </li>
                             </c:forEach>
                             <li class="page-item">
-                                <a href="/changePage?id=${sessionScope.pageNumber+1}" class="page-link"><fmt:message key="next"/></a>
+                                <a href="/changePage?id=${sessionScope.pageNumber+1}&fun=1" class="page-link"><fmt:message key="next"/></a>
                             </li>
                         </ul>
                     </nav>

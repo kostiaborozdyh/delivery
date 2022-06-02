@@ -95,7 +95,7 @@
             <c:if test="${sessionScope.infoOrder.paymentStatus != 'На розгляді'}">
                 <p><a href="#" class="btn btn-secondary b1"><fmt:message key="confirmOrder"/></a></p>
             </c:if>
-            <p><a href="/man/orderList.jsp" class="btn btn-warning b1"><fmt:message key="returnToOrders"/></a></p>
+            <p><a href="/resetOrder" class="btn btn-warning b1"><fmt:message key="returnToOrders"/></a></p>
         </div>
     </div>
 </div>

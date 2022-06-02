@@ -24,11 +24,11 @@ public class AddEmployeeServlet extends HttpServlet {
         User user = new User();
         user.setLogin(request.getParameter("login"));
         user.setPassword(request.getParameter("password"));
+        user.setSecondPassword(request.getParameter("secondPassword"));
         user.setFirstName(request.getParameter("firstName"));
         user.setLastName(request.getParameter("lastName"));
         user.setEmail(request.getParameter("email"));
         user.setPhoneNumber(request.getParameter("phoneNumber"));
-
         String employee = request.getParameter("employee");
         user.setNotify("no");
 
@@ -38,14 +38,11 @@ public class AddEmployeeServlet extends HttpServlet {
             user.setRoleId(2);
         }
 
-        ValidList validList = Validation.valid(user, request.getParameter("secondPassword"), 1);
+        ValidList validList = Validation.valid(user, true,true);
 
         if (Validation.count(validList)) {
-            if (UserDao.insertUser(user)) {
-                response.sendRedirect("/adm/usersTable.jsp");
-            } else {
-                response.sendRedirect("/error.jsp");
-            }
+            UserDao.insertUser(user);
+            response.sendRedirect("/adm/usersTable.jsp");
         } else {
             request.getSession().setAttribute("validList", validList);
             response.sendRedirect("/adm/createEmployeeAccount.jsp");

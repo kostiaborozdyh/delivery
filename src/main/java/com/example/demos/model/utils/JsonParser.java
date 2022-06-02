@@ -13,10 +13,10 @@ import java.util.List;
 public class JsonParser {
 
     public static List<InfoTable> parseGoogleApiDistance(String jsonStr) throws ParseException {
+        int i = 0, j;
         List<InfoTable> distanceList = new ArrayList<>();
         ArrayList<String> cityFromList;
         ArrayList<String> cityToList;
-        int i = 0, j;
         JSONParser parser = new JSONParser();
         JSONObject jsonObj = (JSONObject) parser.parse(jsonStr);
         JSONArray rows = (JSONArray) jsonObj.get("rows");

@@ -4,6 +4,7 @@ public class User {
     private Integer id;
     private String login;
     private String password;
+    private String secondPassword;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -12,6 +13,14 @@ public class User {
     private Integer money;
     private String notify;
     private String ban;
+
+    public String getSecondPassword() {
+        return secondPassword;
+    }
+
+    public void setSecondPassword(String secondPassword) {
+        this.secondPassword = secondPassword;
+    }
 
     public String getBan() {
         return ban;
@@ -116,7 +125,8 @@ public class User {
                 '}';
     }
 
-    public User(Integer id, String login, String firstName, String lastName, String phoneNumber, String email, Integer roleId, Integer money, String notify) {
+    public User(Integer id, String login, String firstName, String lastName, String phoneNumber,
+                String email, Integer roleId, Integer money, String notify) {
         this.id = id;
         this.login = login;
         this.firstName = firstName;
@@ -131,7 +141,8 @@ public class User {
 
     }
     public User cloneUser() {
-        return new User(this.id, this.login, this.firstName, this.lastName, this.phoneNumber, this.email, this.roleId, this.money, this.notify);
+        return new User(this.id, this.login, this.firstName, this.lastName, this.phoneNumber,
+                        this.email, this.roleId, this.money, this.notify);
     }
 
 }

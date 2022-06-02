@@ -14,7 +14,6 @@ import java.util.List;
 
 @WebServlet(name = "SortingTableServlet", value = "/sortingTable")
 public class SortingTableServlet extends HttpServlet {
-    private static final Logger log = Logger.getLogger(OrderDao.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,20 +22,22 @@ public class SortingTableServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.info("Початок сортування таблиці з відстанями");
         String sort = request.getParameter("sort");
         HttpSession session = request.getSession();
+
         List<InfoTable> tableList = (List<InfoTable>) session.getAttribute("infoTable");
         tableList = FiltrationOrder.sortingTable(sort, tableList);
+
         session.setAttribute("infoTable", tableList);
+
         if (tableList.size() <= 5) {
             session.setAttribute("infoTableShort", tableList);
         } else {
             session.setAttribute("infoTableShort", Calculate.getFiveElements(tableList, 1));
         }
+
         session.setAttribute("pageNumber", 1);
         session.setAttribute("sort", sort);
         response.sendRedirect("/info.jsp");
-        log.info("Кінець сортування таблиці з відстанями");
     }
 }

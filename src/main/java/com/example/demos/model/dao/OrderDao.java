@@ -13,9 +13,6 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class OrderDao {
-    private OrderDao(){
-
-    }
     private static final Logger log = Logger.getLogger(OrderDao.class);
 
     public static final String SQL_INSERT_ORDER = "INSERT INTO delivery.order(description,weight,volume,price,city_from,city_to,address,date_create,date_of_arrival,user_id,payment_status_id,location_status_id)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -61,7 +58,7 @@ public class OrderDao {
             "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
             "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.city_to=? and do.location_status_id=? and do.date_of_arrival <= ?";
 
-    public static void createOrder(String info, String cityFrom, String cityTo, String address, Integer price, Integer volume, String weight, Integer distance, Integer id) {
+    public static void createOrder(Order order) {
         log.info("Добавлення замовлення");
         Connection connection = null;
         PreparedStatement pst = null;
@@ -69,16 +66,16 @@ public class OrderDao {
             connection = DBHelper.getInstance().getConnection();
             pst = connection.prepareStatement(SQL_INSERT_ORDER);
             connection.setAutoCommit(false);
-            pst.setString(1, info);
-            pst.setInt(2, Integer.parseInt(weight));
-            pst.setInt(3, volume);
-            pst.setInt(4, price);
-            pst.setString(5, cityFrom);
-            pst.setString(6, cityTo);
-            pst.setString(7, address);
+            pst.setString(1, order.getDescription());
+            pst.setInt(2, order.getWeight());
+            pst.setInt(3, order.getVolume());
+            pst.setInt(4, order.getPrice());
+            pst.setString(5, order.getCityFrom());
+            pst.setString(6, order.getCityTo());
+            pst.setString(7, order.getAddress());
             pst.setDate(8, Date.valueOf(LocalDate.now()));
-            pst.setDate(9, Date.valueOf(Calculate.arrivalTime(distance)));
-            pst.setInt(10, id);
+            pst.setDate(9, Date.valueOf(Calculate.arrivalTime(order.getDistance())));
+            pst.setInt(10, order.getUserId());
             pst.setInt(11, 1);
             pst.setInt(12, 1);
             pst.executeUpdate();

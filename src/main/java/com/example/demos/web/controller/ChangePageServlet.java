@@ -17,47 +17,47 @@ public class ChangePageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         int id = Integer.parseInt(request.getParameter("id"));
-        String fun = request.getParameter("fun");
-        if (fun == null) {
-            List<InfoTable> infoTable = (List<InfoTable>) session.getAttribute("infoTable");
-            List<Integer> list = (List<Integer>) session.getAttribute("list");
-            if (id == 0) {
-                id = 1;
-            } else if (id == list.size() + 1) {
-                id = list.size();
+        int fun = Integer.parseInt(request.getParameter("fun"));
+        switch (fun) {
+            case 1: {
+                List<InfoTable> infoTable = (List<InfoTable>) session.getAttribute("infoTable");
+                List<Integer> list = (List<Integer>) session.getAttribute("list");
+                id = Calculate.pageId(id, list);
+                session.setAttribute("infoTableShort", Calculate.getFiveElements(infoTable, id));
+                session.setAttribute("pageNumber", id);
+                response.sendRedirect("/info.jsp");
             }
-            session.setAttribute("infoTableShort", Calculate.getFiveElements(infoTable, id));
-            session.setAttribute("pageNumber", id);
-            response.sendRedirect("/info.jsp");
-        } else if (Integer.parseInt(fun)==2) {
-            List<Order> orderList = (List<Order>) session.getAttribute("orders");
-            List<Integer> list = (List<Integer>) session.getAttribute("listNumberOrder");
-            if (id == 0) {
-                id = 1;
-            } else if (id == list.size() + 1) {
-                id = list.size();
+            break;
+            case 2: {
+                List<Order> orderList = (List<Order>) session.getAttribute("orders");
+                List<Integer> list = (List<Integer>) session.getAttribute("listNumberOrder");
+                id = Calculate.pageId(id, list);
+                session.setAttribute("shortOrders", Calculate.getFiveElements(orderList, id));
+                session.setAttribute("pageNumberOrder", id);
+                String role = (String) session.getAttribute("role");
+                switch (role) {
+                    case "user":
+                        response.sendRedirect("/user/order.jsp");
+                        break;
+                    case "manager":
+                        response.sendRedirect("/man/orderList.jsp");
+                        break;
+                    case "employee":
+                        response.sendRedirect("/employee/ordersTable.jsp");
+                        break;
+                }
+                break;
             }
-            session.setAttribute("shortOrders", Calculate.getFiveElements(orderList, id));
-            session.setAttribute("pageNumberOrder", id);
-            String role = (String) session.getAttribute("role");
-            switch (role) {
-                case "user": response.sendRedirect("/user/order.jsp"); break;
-                case "manager": response.sendRedirect("/man/orderList.jsp"); break;
-                case "employee":  response.sendRedirect("/employee/ordersTable.jsp"); break;
+            case 3: {
+                List<User> userList = (List<User>) session.getAttribute("userList");
+                List<Integer> list = (List<Integer>) session.getAttribute("listNumberUser");
+                id = Calculate.pageId(id, list);
+                session.setAttribute("shortUsers", Calculate.getFiveElements(userList, id));
+                session.setAttribute("pageNumberUser", id);
+                response.sendRedirect("/adm/usersTable.jsp");
             }
-        } else if (Integer.parseInt(fun)==3) {
-            List<User> userList = (List<User>) session.getAttribute("userList");
-            List<Integer> list = (List<Integer>) session.getAttribute("listNumberUser");
-            if (id == 0) {
-                id = 1;
-            } else if (id == list.size() + 1) {
-                id = list.size();
-            }
-            session.setAttribute("shortUsers", Calculate.getFiveElements(userList, id));
-            session.setAttribute("pageNumberUser", id);
-            response.sendRedirect("/adm/usersTable.jsp");
+            break;
         }
-
     }
 
     @Override

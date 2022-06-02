@@ -1,5 +1,6 @@
 package com.example.demos.model.utils;
 
+import com.example.demos.model.entity.InfoTable;
 import com.example.demos.model.entity.Order;
 
 public class CreateMessage {
@@ -23,9 +24,9 @@ public class CreateMessage {
     public static final String DATE="Орієнтовна дата прибуття ";
     public static final String MONEY=". До сплати ";
     public static final String MANAGER="Ваша заявка передана на розгляд менеджеру.";
-    public static String[] messageCreateOrder(String cityFrom, String cityTo, Integer distance,Integer price){
-        String sb = TEXT + cityFrom + " в " + cityTo + ".\n" +
-                DATE + Calculate.arrivalTime(distance) + MONEY + price + ".\n" +
+    public static String[] messageCreateOrder(InfoTable infoTable){
+        String sb = TEXT + infoTable.getCityFrom() + " в " + infoTable.getCityTo() + ".\n" +
+                DATE + Calculate.arrivalTime(infoTable.getDistance()) + MONEY + infoTable.getPrice() + ".\n" +
                 MANAGER;
         return new String[]{THEME_CREATE_ORDER, sb};
     }

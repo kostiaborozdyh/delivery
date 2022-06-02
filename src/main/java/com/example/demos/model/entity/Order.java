@@ -13,6 +13,8 @@ public class Order {
     private LocalDate dateCreate;
     private LocalDate dateOfArrival;
     private String userLogin;
+    private Integer userId;
+    private Integer distance;
     private String cityFrom;
     private String cityTo;
     private String paymentStatus;
@@ -129,5 +131,42 @@ public class Order {
 
     public void setCityTo(String cityTo) {
         this.cityTo = cityTo;
+    }
+
+    public Integer getUserId() { return userId;}
+
+    public void setUserId(Integer userId) {this.userId = userId;}
+
+    public Integer getDistance() {return distance;}
+
+    public void setDistance(Integer distance) {this.distance = distance;}
+
+    public Order() {
+    }
+    public Order(InfoTable infoTable, String description, String address, Integer userId){
+        this.description=description;
+        this.weight=infoTable.getWeight();
+        this.volume=infoTable.getVolume();
+        this.price=infoTable.getPrice();
+        this.cityFrom=infoTable.getCityFrom();
+        this.cityTo=infoTable.getCityTo();
+        this.address=address;
+        this.userId=userId;
+        this.distance=infoTable.getDistance();
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "description='" + description + '\'' +
+                ", weight=" + weight +
+                ", volume=" + volume +
+                ", price=" + price +
+                ", address='" + address + '\'' +
+                ", userId=" + userId +
+                ", distance=" + distance +
+                ", cityFrom='" + cityFrom + '\'' +
+                ", cityTo='" + cityTo + '\'' +
+                '}';
     }
 }
