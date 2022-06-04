@@ -1,5 +1,6 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
+import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.utils.Calculate;
@@ -49,10 +50,9 @@ public class ChangePageServlet extends HttpServlet {
                 break;
             }
             case 3: {
-                List<User> userList = (List<User>) session.getAttribute("userList");
                 List<Integer> list = (List<Integer>) session.getAttribute("listNumberUser");
                 id = Calculate.pageId(id, list);
-                session.setAttribute("shortUsers", Calculate.getFiveElements(userList, id));
+                session.setAttribute("userList", UserDao.getUsers((id-1)*5));
                 session.setAttribute("pageNumberUser", id);
                 response.sendRedirect("/adm/usersTable.jsp");
             }

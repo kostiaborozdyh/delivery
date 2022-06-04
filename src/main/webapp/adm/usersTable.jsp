@@ -81,7 +81,7 @@
                 <th class="bg-light"><fmt:message key="blocking"/></th>
                 <th class="bg-light"><fmt:message key="delete"/></th>
             </tr>
-            <c:forEach var="user" items="${sessionScope.shortUsers}">
+            <c:forEach var="user" items="${sessionScope.userList}">
                 <tr>
                 <td class="bg-light">${user.id}</td>
                 <td class="bg-light">${user.login}</td>

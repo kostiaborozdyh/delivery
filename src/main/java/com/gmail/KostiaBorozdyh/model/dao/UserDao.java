@@ -20,7 +20,7 @@ public class UserDao {
     public static final String SQL_GET_USER_VALID_FROM_EMAIL = "SELECT * FROM user u WHERE u.email=? AND u.password=?";
     public static final String SQL_GET_USER = "SELECT * FROM user u WHERE u.login=?";
     public static final String SQL_GET_USER_FROM_ID = "SELECT * FROM user u WHERE u.id=?";
-    public static final String SQL_GET_USERS = "SELECT * FROM user u WHERE u.role_id!=3";
+    public static final String SQL_GET_USERS = "SELECT * FROM user u WHERE u.role_id!=3 limit ?,5";
     public static final String SQL_GET_EMAIL = "SELECT * FROM user u WHERE u.email=?";
     public static final String SQL_INSERT_USER = "INSERT INTO user(login,password,first_name,last_name,phone_number,email,role_id,notify,ban)  VALUES (?,?,?,?,?,?,?,?,?)";
     public static final String SQL_CHANGE_MONEY = "UPDATE delivery.user d SET d.money = ? WHERE d.id=?";
@@ -30,6 +30,7 @@ public class UserDao {
     public static final String SQL_GET_USER_EMAIL = "SELECT * FROM user u WHERE u.login=?";
     public static final String SQL_GET_USER_EMAIL_BY_ID = "SELECT * FROM user u WHERE u.id=?";
     public static final String SQL_CHANGE_PASSWORD = "UPDATE delivery.user d SET d.password = ? WHERE d.email=?";
+    public static final String SQL_GET_USER_COUNT = "SELECT count(1) FROM user u WHERE u.role_id!=3";
     public static final String SQL_EDIT_USER = "UPDATE delivery.user d \n" +
             "SET d.first_name = ?, d.last_name = ?, \n" +
             "d.phone_number = ?, d.email = ?, d.notify = ?\n" +
@@ -304,11 +305,12 @@ public class UserDao {
         return email;
     }
 
-    public static List<User> getUsers() {
+    public static List<User> getUsers(int skip) {
         log.info("Вибірка всіх юзерів");
         List<User> userList = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USERS)) {
+            pst.setInt(1,skip);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     User user = new User();
@@ -327,6 +329,24 @@ public class UserDao {
         }
         return userList;
     }
+
+    public static Integer getUserCount(){
+        log.info("Вибірка кількості юзерів");
+        int count=0;
+        try (Connection connection = DBHelper.getInstance().getConnection();
+             PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_COUNT)) {
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    count=rs.getInt("count(1)");
+                }
+            }
+            log.info("Вибірка кількості юзерів зевершено");
+        } catch (SQLException ex) {
+            log.error("Помилка, вибірка кількості юзерів" + ex);
+        }
+        return count;
+    }
+
 
     public static void blockUser(Integer id) throws MessagingException, UnsupportedEncodingException {
         log.info("Блокування юзера по id " + id);

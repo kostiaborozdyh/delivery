@@ -68,15 +68,17 @@ public class Calculate {
     }
 
     public static <T> List<Integer> getPaginationList(List<T> inputList)  {
+        return getPaginationList(inputList.size());
+    }
+    public static List<Integer> getPaginationList(Integer count){
         List<Integer> list = new ArrayList<>();
-        int size = inputList.size();
         int a = 0;
-        if (size % 5 != 0) a = 1;
-        int length = size / 5 + a;
+        if (count % 5 != 0) a = 1;
+        int length = count / 5 + a;
         for (int i = 0; i < length; i++) {
             list.add(i + 1);
         }
-        if (size <= 5) return null;
+        if (count <= 5) return null;
         else return list;
     }
 
