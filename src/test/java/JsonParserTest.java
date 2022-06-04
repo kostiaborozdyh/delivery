@@ -1,6 +1,6 @@
-import com.example.demos.model.entity.InfoTable;
-import com.example.demos.model.entity.Point;
-import com.example.demos.model.utils.JsonParser;
+import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
+import com.gmail.KostiaBorozdyh.model.entity.Point;
+import com.gmail.KostiaBorozdyh.model.utils.JsonParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
 

@@ -80,49 +80,49 @@
                               <div class="form-group mb-2">
                                  <label class="control-label col-xs-4 mb-1"><fmt:message key="productInformation"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
-                                    <textarea name="info" required="required" class="form-control"></textarea>
+                                    <textarea name="info" required="required" class="form-control">${sessionScope.orderInfo}</textarea>
                                  </div>
                               </div>
                               <div class="form-group mb-2">
                                  <label class="control-label col-xs-4 mb-1"><fmt:message key="cityOfDispatch"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
-                                    <input type="text" class="form-control" name="cityFrom" required="required">
+                                    <input type="text" class="form-control" name="cityFrom" required="required" value="${sessionScope.newOrder.cityFrom}">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
                                  <label class="control-label col-xs-4 mb-1"><fmt:message key="cityOfDelivery"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
-                                    <input type="text" class="form-control" name="cityTo" required="required">
+                                    <input type="text" class="form-control" name="cityTo" required="required" value="${sessionScope.newOrder.cityTo}">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
                                  <label class="control-label col-xs-4 mb-1"><fmt:message key="deliveryCityAddress"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
-                                    <input type="text" class="form-control" name="address" required="required">
+                                    <input type="text" class="form-control" name="address" required="required" value="${sessionScope.orderAddress}">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
                                  <label class="control-label col-xs-4 mb-1"><fmt:message key="parcelWeight"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
-                                    <input type="number" min="1" class="form-control" name="weight" required="required">
+                                    <input type="number" min="1" class="form-control" name="weight" required="required" value="${sessionScope.newOrder.weight}">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
                                  <label class="control-label col-xs-4 mb-1"><fmt:message key="parcelHeight"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
-                                    <input type="number" min="1" class="form-control" name="height" required="required">
+                                    <input type="number" min="1" class="form-control" name="height" required="required" value="${sessionScope.heightParcel}">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
                                  <label class="control-label col-xs-4 mb-1"><fmt:message key="parcelLength"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
-                                    <input type="number" min="1" class="form-control" name="length" required="required">
+                                    <input type="number" min="1" class="form-control" name="length" required="required" value="${sessionScope.lengthParcel}">
                                  </div>
                               </div>
                               <div class="form-group mb-2">
                                  <label class="control-label col-xs-4 mb-1"><fmt:message key="parcelWidth"/><text style = "color:red;">*</text></label>
                                  <div class="col-xs-8">
-                                    <input type="number" min="1" class="form-control" name="width" required="required">
+                                    <input type="number" min="1" class="form-control" name="width" required="required" value="${sessionScope.widthParcel}">
                                  </div>
                               </div>
                            </div>

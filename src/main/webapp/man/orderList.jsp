@@ -100,12 +100,12 @@
                                 <div class="form-outline mb-3">
                                     <label class="form-label" for="typeNumber1"><fmt:message key="priceFrom"/></label>
                                     <input type="number" id="typeNumber1" name="minPrice" min="0"
-                                           value="${sessionScope.minPrice}" class="form-control"/>
+                                           value="${sessionScope.filter.minPrice}" class="form-control"/>
                                 </div>
                                 <div class="form-outline mb-3">
                                     <label class="form-label" for="typeNumber2"><fmt:message key="priceTo"/></label>
                                     <input type="number" id="typeNumber2" name="maxPrice" min="0"
-                                           value="${sessionScope.maxPrice}" class="form-control"/>
+                                           value="${sessionScope.filter.maxPrice}" class="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -119,17 +119,17 @@
                         <div class="d-flex flex-column divtbl h-75">
                             <div class="input-group-text mb-1">
                                 <label><input type="checkbox" class="form-check-input" name="paymentStatus"
-                                              value="На розгляді" <c:if test="${sessionScope.status1 != null}">
+                                              value="На розгляді" <c:if test="${sessionScope.filter.paymentStatus[0] == 'На розгляді'}">
                                               checked</c:if>><fmt:message key="underConsideration"/></label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="checkbox" class="form-check-input" name="paymentStatus"
                                               value="Очікує оплату"
-                                <c:if test="${sessionScope.status2 != null}"> checked</c:if> ><fmt:message key="awaitingPayment"/></label>
+                                <c:if test="${sessionScope.filter.paymentStatus[0] == 'Очікує оплату' || sessionScope.filter.paymentStatus[1] == 'Очікує оплату'}"> checked</c:if> ><fmt:message key="awaitingPayment"/></label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="checkbox" class="form-check-input" name="paymentStatus" value="Оплачено"
-                                <c:if test="${sessionScope.status3 != null}"> checked</c:if> ><fmt:message key="paid"/></label>
+                                <c:if test="${sessionScope.filter.paymentStatus[0] == 'Оплачено' || sessionScope.filter.paymentStatus[1] == 'Оплачено'|| sessionScope.filter.paymentStatus[2] == 'Оплачено'}"> checked</c:if> ><fmt:message key="paid"/></label>
                             </div>
                         </div>
                     </div>
@@ -143,26 +143,26 @@
                             <div class="input-group-text mb-1">
                                 <label>
                                     <input type="checkbox" class="form-check-input" name="locationStatus"
-                                           value="В місті відправлення" <c:if test="${sessionScope.location1 != null}">
+                                           value="В місті відправлення" <c:if test="${sessionScope.filter.location[0] == 'В місті відправлення'}">
                                            checked</c:if>><fmt:message key="cityOfDepartureSort"/>
                                 </label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="checkbox" class="form-check-input" name="locationStatus"
                                               value="В дорозі"
-                                <c:if test="${sessionScope.location2 != null}"> checked</c:if> ><fmt:message key="inWay"/></label>
+                                <c:if test="${sessionScope.filter.location[0] == 'В дорозі' || sessionScope.filter.location[1] == 'В дорозі'}"> checked</c:if> ><fmt:message key="inWay"/></label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label>
                                     <input type="checkbox" class="form-check-input" name="locationStatus"
                                            value="У відділенні пошти"
-                                    <c:if test="${sessionScope.location3 != null}"> checked</c:if> ><fmt:message key="postOffice"/>
+                                    <c:if test="${sessionScope.filter.location[0] == 'У відділенні пошти' || sessionScope.filter.location[1] == 'У відділенні пошти' || sessionScope.filter.location[2] == 'У відділенні пошти'}"> checked</c:if> ><fmt:message key="postOffice"/>
                                 </label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="checkbox" class="form-check-input" name="locationStatus"
                                               value="Отримано"
-                                <c:if test="${sessionScope.location4 != null}"> checked</c:if> ><fmt:message key="received"/></label>
+                                <c:if test="${sessionScope.filter.location[0] == 'Отримано' || sessionScope.filter.location[1] == 'Отримано' || sessionScope.filter.location[2] == 'Отримано' || sessionScope.filter.location[3] == 'Отримано'}"> checked</c:if> ><fmt:message key="received"/></label>
                             </div>
                         </div>
                     </div>
@@ -176,17 +176,17 @@
                             <p class="mb-1"><fmt:message key="dateOfDispatch"/></p>
                             <label class="d-flex"><p class="w-25"><fmt:message key="from"/> </p><input class="w-75 h-75" type="date"
                                                                                  name="minDateCreate"
-                                                                                 value="${sessionScope.minDateCreate}"></label>
+                                                                                 value="${sessionScope.filter.minDateCreate}"></label>
                             <label class="d-flex"><p class="w-25"><fmt:message key="to"/> </p><input class="w-75 h-75" type="date"
                                                                                 name="maxDateCreate"
-                                                                                value="${sessionScope.maxDateCreate}"></label>
+                                                                                value="${sessionScope.filter.maxDateCreate}"></label>
                             <p class="mb-1"><fmt:message key="dateOfArrival"/></p>
                             <label class="d-flex"><p class="w-25"><fmt:message key="from"/> </p><input type="date" class="w-75 h-75"
                                                                                  name="minDateOfArrival"
-                                                                                 value="${sessionScope.minDateOfArrival}"></label>
+                                                                                 value="${sessionScope.filter.minDateOfArrival}"></label>
                             <label class="d-flex"><p class="w-25"><fmt:message key="to"/> </p><input type="date" class="w-75 h-75"
                                                                                 name="maxDateOfArrival"
-                                                                                value="${sessionScope.maxDateOfArrival}"></label>
+                                                                                value="${sessionScope.filter.maxDateOfArrival}"></label>
                         </div>
                     </div>
                 </div>
@@ -219,19 +219,19 @@
                         <div class="d-flex flex-column divl h-75 pt-3">
                             <div class="input-group-text mb-1">
                                 <label><input type="radio" name="sort" value="sortByMinPrice"  <c:if
-                                        test="${sessionScope.sort == 'sortByMinPrice'}"> checked</c:if>><fmt:message key="byPrice"/>↑</label>
+                                        test="${sessionScope.filter.sort == 'sortByMinPrice'}"> checked</c:if>><fmt:message key="byPrice"/>↑</label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="radio" name="sort" value="sortByMaxPrice" <c:if
-                                        test="${sessionScope.sort == 'sortByMaxPrice'}"> checked</c:if>><fmt:message key="byPrice"/>↓</label>
+                                        test="${sessionScope.filter.sort == 'sortByMaxPrice'}"> checked</c:if>><fmt:message key="byPrice"/>↓</label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="radio" name="sort" value="sortByMinDateCreate" <c:if
-                                        test="${sessionScope.sort == 'sortByMinDateCreate'}"> checked</c:if>><fmt:message key="byDateCreation"/>↑</label>
+                                        test="${sessionScope.filter.sort == 'sortByMinDateCreate'}"> checked</c:if>><fmt:message key="byDateCreation"/>↑</label>
                             </div>
                             <div class="input-group-text mb-1">
                                 <label><input type="radio" name="sort" value="sortByMaxDateCreate" <c:if
-                                        test="${sessionScope.sort == 'sortByMaxDateCreate'}"> checked</c:if>><fmt:message key="byDateCreation"/>↓</label>
+                                        test="${sessionScope.filter.sort == 'sortByMaxDateCreate'}"> checked</c:if>><fmt:message key="byDateCreation"/>↓</label>
                             </div>
                         </div>
                     </div>

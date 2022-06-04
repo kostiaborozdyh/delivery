@@ -11,6 +11,6 @@
     <uri>https://tomcat.apache.org/example-taglib</uri>
     <tag>
         <name>today</name>
-        <tag-class>com.example.demos.web.tag.DateTag</tag-class>
+        <tag-class>com.gmail.KostiaBorozdyh.web.tag.DateTag</tag-class>
     </tag>
 </taglib>

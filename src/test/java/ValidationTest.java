@@ -1,6 +1,6 @@
 
-import com.example.demos.model.entity.User;
-import com.example.demos.model.utils.Validation;
+import com.gmail.KostiaBorozdyh.model.entity.User;
+import com.gmail.KostiaBorozdyh.model.utils.Validation;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
