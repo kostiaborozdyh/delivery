@@ -1,6 +1,7 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
 import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
+import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 
 import javax.servlet.*;
@@ -20,6 +21,7 @@ public class PayServlet extends HttpServlet {
             user.setMoney(money - value);
 
             OrderDao.changePayStatus(orderId, value, money);
+            UserDao.changeMoney(orderId, value, money);
             request.getSession().setAttribute("money", money - value);
 
             response.sendRedirect("/resetOrder");

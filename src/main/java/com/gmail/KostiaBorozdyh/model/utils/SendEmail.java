@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class SendEmail {
     public static void send(String email, String[] message) throws  MessagingException, UnsupportedEncodingException
-    {
+    {/*
         //Set Mail properties
         Properties props = System.getProperties();
         props.setProperty("mail.smtp.starttls.enable", "true");
@@ -33,6 +33,10 @@ public class SendEmail {
         mimeMessage.setContent(message[1], "text/plain; charset=UTF-8");
 
         //Send the email
-        Transport.send(mimeMessage);
+        Transport.send(mimeMessage);*/
+
+        System.out.println("Email to: "+email);
+        System.out.println("Subject: "+message[0]);
+        System.out.println("Content: "+message[1]);
     }
 }

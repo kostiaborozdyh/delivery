@@ -119,7 +119,6 @@ public class OrderDao {
             pst = connection.prepareStatement(SQL_CHANGE_PAY_STATUS);
             connection.setAutoCommit(false);
             pst.setInt(1, id);
-            UserDao.changeMoney(id, value, money);
             pst.executeUpdate();
             connection.commit();
             log.info("Зміна статусу оплати посилки завершено");
