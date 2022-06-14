@@ -278,7 +278,7 @@ public class OrderDao {
         List<Order> list = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_ORDER_LIST_BY_CITY)) {
-            pst.setString(1, JsonParser.cutName(cityTo));
+            pst.setString(1, JsonParser.cutCityName(cityTo));
             pst.setInt(2, 3);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
@@ -298,7 +298,7 @@ public class OrderDao {
         List<Order> list = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_ORDER_LIST_BY_CITY_ON_RECORD)) {
-            pst.setString(1, JsonParser.cutName(cityTo));
+            pst.setString(1, JsonParser.cutCityName(cityTo));
             pst.setInt(2, 2);
             pst.setDate(3, Date.valueOf(LocalDate.now()));
             try (ResultSet rs = pst.executeQuery()) {

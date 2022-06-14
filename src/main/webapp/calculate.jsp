@@ -97,13 +97,13 @@
                                         <div class="form-group mb-3">
                                             <label class="control-label col-xs-4 mb-1"><fmt:message key="cityOfDispatch"/><text style = "color:red;">*</text></label>
                                             <div class="col-xs-8">
-                                                <input type="text" class="form-control" name="cityFrom" required="required" value="${sessionScope.calculateTable.cityFrom}">
+                                                <input type="text" class="form-control google" name="cityFrom" required="required" value="${sessionScope.calculateTable.cityFrom}">
                                             </div>
                                         </div>
                                         <div class="form-group mb-3">
                                             <label class="control-label col-xs-4 mb-1"><fmt:message key="cityOfDelivery"/><text style = "color:red;">*</text></label>
                                             <div class="col-xs-8">
-                                                <input type="text" class="form-control" name="cityTo" required="required" value="${sessionScope.calculateTable.cityTo}">
+                                                <input type="text" class="form-control google" name="cityTo" required="required" value="${sessionScope.calculateTable.cityTo}">
                                             </div>
                                         </div>
                                         <div class="form-group mb-3">
@@ -168,23 +168,8 @@
         </div>
     </div>
 </div>
+<script src="/script/editScript.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&language=${sessionScope.lang}&libraries=places&callback=initAutocomplete"
+        async defer></script>
 </body>
 </html>
-
-<%--
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&libraries=places&callback=initAutocomplete"
-        async defer></script>
-
-<script>
-    function initAutocomplete() {
-        new google.maps.places.Autocomplete(
-            (document.getElementById('autocomplete')),
-            {types: ['geocode']}
-        );
-        new google.maps.places.Autocomplete(
-            (document.getElementById('autocompleteSec')),
-            {types: ['geocode']}
-        );
-    }
-</script>
---%>

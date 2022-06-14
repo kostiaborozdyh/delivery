@@ -77,11 +77,11 @@ public class JsonParserTest {
 
     @Test
     public void cutNameTest() {
-        assertEquals("Кривий Ріг, Україна", JsonParser.cutName("Кривий Ріг, Дніпропетровська область, Україна, 50000"));
-        assertEquals("Донецьк, Донецька область", JsonParser.cutName("Донецьк, Донецька область, Україна"));
-        assertEquals("Харків, Харківська область", JsonParser.cutName("Харків, Харківська область, Україна"));
-        assertEquals("Варшава, Польща", JsonParser.cutName("Варшава, Польща"));
-        assertEquals("Миколаїв, Україна", JsonParser.cutName("Миколаїв, Миколаївська область, Україна, 54000"));
+        assertEquals("Кривий Ріг, Україна", JsonParser.cutCityName("Кривий Ріг, Дніпропетровська область, Україна, 50000"));
+        assertEquals("Донецьк, Донецька область", JsonParser.cutCityName("Донецьк, Донецька область, Україна"));
+        assertEquals("Харків, Харківська область", JsonParser.cutCityName("Харків, Харківська область, Україна"));
+        assertEquals("Варшава, Польща", JsonParser.cutCityName("Варшава, Польща"));
+        assertEquals("Миколаїв, Україна", JsonParser.cutCityName("Миколаїв, Миколаївська область, Україна, 54000"));
     }
 
     private String fileReader(String fileName) throws FileNotFoundException {

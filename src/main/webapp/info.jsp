@@ -95,12 +95,26 @@
                                 <h5><fmt:message key="cityOfDeparture"/></h5>
                                 <div class="row justify-content-center">
                                     <div class="col-md-auto">
-                                        <label class="mb-1"><input type="text" id="idCityFrom1"
-                                                                   name="cityFrom1" required></label><br>
-                                        <div id="divCityFrom2"></div>
-                                        <div id="divCityFrom3"></div>
-                                        <div id="divCityFrom4"></div>
-                                        <div id="divCityFrom5"></div>
+                                        <div id="idCityFrom1">
+                                            <label class="mb-1"><input type="text" class="google"
+                                                                       name="cityFrom1" required ></label><br>
+                                        </div>
+                                        <div style="display:none" id="idCityFrom2">
+                                            <label class="mb-1"><input type="text" class="google"
+                                                                       name="cityFrom2" id="editCityFrom2"></label><br>
+                                        </div>
+                                        <div style="display:none" id="idCityFrom3">
+                                            <label class="mb-1"><input type="text" class="google"
+                                                                       name="cityFrom3" id="editCityFrom3"></label><br>
+                                        </div>
+                                        <div style="display:none" id="idCityFrom4">
+                                            <label class="mb-1"><input type="text" class="google"
+                                                                       name="cityFrom4" id="editCityFrom4"></label><br>
+                                        </div>
+                                        <div style="display:none" id="idCityFrom5">
+                                            <label class="mb-1"><input type="text" class="google"
+                                                                       name="cityFrom5" id="editCityFrom5"></label><br>
+                                        </div>
                                         <div class="row justify-content-center mt-1">
                                             <div class="col-md-auto">
                                                 <p><a class="btn btn-success" id="textCityFrom"><fmt:message key="addCity"/> &raquo;</a>
@@ -118,12 +132,26 @@
                                 <h5 class="text-center"><fmt:message key="cityOfReceipt"/></h5>
                                 <div class="row justify-content-center">
                                     <div class="col-md-auto">
-                                        <label class="mb-1"><input type="text" id="idCityTo1" name="cityTo1"
-                                                                   required></label><br>
-                                        <div id="divCityTo2"></div>
-                                        <div id="divCityTo3"></div>
-                                        <div id="divCityTo4"></div>
-                                        <div id="divCityTo5"></div>
+                                        <div id="idCityTo1">
+                                            <label class="mb-1"><input type="text" class="google" name="cityTo1"
+                                                                       required></label><br>
+                                        </div>
+                                        <div style="display:none" id="idCityTo2">
+                                            <label class="mb-1"><input type="text" class="google" name="cityTo2"
+                                                                       id="editCityTo2"></label><br>
+                                        </div>
+                                        <div style="display:none" id="idCityTo3">
+                                            <label class="mb-1"><input type="text" class="google" name="cityTo3"
+                                                                       id="editCityTo3"></label><br>
+                                        </div>
+                                        <div style="display:none" id="idCityTo4">
+                                            <label class="mb-1"><input type="text" class="google" name="cityTo4"
+                                                                       id="editCityTo4"></label><br>
+                                        </div>
+                                        <div style="display:none" id="idCityTo5">
+                                            <label class="mb-1"><input type="text" class="google" name="cityTo5"
+                                                                       id="editCityTo5"></label><br>
+                                        </div>
                                         <div class="row justify-content-center mt-1">
                                             <div class="col-md-auto">
                                                 <p><a class="btn btn-success" id="textCityTo"><fmt:message key="addCity"/> &raquo;</a>
@@ -256,9 +284,9 @@
     </c:if>
 </div>
 <script src="/script/script.js"></script>
-<%--<script src="/script/editScript.js"></script>
+<script src="/script/editScript.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&language=${sessionScope.lang}&libraries=places&callback=initAutocomplete"
-        async defer></script>--%>
+        async defer></script>
 </body>
 </html>
 

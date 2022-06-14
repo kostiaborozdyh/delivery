@@ -33,7 +33,7 @@ public class JsonParser {
                     elements) {
                 JSONObject elementObj = (JSONObject) element;
                 JSONObject distancesObj = (JSONObject) elementObj.get("distance");
-                distanceList.add(new InfoTable(cutName(cityFromList.get(i)), cutName(cityToList.get(j)), Integer.parseInt(distancesObj.get("value").toString()) / 1000));
+                distanceList.add(new InfoTable(cutCityName(cityFromList.get(i)), cutCityName(cityToList.get(j)), Integer.parseInt(distancesObj.get("value").toString()) / 1000));
                 j++;
             }
             i++;
@@ -62,13 +62,13 @@ public class JsonParser {
         return arrayList;
     }
 
-    public static String cutName(String name) {
-        long count = name.chars().filter(ch -> ch == ',').count();
+    public static String cutCityName(String city) {
+        long count = city.chars().filter(ch -> ch == ',').count();
         if (count == 1) {
-            return name;
+            return city;
         }
-        StringBuilder sb = new StringBuilder(name);
-        int lastIndex = name.lastIndexOf(',');
+        StringBuilder sb = new StringBuilder(city);
+        int lastIndex = city.lastIndexOf(',');
         sb.delete(lastIndex, sb.length());
         if (count == 2) {
             return sb.toString();
@@ -76,6 +76,15 @@ public class JsonParser {
             return sb.replace(sb.indexOf(","), sb.lastIndexOf(","), "").toString();
         }
 
+    }
+    public static String cutCityNameForEmployee(String city)  {
+        List<InfoTable> list=null;
+        try {
+            list = GoogleMaps.getDistance(city, city);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return cutCityName(list.get(0).getCityFrom());
     }
 
 }

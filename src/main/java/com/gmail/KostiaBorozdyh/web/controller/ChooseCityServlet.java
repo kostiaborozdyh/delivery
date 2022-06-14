@@ -30,7 +30,7 @@ public class ChooseCityServlet extends HttpServlet {
         String city;
         if (session.getAttribute("city") == null) {
             city = request.getParameter("city");
-            city = JsonParser.cutName(city);
+            city = JsonParser.cutCityNameForEmployee(city);
             session.setAttribute("city", city);
         } else {
             city = (String) session.getAttribute("city");

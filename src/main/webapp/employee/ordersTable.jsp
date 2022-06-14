@@ -75,7 +75,7 @@
                 <div class="col-3">
                     <div class="form-group mb-3">
                         <label class="control-label col-xs-4 mb-1"><fmt:message key="enterCity"/><text style = "color:red;">*</text></label>
-                        <input type="text" class="form-control" id="autocomplete" name="city" required="required">
+                        <input type="text" class="form-control google" id="autocomplete" name="city" required="required">
                     </div>
                 </div>
             </div>
@@ -162,22 +162,8 @@
         </div>
     </c:if>
 </div>
+<script src="/script/editScript.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&language=${sessionScope.lang}&libraries=places&callback=initAutocomplete"
+        async defer></script>
 </body>
 </html>
-<%--
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_4ASyzLdt1d16-mekZg5W4X24P0zIR4&libraries=places&callback=initAutocomplete"
-        async defer></script>
-
-<script>
-    function initAutocomplete() {
-        new google.maps.places.Autocomplete(
-            (document.getElementById('autocomplete')),
-            {types: ['geocode']}
-        );
-        new google.maps.places.Autocomplete(
-            (document.getElementById('autocompleteSec')),
-            {types: ['geocode']}
-        );
-    }
-</script>
---%>
