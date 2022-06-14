@@ -20,7 +20,7 @@ import java.io.OutputStream;
 @WebServlet(name = "PdfUserOrderServlet", value = "/pdfUserOrder")
 public class PdfUserOrderServlet extends HttpServlet {
 
-    public final String FONT = "D:\\servlet\\demos\\src\\main\\webapp\\font\\FreeSans.ttf";
+    public final String FONT = "font/FreeSans.ttf";
 
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
@@ -39,7 +39,8 @@ public class PdfUserOrderServlet extends HttpServlet {
                 "Дата створення: " + order.getDateCreate() + "\n" +
                 "Дата прибуття: " + order.getDateOfArrival() + "\n" +
                 "Статус: " + order.getPaymentStatus() + "\n";
-        PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
+        String path = this.getServletContext().getRealPath("")+FONT;
+        PdfFont font = PdfFontFactory.createFont(path, PdfEncodings.IDENTITY_H);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
         Document doc = new Document(pdfDoc);

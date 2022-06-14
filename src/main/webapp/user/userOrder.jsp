@@ -126,7 +126,7 @@
         </div>
         <div class="col-3 btnsl">
             <p><a href="/showLocation?id=${sessionScope.infoOrder.id}" class="btn btn-info b1"
-                            <c:if test = "${sessionScope.infoOrder.locationStatus == 'В місті відправлення'}">
+                            <c:if test = "${sessionScope.infoOrder.locationStatus == 'В місті відправлення' || sessionScope.infoOrder.locationStatus == 'Отримано'}">
                              onclick="return false"
                             </c:if>>
                     <fmt:message key="locationParcel"/></a></p>

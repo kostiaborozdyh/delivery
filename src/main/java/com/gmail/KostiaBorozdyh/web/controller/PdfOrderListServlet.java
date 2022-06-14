@@ -22,16 +22,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet(name = "PdfOrderListServlet", value = "/pdfOrderList")
 public class PdfOrderListServlet extends HttpServlet {
-    public final String FONT = "D:\\servlet\\demos\\src\\main\\webapp\\font\\FreeSans.ttf";
+
+    public final String FONT = "font/FreeSans.ttf";
 
 
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        // Get the text that will be added to the PDF
-            PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
+            String path = this.getServletContext().getRealPath("")+FONT;
+            PdfFont font = PdfFontFactory.createFont(path, PdfEncodings.IDENTITY_H);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
             Document doc = new Document(pdfDoc);

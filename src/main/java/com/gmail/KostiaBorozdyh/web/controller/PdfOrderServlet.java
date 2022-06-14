@@ -26,13 +26,14 @@ import com.itextpdf.layout.property.VerticalAlignment;
 
 @WebServlet(name = "PdfServlet", value = "/pdfOrder")
 public class PdfOrderServlet extends HttpServlet {
-    public final String FONT = "D:\\servlet\\demos\\src\\main\\webapp\\font\\FreeSans.ttf";
+    public final String FONT = "font/FreeSans.ttf";
 
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         // Get the text that will be added to the PDF
         String text = "Заявки на відправлення вантажу";
-        PdfFont font = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
+        String path = this.getServletContext().getRealPath("")+FONT;
+        PdfFont font = PdfFontFactory.createFont(path, PdfEncodings.IDENTITY_H);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
         Document doc = new Document(pdfDoc);

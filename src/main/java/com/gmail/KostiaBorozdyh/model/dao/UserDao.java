@@ -67,7 +67,7 @@ public class UserDao {
                     user.setBan(rs.getString("ban"));
                 }
             }
-            log.info("Перевірка користувача" + login + " завершено");
+            log.info("Перевірка користувача " + login + " завершено");
         } catch (Exception ex) {
             log.error("Помилка, перевірка користувача" + ex);
         }finally {
