@@ -22,7 +22,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.Objects;
 
 @WebServlet(name = "PdfOrderListServlet", value = "/pdfOrderList")
 public class PdfOrderListServlet extends HttpServlet {
@@ -146,5 +145,4 @@ public class PdfOrderListServlet extends HttpServlet {
             os.flush();
             os.close();
         }
-
 }

@@ -21,9 +21,4 @@ public class ShowLocationServlet extends HttpServlet {
 
         response.sendRedirect("/user/location.jsp");
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

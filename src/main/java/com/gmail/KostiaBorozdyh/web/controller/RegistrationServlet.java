@@ -1,6 +1,5 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.entity.ValidList;
 import com.gmail.KostiaBorozdyh.model.service.UserService;
@@ -13,10 +12,6 @@ import java.io.IOException;
 
 @WebServlet(name = "RegistrationServlet", value = "/registrationUser")
 public class RegistrationServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();

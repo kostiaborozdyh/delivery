@@ -1,7 +1,6 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
 
-import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.service.UserService;
 
@@ -58,9 +57,5 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 }

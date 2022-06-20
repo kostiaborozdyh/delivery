@@ -1,7 +1,5 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
-import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.service.OrderService;
 import com.gmail.KostiaBorozdyh.model.service.UserService;
@@ -27,9 +25,5 @@ public class PayServlet extends HttpServlet {
         request.getSession().setAttribute("money", user.getMoney());
 
         response.sendRedirect("/resetOrder");
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 }

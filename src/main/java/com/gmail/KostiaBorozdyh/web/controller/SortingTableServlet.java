@@ -1,7 +1,6 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
 import com.gmail.KostiaBorozdyh.model.service.InfoTableService;
-import com.gmail.KostiaBorozdyh.model.utils.Calculate;
 import com.gmail.KostiaBorozdyh.model.utils.FiltrationOrder;
 import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
 
@@ -13,12 +12,6 @@ import java.util.List;
 
 @WebServlet(name = "SortingTableServlet", value = "/sortingTable")
 public class SortingTableServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sort = request.getParameter("sort");

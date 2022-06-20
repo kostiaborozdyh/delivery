@@ -1,10 +1,7 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
 import com.gmail.KostiaBorozdyh.model.service.InfoTableService;
-import com.gmail.KostiaBorozdyh.model.utils.Calculate;
-import com.gmail.KostiaBorozdyh.model.utils.Table;
 import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
-import org.json.simple.parser.ParseException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

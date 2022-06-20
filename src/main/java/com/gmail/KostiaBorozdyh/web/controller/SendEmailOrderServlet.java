@@ -1,12 +1,7 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
 import com.gmail.KostiaBorozdyh.model.service.UserService;
-import com.gmail.KostiaBorozdyh.model.utils.CreateMessage;
-import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
-import com.gmail.KostiaBorozdyh.model.utils.SendEmail;
-import com.gmail.KostiaBorozdyh.model.entity.User;
 
-import javax.mail.MessagingException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;

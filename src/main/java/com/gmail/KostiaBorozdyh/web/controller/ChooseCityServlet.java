@@ -1,6 +1,5 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
 import com.gmail.KostiaBorozdyh.model.service.OrderService;
 import com.gmail.KostiaBorozdyh.model.utils.Calculate;

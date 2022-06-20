@@ -1,6 +1,5 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.service.UserService;
 import com.gmail.KostiaBorozdyh.model.utils.Validation;
 
@@ -11,11 +10,6 @@ import java.io.IOException;
 
 @WebServlet(name = "EnterPasswordServlet", value = "/enterPassword")
 public class EnterPasswordServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String password = request.getParameter("password");

@@ -1,7 +1,7 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
+import com.gmail.KostiaBorozdyh.model.service.OrderService;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -27,7 +27,7 @@ public class PdfUserOrderServlet extends HttpServlet {
 
         // Get the text that will be added to the PDF
         Integer id = Integer.parseInt(request.getParameter("idOrder"));
-        Order order = OrderDao.getOrder(id);
+        Order order = OrderService.getOrderById(id);
         String text = "Заявка№" + order.getId();
         String sb = "Опис: " + order.getDescription() + "\n" +
                 "Вага: " + order.getWeight() + "\n" +

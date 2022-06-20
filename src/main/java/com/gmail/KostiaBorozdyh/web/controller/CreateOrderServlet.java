@@ -1,26 +1,17 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.service.OrderService;
 import com.gmail.KostiaBorozdyh.model.service.UserService;
-import com.gmail.KostiaBorozdyh.model.utils.CreateMessage;
-import com.gmail.KostiaBorozdyh.model.utils.SendEmail;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet(name = "CreateOrderServlet", value = "/createOrder")
 public class CreateOrderServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();

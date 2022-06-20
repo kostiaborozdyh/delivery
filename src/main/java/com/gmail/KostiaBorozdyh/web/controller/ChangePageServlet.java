@@ -2,7 +2,6 @@ package com.gmail.KostiaBorozdyh.web.controller;
 
 import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
-import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.utils.Calculate;
 import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
 
@@ -58,10 +57,5 @@ public class ChangePageServlet extends HttpServlet {
             }
             break;
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

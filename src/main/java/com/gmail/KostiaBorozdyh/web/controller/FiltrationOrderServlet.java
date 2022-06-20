@@ -3,10 +3,8 @@ package com.gmail.KostiaBorozdyh.web.controller;
 import com.gmail.KostiaBorozdyh.model.entity.FilterOrder;
 import com.gmail.KostiaBorozdyh.model.service.OrderService;
 import com.gmail.KostiaBorozdyh.model.utils.FiltrationOrder;
-import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
 import com.gmail.KostiaBorozdyh.model.entity.User;
-import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,10 +14,6 @@ import java.util.List;
 
 @WebServlet(name = "FiltrationOrderServlet", value = "/filtrationOrder")
 public class FiltrationOrderServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

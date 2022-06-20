@@ -1,6 +1,5 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.service.OrderService;
 
 import javax.servlet.*;
@@ -19,10 +18,5 @@ public class InfoOrderServlet extends HttpServlet {
         } else {
             response.sendRedirect("/man/orderUser.jsp");
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

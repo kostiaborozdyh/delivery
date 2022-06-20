@@ -48,9 +48,4 @@ public class ChangeLanguageServlet extends HttpServlet {
             case 25: response.sendRedirect("/user/userOrder.jsp");                      break;
         }
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }
