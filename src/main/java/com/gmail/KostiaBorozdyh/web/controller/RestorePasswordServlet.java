@@ -8,13 +8,10 @@ import java.io.IOException;
 @WebServlet(name = "RestorePasswordServlet", value = "/restorePassword")
 public class RestorePasswordServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("code").equals(request.getSession().getAttribute("code"))) {
+        String code = request.getParameter("code");
+        String trueCode = (String) request.getSession().getAttribute("code");
+        if (code.equals(trueCode)) {
             response.sendRedirect("/restore/enterPassword.jsp");
         } else {
             request.getSession().setAttribute("invalidCode", "invalidCode");

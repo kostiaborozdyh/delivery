@@ -4,6 +4,8 @@ import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
 import com.gmail.KostiaBorozdyh.model.entity.User;
+import com.gmail.KostiaBorozdyh.model.service.OrderService;
+import com.gmail.KostiaBorozdyh.model.service.UserService;
 import com.gmail.KostiaBorozdyh.model.utils.CreateMessage;
 import com.gmail.KostiaBorozdyh.model.utils.SendEmail;
 
@@ -28,15 +30,9 @@ public class CreateOrderServlet extends HttpServlet {
         final String address = (String) session.getAttribute("orderAddress");
 
         User user = (User) session.getAttribute("user");
-        OrderDao.createOrder(new Order(infoTable,info,address,user.getId()));
 
-        if (user.getNotify().equals("yes")) {
-            try {
-                SendEmail.send(user.getEmail(), CreateMessage.messageCreateOrder(infoTable));
-            } catch (MessagingException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        OrderService.save(new Order(infoTable,info,address,user.getId()));
+        UserService.sendEmailAfterCreateOrder(user,infoTable);
 
         session.removeAttribute("newOrder");
         session.removeAttribute("orderInfo");

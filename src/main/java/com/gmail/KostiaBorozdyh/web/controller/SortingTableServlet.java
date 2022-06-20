@@ -1,5 +1,6 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
+import com.gmail.KostiaBorozdyh.model.service.InfoTableService;
 import com.gmail.KostiaBorozdyh.model.utils.Calculate;
 import com.gmail.KostiaBorozdyh.model.utils.FiltrationOrder;
 import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
@@ -23,19 +24,18 @@ public class SortingTableServlet extends HttpServlet {
         String sort = request.getParameter("sort");
         HttpSession session = request.getSession();
 
-        List<InfoTable> tableList = (List<InfoTable>) session.getAttribute("infoTable");
-        tableList = FiltrationOrder.sortingTable(sort, tableList);
+        List<InfoTable> infoTableList = (List<InfoTable>) session.getAttribute("infoTable");
+        List<Integer> pageNumberList = (List<Integer>) session.getAttribute("list");
 
-        session.setAttribute("infoTable", tableList);
+        infoTableList = FiltrationOrder.sortingTable(sort, infoTableList);
 
-        if (tableList.size() <= 5) {
-            session.setAttribute("infoTableShort", tableList);
-        } else {
-            session.setAttribute("infoTableShort", Calculate.getFiveElements(tableList, 1));
-        }
+        List<InfoTable> shortInfoTableList = InfoTableService.getShortInfoTable(infoTableList, pageNumberList);
 
+        session.setAttribute("infoTable", infoTableList);
+        session.setAttribute("shortInfoTable", shortInfoTableList);
         session.setAttribute("pageNumber", 1);
         session.setAttribute("sort", sort);
+
         response.sendRedirect("/info.jsp");
     }
 }

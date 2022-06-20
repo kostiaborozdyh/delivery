@@ -1,6 +1,6 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.dao.UserDao;
+import com.gmail.KostiaBorozdyh.model.service.UserService;
 import com.gmail.KostiaBorozdyh.model.utils.Validation;
 
 import javax.servlet.*;
@@ -10,11 +10,6 @@ import java.io.IOException;
 
 @WebServlet(name = "RestoreServlet", value = "/restore")
 public class RestoreServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
@@ -28,7 +23,7 @@ public class RestoreServlet extends HttpServlet {
                 session.setAttribute("invalidM", "invalid");
             } else {
 
-                if (!UserDao.loginIsValid(login)) {
+                if (!UserService.loginIsValid(login)) {
                     userLogin = login;
                 } else {
                     session.setAttribute("invalidLogin", "invalidLogin");
@@ -37,7 +32,7 @@ public class RestoreServlet extends HttpServlet {
             }
         } else {
 
-            if (!UserDao.emailIsValid(login)) {
+            if (!UserService.emailIsValid(login)) {
                 userEmail = login;
             } else {
                 session.setAttribute("invalidEmail", "invalidLEmail");
@@ -52,8 +47,8 @@ public class RestoreServlet extends HttpServlet {
             if (userEmail != null) {
                 session.setAttribute("email", userEmail);
             } else {
-                String result = UserDao.getUserEmail(userLogin);
-                session.setAttribute("email", result);
+                String email = UserService.getUserEmailByUserLogin(userLogin);
+                session.setAttribute("email", email);
             }
             response.sendRedirect("/restore/restorePassword.jsp");
 

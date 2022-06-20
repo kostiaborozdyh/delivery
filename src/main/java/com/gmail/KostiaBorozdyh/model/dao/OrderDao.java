@@ -16,6 +16,12 @@ public class OrderDao {
     private static final Logger log = Logger.getLogger(OrderDao.class);
 
     public static final String SQL_INSERT_ORDER = "INSERT INTO delivery.order(description,weight,volume,price,city_from,city_to,address,date_create,date_of_arrival,user_id,payment_status_id,location_status_id)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+    public static final String SQL_CHANGE_PAY_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 3 WHERE d.id=?";
+    public static final String SQL_CHANGE_ORDER_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 2, d.location_status_id = 2, d.date_of_sending = ?, d.date_of_arrival=? WHERE d.id=?";
+    public static final String SQL_GIVE_ORDER = "UPDATE delivery.order d SET d.location_status_id = 4 WHERE d.id=?";
+    public static final String SQL_PUT_ON_RECORD = "UPDATE delivery.order d SET d.location_status_id = 3 WHERE d.id=?";
+    public static final String SQL_GET_USER_ID = "SELECT * FROM delivery.order d WHERE d.id = ?";
+    public static final String SQL_DELETE_ORDERS = "DELETE FROM delivery.order d WHERE d.user_id =?";
     public static final String SQL_GET_USER_ORDERS = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
             "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
             "do.date_of_arrival, dp.status, du.login, dl.location\n" +
@@ -23,12 +29,6 @@ public class OrderDao {
             "join delivery.user as du on  do.user_id = du.id \n" +
             "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
             "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.user_id=?";
-    public static final String SQL_CHANGE_PAY_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 3 WHERE d.id=?";
-    public static final String SQL_CHANGE_ORDER_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 2, d.location_status_id = 2, d.date_of_sending = ?, d.date_of_arrival=? WHERE d.id=?";
-    public static final String SQL_GIVE_ORDER = "UPDATE delivery.order d SET d.location_status_id = 4 WHERE d.id=?";
-    public static final String SQL_PUT_ON_RECORD = "UPDATE delivery.order d SET d.location_status_id = 3 WHERE d.id=?";
-    public static final String SQL_GET_USER_ID = "SELECT * FROM delivery.order d WHERE d.id = ?";
-    public static final String SQL_DELETE_ORDERS = "DELETE FROM delivery.order d WHERE d.user_id =?";
     public static final String SQL_GET_ORDER_LIST = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
             "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
             "do.date_of_arrival, dp.status, du.login, dl.location\n" +
@@ -110,7 +110,7 @@ public class OrderDao {
         return list;
     }
 
-    public static void changePayStatus(Integer id, Integer value, Integer money) {
+    public static void changePayStatus(Integer id) {
         Connection connection = null;
         PreparedStatement pst = null;
         log.info("Зміна статусу оплати посилки" + id);
@@ -131,10 +131,8 @@ public class OrderDao {
         }
     }
 
-    public static void changeOrderStatus(Integer id) {
+    public static void changeOrderStatus(Integer id,LocalDate dateOfArrival) {
         log.info("Зміна статусу посилки" + id);
-        Order order = getOrder(id);
-        LocalDate dateOfArrival = Calculate.newArrivalTime(order.getDateCreate(), order.getDateOfArrival());
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -252,7 +250,7 @@ public class OrderDao {
         return order;
     }
 
-    public static void deleteOrder(Integer userId) {
+    public static void deleteOrderByUserId(Integer userId) {
         log.info("Видалити ордер по ід юзера "+userId);
         Connection connection = null;
         PreparedStatement pst = null;

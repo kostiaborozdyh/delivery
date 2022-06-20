@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 public class SendEmail {
-    public static void send(String email, String[] message) throws  MessagingException, UnsupportedEncodingException
+    public static void send(String email, String[] message)
     {/*
         //Set Mail properties
         Properties props = System.getProperties();

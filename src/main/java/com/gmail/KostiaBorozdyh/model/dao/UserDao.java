@@ -1,15 +1,11 @@
 package com.gmail.KostiaBorozdyh.model.dao;
 
 import com.gmail.KostiaBorozdyh.DB.DBHelper;
-import com.gmail.KostiaBorozdyh.model.utils.CreateMessage;
-import com.gmail.KostiaBorozdyh.model.utils.SendEmail;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.utils.Validation;
 import com.gmail.KostiaBorozdyh.security.Security;
 import org.apache.log4j.Logger;
 
-import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +19,7 @@ public class UserDao {
     public static final String SQL_GET_USERS = "SELECT * FROM user u WHERE u.role_id!=3 limit ?,5";
     public static final String SQL_GET_EMAIL = "SELECT * FROM user u WHERE u.email=?";
     public static final String SQL_INSERT_USER = "INSERT INTO user(login,password,first_name,last_name,phone_number,email,role_id,notify,ban)  VALUES (?,?,?,?,?,?,?,?,?)";
-    public static final String SQL_CHANGE_MONEY = "UPDATE delivery.user d SET d.money = ? WHERE d.id=?";
+    public static final String SQL_CHANGE_MONEY = "UPDATE delivery.user d SET d.money = ? WHERE d.login=?";
     public static final String SQL_BLOCK_USER = "UPDATE delivery.user d SET d.ban = 'yes' WHERE d.id=?";
     public static final String SQL_UN_BLOCK_USER = "UPDATE delivery.user d SET d.ban = 'no' WHERE d.id=?";
     public static final String SQL_DELETE_USER = "DELETE FROM delivery.user d WHERE d.id =?";
@@ -70,7 +66,7 @@ public class UserDao {
             log.info("Перевірка користувача " + login + " завершено");
         } catch (Exception ex) {
             log.error("Помилка, перевірка користувача" + ex);
-        }finally {
+        } finally {
             close(pst);
         }
         return user;
@@ -162,22 +158,22 @@ public class UserDao {
         return count > 0;
     }
 
-    public static void changeMoney(Integer orderId, Integer value, Integer money) {
-        log.info("Зняття грошей у юзера по ордеру " + orderId);
+    public static void changeMoney(String login, Integer money) {
+        log.info("Зняття грошей у юзера з login " + login);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
             connection = DBHelper.getInstance().getConnection();
             pst = connection.prepareStatement(SQL_CHANGE_MONEY);
             connection.setAutoCommit(false);
-            pst.setInt(1, money - value);
-            pst.setInt(2, OrderDao.getUserId(orderId));
+            pst.setInt(1, money);
+            pst.setString(2, login);
             pst.executeUpdate();
             connection.commit();
-            log.info("Зняття грошей у юзера по ордеру " + orderId + " завершено");
+            log.info("Зняття грошей у юзера з login " + login + " завершено");
         } catch (SQLException ex) {
             rollback(connection);
-            log.error("Помилка, зняття грошей у юзера по ордеру " + orderId + ex);
+            log.error("Помилка, зняття грошей у юзера з login " + login + ex);
         } finally {
             close(connection);
             close(pst);
@@ -201,30 +197,6 @@ public class UserDao {
         } catch (Exception ex) {
             rollback(connection);
             log.error("Помилка, заміна паролю для юзера " + email + ex);
-        } finally {
-            close(connection);
-            close(pst);
-        }
-        return count > 0;
-    }
-
-    public static boolean refillMoney(Integer userId, Integer value, Integer money) {
-        log.info("Поповдення рахунку для юзера з id " + userId);
-        int count = 0;
-        Connection connection = null;
-        PreparedStatement pst = null;
-        try {
-            connection = DBHelper.getInstance().getConnection();
-            pst = connection.prepareStatement(SQL_CHANGE_MONEY);
-            connection.setAutoCommit(false);
-            pst.setInt(1, money + value);
-            pst.setInt(2, userId);
-            count = pst.executeUpdate();
-            connection.commit();
-            log.info("Поповдення рахунку для юзера з id " + userId + " завершено");
-        } catch (SQLException ex) {
-            rollback(connection);
-            log.error("Помилка, поповдення рахунку для юзера з id " + userId + ex);
         } finally {
             close(connection);
             close(pst);
@@ -264,11 +236,13 @@ public class UserDao {
             close(connection);
             close(pst);
         }
-        if (count > 0) return user;
-        else return null;
+        if (count > 0) {
+            return user;
+        }
+        return null;
     }
 
-    public static String getUserEmail(String login) {
+    public static String getUserEmailByUserLogin(String login) {
         log.info("Вибірка email юзера по логіну " + login);
         String email = null;
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -287,7 +261,7 @@ public class UserDao {
         return email;
     }
 
-    public static String getUserEmail(Integer id) {
+    public static String getUserEmailByUserId(Integer id) {
         log.info("Вибірка email юзера по id " + id);
         String email = null;
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -310,7 +284,7 @@ public class UserDao {
         List<User> userList = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USERS)) {
-            pst.setInt(1,skip);
+            pst.setInt(1, skip);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
                     User user = new User();
@@ -330,14 +304,14 @@ public class UserDao {
         return userList;
     }
 
-    public static Integer getUserCount(){
+    public static Integer getUserCount() {
         log.info("Вибірка кількості юзерів");
-        int count=0;
+        int count = 0;
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_COUNT)) {
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
-                    count=rs.getInt("count(1)");
+                    count = rs.getInt("count(1)");
                 }
             }
             log.info("Вибірка кількості юзерів зевершено");
@@ -348,7 +322,7 @@ public class UserDao {
     }
 
 
-    public static void blockUser(Integer id) throws MessagingException, UnsupportedEncodingException {
+    public static void blockUser(Integer id) {
         log.info("Блокування юзера по id " + id);
         Connection connection = null;
         PreparedStatement pst = null;
@@ -367,10 +341,9 @@ public class UserDao {
             close(connection);
             close(pst);
         }
-        SendEmail.send(getUserEmail(id), CreateMessage.blockUser());
     }
 
-    public static void unBlockUser(Integer id) throws MessagingException, UnsupportedEncodingException {
+    public static void unBlockUser(Integer id){
         log.info("Розблокування юзера по id " + id);
         Connection connection = null;
         PreparedStatement pst = null;
@@ -389,13 +362,10 @@ public class UserDao {
             close(connection);
             close(pst);
         }
-        SendEmail.send(getUserEmail(id), CreateMessage.unBlockUser());
     }
 
-    public static void deleteUser(Integer id) throws MessagingException, UnsupportedEncodingException {
+    public static void deleteUser(Integer id) {
         log.info("Видалення юзера по id " + id);
-        String email = getUserEmail(id);
-        OrderDao.deleteOrder(id);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -413,7 +383,6 @@ public class UserDao {
             close(connection);
             close(pst);
         }
-        SendEmail.send(email, CreateMessage.deleteUser());
     }
 
     private static void close(PreparedStatement st) {

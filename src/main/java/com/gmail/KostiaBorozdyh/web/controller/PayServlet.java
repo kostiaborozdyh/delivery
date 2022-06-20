@@ -3,6 +3,8 @@ package com.gmail.KostiaBorozdyh.web.controller;
 import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.User;
+import com.gmail.KostiaBorozdyh.model.service.OrderService;
+import com.gmail.KostiaBorozdyh.model.service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -13,18 +15,18 @@ import java.io.IOException;
 public class PayServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            final Integer orderId = Integer.parseInt(request.getParameter("id"));
-            final Integer value = Integer.parseInt(request.getParameter("value"));
-            final Integer money = Integer.parseInt(request.getParameter("money"));
+        final Integer orderId = Integer.parseInt(request.getParameter("id"));
+        final Integer value = Integer.parseInt(request.getParameter("value"));
+        final Integer money = Integer.parseInt(request.getParameter("money"));
 
-            User user = (User) request.getSession().getAttribute("user");
-            user.setMoney(money - value);
+        User user = (User) request.getSession().getAttribute("user");
+        user.setMoney(money - value);
 
-            OrderDao.changePayStatus(orderId, value, money);
-            UserDao.changeMoney(orderId, value, money);
-            request.getSession().setAttribute("money", money - value);
+        OrderService.changeOrderPaymentStatusAfterUserPay(orderId);
+        UserService.changeMoney(user);
+        request.getSession().setAttribute("money", user.getMoney());
 
-            response.sendRedirect("/resetOrder");
+        response.sendRedirect("/resetOrder");
     }
 
     @Override

@@ -20,9 +20,4 @@ public class PrintMapServlet extends HttpServlet {
         }
         response.sendRedirect("/info.jsp");
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }

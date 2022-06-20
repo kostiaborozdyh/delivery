@@ -1,7 +1,7 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.User;
+import com.gmail.KostiaBorozdyh.model.service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -19,18 +19,17 @@ public class RefillServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final int value = Integer.parseInt(request.getParameter("value"));
         User user = (User) request.getSession().getAttribute("user");
-        int money;
+        int money=0;
 
-        if (user.getMoney() == null) {
-            money = 0;
-        } else {
+        if (user.getMoney() != null) {
             money = user.getMoney();
         }
 
-        UserDao.refillMoney(user.getId(), value, money);
         user.setMoney(money + value);
 
-        request.getSession().setAttribute("money", money + value);
+        UserService.changeMoney(user);
+
+        request.getSession().setAttribute("money", user.getMoney());
         response.sendRedirect("/user/refill.jsp");
     }
 }

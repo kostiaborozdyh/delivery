@@ -19,21 +19,21 @@ public class Security {
     }
 
     public static String restorePassword(String email) throws UnsupportedEncodingException, MessagingException {
-        StringBuilder code = generateCode();
-        SendEmail.send(email, CreateMessage.restorePassword(code.toString()));
-        return code.toString();
+        String code = generateCode();
+        SendEmail.send(email, CreateMessage.restorePassword(code));
+        return code;
     }
 
-    public static String sendCode(String email) throws MessagingException, UnsupportedEncodingException {
-        StringBuilder code = generateCode();
-        SendEmail.send(email, CreateMessage.sendCode(code.toString()));
-        return code.toString();
+    public static String sendCode(String email) {
+        String code = generateCode();
+        SendEmail.send(email, CreateMessage.sendCode(code));
+        return code;
     }
-    private static StringBuilder generateCode() {
+    private static String generateCode() {
         StringBuilder code = new StringBuilder();
         for (int i = 0; i < 6; i++) {
             code.append(Integer.valueOf((int) (Math.random() * 9)));
         }
-        return code;
+        return code.toString();
     }
 }

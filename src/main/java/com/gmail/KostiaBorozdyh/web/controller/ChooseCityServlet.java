@@ -2,6 +2,7 @@ package com.gmail.KostiaBorozdyh.web.controller;
 
 import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
+import com.gmail.KostiaBorozdyh.model.service.OrderService;
 import com.gmail.KostiaBorozdyh.model.utils.Calculate;
 import com.gmail.KostiaBorozdyh.model.utils.JsonParser;
 
@@ -36,7 +37,7 @@ public class ChooseCityServlet extends HttpServlet {
             city = (String) session.getAttribute("city");
         }
 
-        List<Order> orderList = OrderDao.getOrderList(city);
+        List<Order> orderList = OrderService.getOrderListByCityOfArrival(city);
 
         if (session.getAttribute("pageNumberOrder") == null) {
             List<Integer> list = Calculate.getPaginationList(orderList);

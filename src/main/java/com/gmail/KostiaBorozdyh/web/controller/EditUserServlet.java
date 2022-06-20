@@ -3,6 +3,7 @@ package com.gmail.KostiaBorozdyh.web.controller;
 import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.entity.ValidList;
+import com.gmail.KostiaBorozdyh.model.service.UserService;
 import com.gmail.KostiaBorozdyh.model.utils.Validation;
 
 import javax.servlet.*;
@@ -62,14 +63,16 @@ public class EditUserServlet extends HttpServlet {
         user2.setPassword(password);
         user2.setSecondPassword(secondPassword);
         validList = Validation.valid(user2, false, checkEmail);
+        boolean noErrorsInValidation = Validation.count(validList);
 
-        if (Validation.count(validList)) {
-
-            user = UserDao.editUser(user2);
+        if (noErrorsInValidation) {
+            user = UserService.editUser(user2);
             request.getSession().setAttribute("user", user);
             request.getSession().removeAttribute("validList");
 
-        } else request.getSession().setAttribute("validList", validList);
+        } else{
+            request.getSession().setAttribute("validList", validList);
+        }
 
         response.sendRedirect("/editUser.jsp");
 

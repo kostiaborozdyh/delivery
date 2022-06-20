@@ -1,6 +1,7 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
 import com.gmail.KostiaBorozdyh.model.dao.UserDao;
+import com.gmail.KostiaBorozdyh.model.service.UserService;
 import com.gmail.KostiaBorozdyh.model.utils.Validation;
 
 import javax.servlet.*;
@@ -26,7 +27,7 @@ public class EnterPasswordServlet extends HttpServlet {
                 request.getSession().setAttribute("passwordNameInvalid", "pass");
                 response.sendRedirect("/restore/enterPassword.jsp");
             } else {
-                UserDao.changePassword(emailUser, password);
+                UserService.changePassword(emailUser,password);
                 request.getSession().setAttribute("changePassword", "yes");
                 response.sendRedirect("/login.jsp");
             }

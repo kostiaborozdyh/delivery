@@ -1,5 +1,6 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
+import com.gmail.KostiaBorozdyh.model.service.InfoTableService;
 import com.gmail.KostiaBorozdyh.model.utils.Calculate;
 import com.gmail.KostiaBorozdyh.model.utils.Table;
 import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
@@ -14,46 +15,34 @@ import java.util.List;
 @WebServlet(name = "ShowInfoServlet", value = "/showInfo")
 public class ShowInfoServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        StringBuilder cityFrom = new StringBuilder();
-        StringBuilder cityTo = new StringBuilder();
-        for (int i = 0; i < 5; i++) {
-            String strFrom = request.getParameter("cityFrom" + (i + 1));
-            String strTo = request.getParameter("cityTo" + (i + 1));
-            if (strFrom != null){
-                cityFrom.append("|").append(strFrom);
-            }
-            if (strTo != null){
-                cityTo.append("|").append(strTo);
-            }
-        }
-        cityFrom.deleteCharAt(0);
-        cityTo.deleteCharAt(0);
-        try {
-            List<InfoTable> infoTable = Table.getInfoTable(cityFrom.toString(), cityTo.toString());
-            List<Integer> list = Calculate.getPaginationList(infoTable);
 
-            if (list == null) {
-                session.setAttribute("infoTableShort", infoTable);
-            } else {
-                session.setAttribute("infoTableShort", Calculate.getFiveElements(infoTable, 1));
-            }
+        String cityFrom = getRequestCityString(request, "cityFrom");
+        String cityTo = getRequestCityString(request, "cityTo");
 
-            session.setAttribute("infoTable", infoTable);
-            session.setAttribute("list", list);
-            session.setAttribute("pageNumber", 1);
+        List<InfoTable> infoTableList = InfoTableService.getInfoTable(cityFrom, cityTo);
+        List<Integer> pageNumberList = InfoTableService.getPaginationList(infoTableList);
+        List<InfoTable> shortInfoTableList = InfoTableService.getShortInfoTable(infoTableList, pageNumberList);
 
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        session.setAttribute("infoTable", infoTableList);
+        session.setAttribute("list", pageNumberList);
+        session.setAttribute("pageNumber", 1);
+        session.setAttribute("shortInfoTable", shortInfoTableList);
 
         session.removeAttribute("table");
         response.sendRedirect("/info.jsp");
+    }
+
+    private String getRequestCityString(HttpServletRequest request, String city) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            String string = request.getParameter(city + (i + 1));
+            if (string != null) {
+                stringBuilder.append("|").append(string);
+            }
+        }
+        stringBuilder.deleteCharAt(0);
+        return stringBuilder.toString();
     }
 }

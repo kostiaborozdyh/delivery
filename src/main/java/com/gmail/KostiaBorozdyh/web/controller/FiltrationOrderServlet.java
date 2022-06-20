@@ -1,6 +1,7 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
 import com.gmail.KostiaBorozdyh.model.entity.FilterOrder;
+import com.gmail.KostiaBorozdyh.model.service.OrderService;
 import com.gmail.KostiaBorozdyh.model.utils.FiltrationOrder;
 import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
@@ -15,7 +16,6 @@ import java.util.List;
 
 @WebServlet(name = "FiltrationOrderServlet", value = "/filtrationOrder")
 public class FiltrationOrderServlet extends HttpServlet {
-    private static final Logger log = Logger.getLogger(FiltrationOrderServlet.class);
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
@@ -38,20 +38,17 @@ public class FiltrationOrderServlet extends HttpServlet {
         filterOrder.setCityTo(request.getParameterValues("cityTo[]"));
         filterOrder.setSort(request.getParameter("sort"));
 
-        List<Order> orderList;
-        if (session.getAttribute("role").equals("user")) {
-            orderList = OrderDao.getUserOrders((User) session.getAttribute("user"));
-        } else {
-            orderList = OrderDao.getOrderList();
-        }
+        User user =(User) session.getAttribute("user");
+        boolean userHasRoleUser = user.getRoleId() == 1;
+        List<Order> orderList = OrderService.getOrderListByUser(user,userHasRoleUser);
 
         orderList = FiltrationOrder.doFilter(orderList,filterOrder);
+
         session.setAttribute("filter",filterOrder);
-
-        session.removeAttribute("pageNumberOrder");
         session.setAttribute("orders", orderList);
+        session.removeAttribute("pageNumberOrder");
 
-        if (session.getAttribute("role").equals("user")) {
+        if (userHasRoleUser) {
             response.sendRedirect("/user/order.jsp");
         } else {
             response.sendRedirect("/man/orderList.jsp");

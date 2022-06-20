@@ -3,6 +3,7 @@ package com.gmail.KostiaBorozdyh.web.controller;
 import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.entity.ValidList;
+import com.gmail.KostiaBorozdyh.model.service.UserService;
 import com.gmail.KostiaBorozdyh.model.utils.Validation;
 
 import javax.servlet.*;
@@ -40,8 +41,10 @@ public class AddEmployeeServlet extends HttpServlet {
 
         ValidList validList = Validation.valid(user, true,true);
 
-        if (Validation.count(validList)) {
-            UserDao.insertUser(user);
+        boolean userIsValid=Validation.count(validList);
+
+        if (userIsValid) {
+            UserService.save(user);
             response.sendRedirect("/adm/usersTable.jsp");
         } else {
             request.getSession().setAttribute("validList", validList);
