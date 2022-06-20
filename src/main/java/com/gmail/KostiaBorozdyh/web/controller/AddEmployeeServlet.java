@@ -1,7 +1,7 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
 import com.gmail.KostiaBorozdyh.model.entity.User;
-import com.gmail.KostiaBorozdyh.model.entity.ValidList;
+import com.gmail.KostiaBorozdyh.model.dto.ValidListDTO;
 import com.gmail.KostiaBorozdyh.model.service.UserService;
 import com.gmail.KostiaBorozdyh.model.utils.Validation;
 
@@ -33,7 +33,7 @@ public class AddEmployeeServlet extends HttpServlet {
             user.setRoleId(2);
         }
 
-        ValidList validList = Validation.valid(user, true,true);
+        ValidListDTO validList = Validation.valid(user, true,true);
 
         boolean userIsValid=Validation.count(validList);
 

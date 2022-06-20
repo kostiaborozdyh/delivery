@@ -39,6 +39,9 @@ public class OrderService {
     public static List<Order> getOrderListByUser(User user,boolean userHasRoleUser) {
         return (userHasRoleUser) ? OrderDao.getUserOrders(user) : OrderDao.getOrderList();
     }
+    public static List<Order> getOrderListOnRecord(String city){
+        return OrderDao.getOrderListOnRecord(city);
+    }
 
     public static void save(Order order) {
         OrderDao.createOrder(order);

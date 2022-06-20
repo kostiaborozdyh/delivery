@@ -1,7 +1,7 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
 import com.gmail.KostiaBorozdyh.model.entity.User;
-import com.gmail.KostiaBorozdyh.model.entity.ValidList;
+import com.gmail.KostiaBorozdyh.model.dto.ValidListDTO;
 import com.gmail.KostiaBorozdyh.model.service.UserService;
 import com.gmail.KostiaBorozdyh.model.utils.Validation;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class EditUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ValidList validList;
+        ValidListDTO validList;
         boolean checkEmail;
 
         User user = (User) request.getSession().getAttribute("user");

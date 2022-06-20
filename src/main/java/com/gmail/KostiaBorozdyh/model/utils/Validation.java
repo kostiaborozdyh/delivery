@@ -2,14 +2,14 @@ package com.gmail.KostiaBorozdyh.model.utils;
 
 import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.User;
-import com.gmail.KostiaBorozdyh.model.entity.ValidList;
+import com.gmail.KostiaBorozdyh.model.dto.ValidListDTO;
 
 public class Validation {
-    private static ValidList validList;
+    private static ValidListDTO validList;
     private static User user;
 
-    public static ValidList valid(User userCheck, boolean checkLogin, boolean checkEmail) {
-        validList = new ValidList();
+    public static ValidListDTO valid(User userCheck, boolean checkLogin, boolean checkEmail) {
+        validList = new ValidListDTO();
         user = userCheck;
         validList.init();
 
@@ -88,7 +88,7 @@ public class Validation {
         }
     }
 
-    public static boolean count(ValidList validList) {
+    public static boolean count(ValidListDTO validList) {
         int count = 0;
         if (validList.getInvalidEmail() != null) count++;
         if (validList.getInvalidLogin() != null) count++;

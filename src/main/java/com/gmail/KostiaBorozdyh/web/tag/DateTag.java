@@ -7,12 +7,12 @@ import java.time.LocalDate;
 public class DateTag extends TagSupport {
 
     public int doStartTag()  {
-        JspWriter out=pageContext.getOut();//returns the instance of JspWriter
+        JspWriter out=pageContext.getOut();
         try{
-            out.print(LocalDate.now());//printing date and time using JspWriter
+            out.print(LocalDate.now());
         }catch(Exception e){
             e.printStackTrace();
         }
-        return SKIP_BODY;//will not evaluate the body content of the tag
+        return SKIP_BODY;
     }
 }

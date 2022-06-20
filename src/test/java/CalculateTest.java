@@ -1,5 +1,5 @@
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
-import com.gmail.KostiaBorozdyh.model.entity.Point;
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
+import com.gmail.KostiaBorozdyh.model.dto.PointDTO;
 import com.gmail.KostiaBorozdyh.model.utils.Calculate;
 import com.gmail.KostiaBorozdyh.model.utils.JsonParser;
 import org.json.simple.parser.ParseException;
@@ -60,7 +60,7 @@ public class CalculateTest {
             }
         }
 
-        List<InfoTable> infoTableList = JsonParser.parseGoogleApiDistance(fileReader());
+        List<InfoTableDTO> infoTableList = JsonParser.parseGoogleApiDistance(fileReader());
         assertEquals(5, Calculate.getPaginationList(list).size());
         assertEquals(5, Calculate.getPaginationList(infoTableList).size());
         assertEquals(3, Calculate.getPaginationList(list1).size());
@@ -89,17 +89,17 @@ public class CalculateTest {
             assertEquals("i"+prediction,str);
             prediction=prediction+2;
         }
-        List<InfoTable> infoTableList =  Calculate.getFiveElements(JsonParser.parseGoogleApiDistance(fileReader()),4);
+        List<InfoTableDTO> infoTableList =  Calculate.getFiveElements(JsonParser.parseGoogleApiDistance(fileReader()),4);
         assertEquals(5,infoTableList.size());
     }
     @Test
     public void currentPointTest() throws FileNotFoundException, ParseException {
-        Point pointA = new Point("50.4501", "30.5234");
-        Point pointB = new Point("49.444433", "32.059767");
-        Point pointC = new Point("47.910483", "33.391783");
-        Point firstTestPoint = Calculate.currentPoint(pointA,pointB,4,40);
-        Point secondTestPoint = Calculate.currentPoint(pointA,pointC,6,21);
-        Point thirdTestPoint = Calculate.currentPoint(pointB,pointC,5,30);
+        PointDTO pointA = new PointDTO("50.4501", "30.5234");
+        PointDTO pointB = new PointDTO("49.444433", "32.059767");
+        PointDTO pointC = new PointDTO("47.910483", "33.391783");
+        PointDTO firstTestPoint = Calculate.currentPoint(pointA,pointB,4,40);
+        PointDTO secondTestPoint = Calculate.currentPoint(pointA,pointC,6,21);
+        PointDTO thirdTestPoint = Calculate.currentPoint(pointB,pointC,5,30);
         assertTrue(firstTestPoint.getLatitude().contains("49.9981"));
         assertTrue(firstTestPoint.getLongitude().contains("31.2139"));
         assertTrue(secondTestPoint.getLatitude().contains("50.0608"));

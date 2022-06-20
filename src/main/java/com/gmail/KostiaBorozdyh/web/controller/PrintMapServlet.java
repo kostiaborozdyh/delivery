@@ -1,6 +1,6 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -13,8 +13,8 @@ public class PrintMapServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter("id"));
-        List<InfoTable> infoTable = (List<InfoTable>) request.getSession().getAttribute("infoTable");
-        for (InfoTable table :
+        List<InfoTableDTO> infoTable = (List<InfoTableDTO>) request.getSession().getAttribute("infoTable");
+        for (InfoTableDTO table :
                 infoTable) {
             if(table.getId()==id) request.getSession().setAttribute("table",table);
         }

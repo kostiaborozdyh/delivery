@@ -1,10 +1,12 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
+import com.gmail.KostiaBorozdyh.model.dto.OrderDTO;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.service.OrderService;
 import com.gmail.KostiaBorozdyh.model.service.UserService;
+import com.gmail.KostiaBorozdyh.model.utils.Convert;
 
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -16,21 +18,15 @@ public class CreateOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
 
-        InfoTable infoTable = (InfoTable) session.getAttribute("newOrder");
-        final String info = (String) session.getAttribute("orderInfo");
-        final String address = (String) session.getAttribute("orderAddress");
-
         User user = (User) session.getAttribute("user");
+        OrderDTO orderDTO = (OrderDTO) session.getAttribute("newOrder");
 
-        OrderService.save(new Order(infoTable,info,address,user.getId()));
-        UserService.sendEmailAfterCreateOrder(user,infoTable);
+        orderDTO.setUserId(user.getId());
+
+        OrderService.save(Convert.toOrderFromOrderDTO(orderDTO));
+        UserService.sendEmailAfterCreateOrder(user,orderDTO);
 
         session.removeAttribute("newOrder");
-        session.removeAttribute("orderInfo");
-        session.removeAttribute("orderAddress");
-        session.removeAttribute("heightParcel");
-        session.removeAttribute("lengthParcel");
-        session.removeAttribute("widthParcel");
         session.removeAttribute("btn");
         response.sendRedirect("/user/order.jsp");
     }

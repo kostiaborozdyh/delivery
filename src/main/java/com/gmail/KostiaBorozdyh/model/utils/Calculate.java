@@ -3,7 +3,7 @@ package com.gmail.KostiaBorozdyh.model.utils;
 
 import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
-import com.gmail.KostiaBorozdyh.model.entity.Point;
+import com.gmail.KostiaBorozdyh.model.dto.PointDTO;
 
 
 import java.time.LocalDate;
@@ -102,10 +102,10 @@ public class Calculate {
         return id;
     }
 
-    public static Point getPointAtTheMoment(Integer id)  {
+    public static PointDTO getPointAtTheMoment(Integer id)  {
         Order order = OrderDao.getOrder(id);
-        Point cityFromPoint = GoogleMaps.getCityCoordinates(order.getCityFrom());
-        Point cityToPoint = GoogleMaps.getCityCoordinates(order.getCityTo());
+        PointDTO cityFromPoint = GoogleMaps.getCityCoordinates(order.getCityFrom());
+        PointDTO cityToPoint = GoogleMaps.getCityCoordinates(order.getCityTo());
         int days = diffDays(order.getDateOfSending(), order.getDateOfArrival());
         int time = LocalDateTime.now().getHour();
         if (order.getDateOfSending().equals(LocalDate.now()) && time < 22) {
@@ -120,7 +120,7 @@ public class Calculate {
         return currentPoint(cityFromPoint, cityToPoint, days, time);
     }
 
-    public static Point currentPoint(Point cityFromPoint, Point cityToPoint, int days, int time) {
+    public static PointDTO currentPoint(PointDTO cityFromPoint, PointDTO cityToPoint, int days, int time) {
         double latCityFrom = Double.parseDouble(cityFromPoint.getLatitude());
         double lngCityFrom = Double.parseDouble(cityFromPoint.getLongitude());
         double latCityTo = Double.parseDouble(cityToPoint.getLatitude());
@@ -129,7 +129,7 @@ public class Calculate {
         double diffLng = (lngCityFrom - lngCityTo) / (days * 24 - 7);
         String lat = String.valueOf(latCityFrom - diffLat * time);
         String lng = String.valueOf(lngCityFrom - diffLng * time);
-        return new Point(lat, lng);
+        return new PointDTO(lat, lng);
     }
 
 }

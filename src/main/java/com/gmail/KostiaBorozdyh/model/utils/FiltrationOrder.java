@@ -1,7 +1,7 @@
 package com.gmail.KostiaBorozdyh.model.utils;
 
-import com.gmail.KostiaBorozdyh.model.entity.FilterOrder;
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
+import com.gmail.KostiaBorozdyh.model.dto.FilterOrderDTO;
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
 import org.apache.log4j.Logger;
 
@@ -13,17 +13,17 @@ public class FiltrationOrder {
     private static final Logger log = Logger.getLogger(FiltrationOrder.class);
     private static List<Order> orderList;
 
-    public static List<Order> doFilter(List<Order> orders, FilterOrder filterOrder) {
+    public static List<Order> doFilter(List<Order> orders, FilterOrderDTO filterOrderDTO) {
         orderList = orders;
 
-        priceFilter(filterOrder.getMinPrice(), filterOrder.getMaxPrice());
-        paymentStatusFilter(filterOrder.getPaymentStatus());
-        locationFilter(filterOrder.getLocation());
-        dateCreateFilter(filterOrder.getMinDateCreate(), filterOrder.getMaxDateCreate());
-        dateOfArrivalFilter(filterOrder.getMinDateOfArrival(), filterOrder.getMaxDateOfArrival());
-        cityFromFilter(filterOrder.getCityFrom());
-        cityToFilter(filterOrder.getCityTo());
-        sorting(filterOrder.getSort());
+        priceFilter(filterOrderDTO.getMinPrice(), filterOrderDTO.getMaxPrice());
+        paymentStatusFilter(filterOrderDTO.getPaymentStatus());
+        locationFilter(filterOrderDTO.getLocation());
+        dateCreateFilter(filterOrderDTO.getMinDateCreate(), filterOrderDTO.getMaxDateCreate());
+        dateOfArrivalFilter(filterOrderDTO.getMinDateOfArrival(), filterOrderDTO.getMaxDateOfArrival());
+        cityFromFilter(filterOrderDTO.getCityFrom());
+        cityToFilter(filterOrderDTO.getCityTo());
+        sorting(filterOrderDTO.getSort());
 
         return orderList;
     }
@@ -200,11 +200,11 @@ public class FiltrationOrder {
         }
     }
 
-    public static List<InfoTable> sortingTable(String sort, List<InfoTable> infoTable) {
+    public static List<InfoTableDTO> sortingTable(String sort, List<InfoTableDTO> infoTable) {
         switch (sort) {
             case "sortByMinPriceTable": {
                 infoTable = infoTable.stream()
-                        .sorted(Comparator.comparingInt(InfoTable::getPrice))
+                        .sorted(Comparator.comparingInt(InfoTableDTO::getPrice))
                         .collect(Collectors.toList());
             }
             break;
@@ -216,7 +216,7 @@ public class FiltrationOrder {
             break;
             case "sortByMinCityFromTable": {
                 infoTable = infoTable.stream()
-                        .sorted(Comparator.comparing(InfoTable::getCityFrom))
+                        .sorted(Comparator.comparing(InfoTableDTO::getCityFrom))
                         .collect(Collectors.toList());
             }
             break;
@@ -228,7 +228,7 @@ public class FiltrationOrder {
             break;
             case "sortByMinCityToTable": {
                 infoTable = infoTable.stream()
-                        .sorted(Comparator.comparing(InfoTable::getCityTo))
+                        .sorted(Comparator.comparing(InfoTableDTO::getCityTo))
                         .collect(Collectors.toList());
             }
             break;

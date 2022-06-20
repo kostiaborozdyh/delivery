@@ -1,7 +1,7 @@
 package com.gmail.KostiaBorozdyh.model.utils;
 
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
-import com.gmail.KostiaBorozdyh.model.entity.Point;
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
+import com.gmail.KostiaBorozdyh.model.dto.PointDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,9 +12,9 @@ import java.util.List;
 
 public class JsonParser {
 
-    public static List<InfoTable> parseGoogleApiDistance(String jsonStr) throws ParseException {
+    public static List<InfoTableDTO> parseGoogleApiDistance(String jsonStr) throws ParseException {
         int i = 0, j;
-        List<InfoTable> distanceList = new ArrayList<>();
+        List<InfoTableDTO> distanceList = new ArrayList<>();
         ArrayList<String> cityFromList;
         ArrayList<String> cityToList;
         JSONParser parser = new JSONParser();
@@ -33,7 +33,7 @@ public class JsonParser {
                     elements) {
                 JSONObject elementObj = (JSONObject) element;
                 JSONObject distancesObj = (JSONObject) elementObj.get("distance");
-                distanceList.add(new InfoTable(cutCityName(cityFromList.get(i)), cutCityName(cityToList.get(j)), Integer.parseInt(distancesObj.get("value").toString()) / 1000));
+                distanceList.add(new InfoTableDTO(cutCityName(cityFromList.get(i)), cutCityName(cityToList.get(j)), Integer.parseInt(distancesObj.get("value").toString()) / 1000));
                 j++;
             }
             i++;
@@ -41,7 +41,7 @@ public class JsonParser {
         return distanceList;
     }
 
-    public static Point parseGoogleApiGeocode(String jsonStr) throws ParseException {
+    public static PointDTO parseGoogleApiGeocode(String jsonStr) throws ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(jsonStr);
         JSONObject jsonObj = (JSONObject) obj;
@@ -51,7 +51,7 @@ public class JsonParser {
         JSONObject location = (JSONObject) geometry.get("location");
         String lng = location.get("lng").toString();
         String lat = location.get("lat").toString();
-        return new Point(lat, lng);
+        return new PointDTO(lat, lng);
     }
 
     private static ArrayList<String> parseCity(JSONArray city) {
@@ -78,7 +78,7 @@ public class JsonParser {
 
     }
     public static String cutCityNameForEmployee(String city)  {
-        List<InfoTable> list=null;
+        List<InfoTableDTO> list=null;
         try {
             list = GoogleMaps.getDistance(city, city);
         } catch (Exception ex) {

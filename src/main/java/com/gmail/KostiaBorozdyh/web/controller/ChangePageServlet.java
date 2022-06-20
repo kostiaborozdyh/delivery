@@ -1,9 +1,9 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.dao.UserDao;
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
+import com.gmail.KostiaBorozdyh.model.service.UserService;
 import com.gmail.KostiaBorozdyh.model.utils.Calculate;
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,7 +20,7 @@ public class ChangePageServlet extends HttpServlet {
         int fun = Integer.parseInt(request.getParameter("fun"));
         switch (fun) {
             case 1: {
-                List<InfoTable> infoTable = (List<InfoTable>) session.getAttribute("infoTable");
+                List<InfoTableDTO> infoTable = (List<InfoTableDTO>) session.getAttribute("infoTable");
                 List<Integer> list = (List<Integer>) session.getAttribute("list");
                 id = Calculate.pageId(id, list);
                 session.setAttribute("infoTableShort", Calculate.getFiveElements(infoTable, id));
@@ -51,7 +51,7 @@ public class ChangePageServlet extends HttpServlet {
             case 3: {
                 List<Integer> list = (List<Integer>) session.getAttribute("listNumberUser");
                 id = Calculate.pageId(id, list);
-                session.setAttribute("userList", UserDao.getUsers((id-1)*5));
+                session.setAttribute("userList", UserService.getUsersWithLimit((id-1)*5));
                 session.setAttribute("pageNumberUser", id);
                 response.sendRedirect("/adm/usersTable.jsp");
             }

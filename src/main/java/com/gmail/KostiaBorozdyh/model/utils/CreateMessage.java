@@ -1,6 +1,7 @@
 package com.gmail.KostiaBorozdyh.model.utils;
 
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
+import com.gmail.KostiaBorozdyh.model.dto.OrderDTO;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
 
 public class CreateMessage {
@@ -24,9 +25,9 @@ public class CreateMessage {
     public static final String DATE="Орієнтовна дата прибуття ";
     public static final String MONEY=". До сплати ";
     public static final String MANAGER="Ваша заявка передана на розгляд менеджеру.";
-    public static String[] messageCreateOrder(InfoTable infoTable){
-        String sb = TEXT + infoTable.getCityFrom() + " в " + infoTable.getCityTo() + ".\n" +
-                DATE + Calculate.arrivalTime(infoTable.getDistance()) + MONEY + infoTable.getPrice() + ".\n" +
+    public static String[] messageCreateOrder(OrderDTO orderDTO){
+        String sb = TEXT + orderDTO.getCityFrom() + " в " + orderDTO.getCityTo() + ".\n" +
+                DATE + Calculate.arrivalTime(orderDTO.getDistance()) + MONEY + orderDTO.getPrice() + ".\n" +
                 MANAGER;
         return new String[]{THEME_CREATE_ORDER, sb};
     }

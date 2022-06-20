@@ -1,6 +1,6 @@
-package com.gmail.KostiaBorozdyh.model.entity;
+package com.gmail.KostiaBorozdyh.model.dto;
 
-public class ValidList {
+public class ValidListDTO {
 
     private String validLogin;
     private String validLoginName;

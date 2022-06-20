@@ -20,7 +20,6 @@ public class OrderDao {
     public static final String SQL_CHANGE_ORDER_STATUS = "UPDATE delivery.order d SET d.payment_status_id = 2, d.location_status_id = 2, d.date_of_sending = ?, d.date_of_arrival=? WHERE d.id=?";
     public static final String SQL_GIVE_ORDER = "UPDATE delivery.order d SET d.location_status_id = 4 WHERE d.id=?";
     public static final String SQL_PUT_ON_RECORD = "UPDATE delivery.order d SET d.location_status_id = 3 WHERE d.id=?";
-    public static final String SQL_GET_USER_ID = "SELECT * FROM delivery.order d WHERE d.id = ?";
     public static final String SQL_DELETE_ORDERS = "DELETE FROM delivery.order d WHERE d.user_id =?";
     public static final String SQL_GET_USER_ORDERS = "SELECT do.id,  do.description, do.weight, do.volume, do.price,\n" +
             "do.city_from, do.city_to, do.address, do.date_create, do.date_of_sending,\n" +
@@ -196,23 +195,6 @@ public class OrderDao {
         }
     }
 
-    public static Integer getUserId(Integer orderId) {
-        log.info("Вибрати ід юзера по ід посилки " + orderId);
-        int id = 0;
-        try (Connection connection = DBHelper.getInstance().getConnection();
-             PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_ID)) {
-            pst.setInt(1, orderId);
-            try (ResultSet rs = pst.executeQuery()) {
-                while (rs.next()) {
-                    id = rs.getInt("user_id");
-                }
-            }
-            log.info("Вибрати ід юзера по ід посилки " + orderId+"завершено");
-        } catch (SQLException ex) {
-            log.error("Помилка, вибрати ід юзера по ід посилки " + orderId+ex);
-        }
-        return id;
-    }
 
     public static List<Order> getOrderList() {
         log.info("Вибірка всіх ордерів");

@@ -1,6 +1,6 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
-import com.gmail.KostiaBorozdyh.model.entity.FilterOrder;
+import com.gmail.KostiaBorozdyh.model.dto.FilterOrderDTO;
 import com.gmail.KostiaBorozdyh.model.service.OrderService;
 import com.gmail.KostiaBorozdyh.model.utils.FiltrationOrder;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
@@ -18,27 +18,27 @@ public class FiltrationOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        FilterOrder filterOrder = new FilterOrder();
+        FilterOrderDTO filterOrderDTO = new FilterOrderDTO();
 
-        filterOrder.setMinPrice(request.getParameter("minPrice"));
-        filterOrder.setMaxPrice(request.getParameter("maxPrice"));
-        filterOrder.setPaymentStatus(request.getParameterValues("paymentStatus"));
-        filterOrder.setLocation(request.getParameterValues("locationStatus"));
-        filterOrder.setMinDateCreate(request.getParameter("minDateCreate"));
-        filterOrder.setMaxDateCreate(request.getParameter("maxDateCreate"));
-        filterOrder.setMinDateOfArrival(request.getParameter("minDateOfArrival"));
-        filterOrder.setMaxDateOfArrival(request.getParameter("maxDateOfArrival"));
-        filterOrder.setCityFrom(request.getParameterValues("cityFrom[]"));
-        filterOrder.setCityTo(request.getParameterValues("cityTo[]"));
-        filterOrder.setSort(request.getParameter("sort"));
+        filterOrderDTO.setMinPrice(request.getParameter("minPrice"));
+        filterOrderDTO.setMaxPrice(request.getParameter("maxPrice"));
+        filterOrderDTO.setPaymentStatus(request.getParameterValues("paymentStatus"));
+        filterOrderDTO.setLocation(request.getParameterValues("locationStatus"));
+        filterOrderDTO.setMinDateCreate(request.getParameter("minDateCreate"));
+        filterOrderDTO.setMaxDateCreate(request.getParameter("maxDateCreate"));
+        filterOrderDTO.setMinDateOfArrival(request.getParameter("minDateOfArrival"));
+        filterOrderDTO.setMaxDateOfArrival(request.getParameter("maxDateOfArrival"));
+        filterOrderDTO.setCityFrom(request.getParameterValues("cityFrom[]"));
+        filterOrderDTO.setCityTo(request.getParameterValues("cityTo[]"));
+        filterOrderDTO.setSort(request.getParameter("sort"));
 
         User user =(User) session.getAttribute("user");
         boolean userHasRoleUser = user.getRoleId() == 1;
         List<Order> orderList = OrderService.getOrderListByUser(user,userHasRoleUser);
 
-        orderList = FiltrationOrder.doFilter(orderList,filterOrder);
+        orderList = FiltrationOrder.doFilter(orderList, filterOrderDTO);
 
-        session.setAttribute("filter",filterOrder);
+        session.setAttribute("filter", filterOrderDTO);
         session.setAttribute("orders", orderList);
         session.removeAttribute("pageNumberOrder");
 

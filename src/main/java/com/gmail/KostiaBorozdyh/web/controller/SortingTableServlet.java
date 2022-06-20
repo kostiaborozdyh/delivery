@@ -1,8 +1,8 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 import com.gmail.KostiaBorozdyh.model.service.InfoTableService;
 import com.gmail.KostiaBorozdyh.model.utils.FiltrationOrder;
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,12 +17,12 @@ public class SortingTableServlet extends HttpServlet {
         String sort = request.getParameter("sort");
         HttpSession session = request.getSession();
 
-        List<InfoTable> infoTableList = (List<InfoTable>) session.getAttribute("infoTable");
+        List<InfoTableDTO> infoTableList = (List<InfoTableDTO>) session.getAttribute("infoTable");
         List<Integer> pageNumberList = (List<Integer>) session.getAttribute("list");
 
         infoTableList = FiltrationOrder.sortingTable(sort, infoTableList);
 
-        List<InfoTable> shortInfoTableList = InfoTableService.getShortInfoTable(infoTableList, pageNumberList);
+        List<InfoTableDTO> shortInfoTableList = InfoTableService.getShortInfoTable(infoTableList, pageNumberList);
 
         session.setAttribute("infoTable", infoTableList);
         session.setAttribute("shortInfoTable", shortInfoTableList);

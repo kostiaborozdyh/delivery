@@ -2,11 +2,14 @@ package com.gmail.KostiaBorozdyh.model.service;
 
 import com.gmail.KostiaBorozdyh.model.dao.OrderDao;
 import com.gmail.KostiaBorozdyh.model.dao.UserDao;
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
+import com.gmail.KostiaBorozdyh.model.dto.OrderDTO;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.utils.CreateMessage;
 import com.gmail.KostiaBorozdyh.model.utils.SendEmail;
+
+import java.util.List;
 
 public class UserService {
 
@@ -63,12 +66,18 @@ public class UserService {
     }
 
     public static String getUserEmailByOrderId(Integer orderId) {
-        Integer userId = OrderDao.getUserId(orderId);
+        Integer userId = UserDao.getUserIdByOrderId(orderId);
         return UserDao.getUserEmailByUserId(userId);
+    }
+    public static Integer getUserCount(){
+        return UserDao.getUserCount();
+    }
+    public static List<User> getUsersWithLimit(int skip){
+        return UserDao.getUsers(skip);
     }
 
     public static void sendEmailByOrderId(Integer orderId, Integer function) {
-        Integer userId = OrderDao.getUserId(orderId);
+        Integer userId = UserDao.getUserIdByOrderId(orderId);
         boolean hasUserNotify = UserDao.getUserNotify(userId);
 
         if (hasUserNotify) {
@@ -83,11 +92,11 @@ public class UserService {
         }
     }
 
-    public static void sendEmailAfterCreateOrder(User user, InfoTable infoTable) {
+    public static void sendEmailAfterCreateOrder(User user, OrderDTO orderDTO) {
         boolean hasUserNotify = user.getNotify().equals("yes");
         if (hasUserNotify) {
             String email = user.getEmail();
-            SendEmail.send(email, CreateMessage.messageCreateOrder(infoTable));
+            SendEmail.send(email, CreateMessage.messageCreateOrder(orderDTO));
         }
     }
 }

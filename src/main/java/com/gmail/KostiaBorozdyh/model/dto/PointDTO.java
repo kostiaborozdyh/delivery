@@ -1,6 +1,6 @@
-package com.gmail.KostiaBorozdyh.model.entity;
+package com.gmail.KostiaBorozdyh.model.dto;
 
-public class Point {
+public class PointDTO {
     private String longitude;
     private String latitude;
 
@@ -19,11 +19,11 @@ public class Point {
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
-    public Point(){
+    public PointDTO(){
 
     }
 
-    public Point(String latitude,String longitude) {
+    public PointDTO(String latitude, String longitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }

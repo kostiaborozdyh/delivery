@@ -18,7 +18,7 @@ public class Security {
         return sb.toString();
     }
 
-    public static String restorePassword(String email) throws UnsupportedEncodingException, MessagingException {
+    public static String restorePassword(String email) {
         String code = generateCode();
         SendEmail.send(email, CreateMessage.restorePassword(code));
         return code;

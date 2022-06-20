@@ -1,8 +1,10 @@
 package com.gmail.KostiaBorozdyh.web.controller;
 
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
+import com.gmail.KostiaBorozdyh.model.dto.OrderDTO;
+import com.gmail.KostiaBorozdyh.model.service.InfoTableService;
 import com.gmail.KostiaBorozdyh.model.utils.Calculate;
 import com.gmail.KostiaBorozdyh.model.utils.GoogleMaps;
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
 import org.json.simple.parser.ParseException;
 
 import javax.servlet.*;
@@ -30,35 +32,34 @@ public class CalculateServlet extends HttpServlet {
         final String address = request.getParameter("address");
         final String info = request.getParameter("info");
         int price, volume;
-        try {
+        List<InfoTableDTO> distanceList = InfoTableService.getInfoTable(cityFrom, cityTo);
 
-            List<InfoTable> distanceList = GoogleMaps.getDistance(cityFrom, cityTo);
+        volume = Calculate.volume(height, length, width);
+        price = Calculate.deliveryPrice(distanceList.get(0).getDistance(), volume, weight);
 
-            volume = Calculate.volume(height, length, width);
-            price = Calculate.deliveryPrice(distanceList.get(0).getDistance(), volume, weight);
+        OrderDTO orderDTO = new OrderDTO.Builder()
+                .description(info)
+                .address(address)
+                .weight(Integer.parseInt(weight))
+                .height(Integer.parseInt(height))
+                .length(Integer.parseInt(length))
+                .width(Integer.parseInt(width))
+                .cityFrom(distanceList.get(0).getCityFrom())
+                .cityTo(distanceList.get(0).getCityTo())
+                .price(price)
+                .volume(volume)
+                .distance(distanceList.get(0).getDistance())
+                .build();
 
-            InfoTable infoTable = new InfoTable(distanceList.get(0).getCityFrom(), distanceList.get(0).getCityTo(),
-                    distanceList.get(0).getDistance(), price, volume, Integer.parseInt(weight));
+        System.out.println(address);
 
-
-            if (address != null) {
-                session.setAttribute("heightParcel",height);
-                session.setAttribute("lengthParcel",length);
-                session.setAttribute("widthParcel",width);
-                session.setAttribute("newOrder", infoTable);
-                session.setAttribute("orderAddress", address);
-                session.setAttribute("orderInfo", info);
-                session.setAttribute("btn", "unblock");
-                response.sendRedirect("/user/createOrder.jsp");
-            } else {
-                session.setAttribute("height",height);
-                session.setAttribute("length",length);
-                session.setAttribute("width",width);
-                session.setAttribute("calculateTable", infoTable);
-                response.sendRedirect("/calculate.jsp");
-            }
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        if (address != null) {
+            session.setAttribute("newOrder", orderDTO);
+            session.setAttribute("btn", "unblock");
+            response.sendRedirect("/user/createOrder.jsp");
+        } else {
+            session.setAttribute("calculateTable", orderDTO);
+            response.sendRedirect("/calculate.jsp");
         }
     }
 }

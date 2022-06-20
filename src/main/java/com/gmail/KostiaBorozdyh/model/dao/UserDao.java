@@ -27,6 +27,7 @@ public class UserDao {
     public static final String SQL_GET_USER_EMAIL_BY_ID = "SELECT * FROM user u WHERE u.id=?";
     public static final String SQL_CHANGE_PASSWORD = "UPDATE delivery.user d SET d.password = ? WHERE d.email=?";
     public static final String SQL_GET_USER_COUNT = "SELECT count(1) FROM user u WHERE u.role_id!=3";
+    public static final String SQL_GET_USER_ID = "SELECT * FROM delivery.order d WHERE d.id = ?";
     public static final String SQL_EDIT_USER = "UPDATE delivery.user d \n" +
             "SET d.first_name = ?, d.last_name = ?, \n" +
             "d.phone_number = ?, d.email = ?, d.notify = ?\n" +
@@ -88,6 +89,24 @@ public class UserDao {
             log.error("Помилка,Перевірка користувача з id " + id + " на підписку" + ex);
         }
         return (notify.equals("yes"));
+    }
+
+    public static Integer getUserIdByOrderId(Integer orderId) {
+        log.info("Вибрати ід юзера по ід посилки " + orderId);
+        int id = 0;
+        try (Connection connection = DBHelper.getInstance().getConnection();
+             PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_ID)) {
+            pst.setInt(1, orderId);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    id = rs.getInt("user_id");
+                }
+            }
+            log.info("Вибрати ід юзера по ід посилки " + orderId+"завершено");
+        } catch (SQLException ex) {
+            log.error("Помилка, вибрати ід юзера по ід посилки " + orderId+ex);
+        }
+        return id;
     }
 
     public static boolean loginIsValid(String login) {

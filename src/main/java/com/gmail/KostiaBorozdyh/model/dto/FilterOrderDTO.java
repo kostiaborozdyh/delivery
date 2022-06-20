@@ -1,6 +1,6 @@
-package com.gmail.KostiaBorozdyh.model.entity;
+package com.gmail.KostiaBorozdyh.model.dto;
 
-public class FilterOrder {
+public class FilterOrderDTO {
     private String minPrice;
     private String maxPrice;
     private String[] paymentStatus;

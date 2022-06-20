@@ -1,30 +1,13 @@
-package com.gmail.KostiaBorozdyh.model.entity;
+package com.gmail.KostiaBorozdyh.model.dto;
 
 
-public class InfoTable  {
+public class InfoTableDTO {
     private Integer id;
     private String cityFrom;
     private String cityTo;
     private Integer distance;
     private Integer price;
-    private Integer volume;
-    private Integer weight;
 
-    public Integer getVolume() {
-        return volume;
-    }
-
-    public void setVolume(Integer volume) {
-        this.volume = volume;
-    }
-
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
 
     public String getCityTo() {
         return cityTo;
@@ -68,35 +51,19 @@ public class InfoTable  {
 
     @Override
     public String toString() {
-        return "InfoTable{" +
+        return "InfoTableDTO{" +
                 "cityFrom='" + cityFrom + '\'' +
                 ", cityTo='" + cityTo + '\'' +
                 ", distance=" + distance +
                 '}';
     }
 
-    public InfoTable(Integer id, String cityFrom, String cityTo, Integer distance, Integer price) {
-        this.id = id;
-        this.cityFrom = cityFrom;
-        this.cityTo = cityTo;
-        this.distance = distance;
-        this.price = price;
-    }
-
-    public InfoTable(String cityFrom, String cityTo, Integer distance, Integer price, Integer volume, Integer weight) {
-        this.cityFrom = cityFrom;
-        this.cityTo = cityTo;
-        this.distance = distance;
-        this.price = price;
-        this.volume = volume;
-        this.weight = weight;
-    }
-    public InfoTable(String cityFrom, String cityTo, Integer distance){
+    public InfoTableDTO(String cityFrom, String cityTo, Integer distance){
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
         this.distance = distance;
     }
-    public InfoTable(){
+    public InfoTableDTO(){
 
     }
 }

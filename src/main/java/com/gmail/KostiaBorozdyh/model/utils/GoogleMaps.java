@@ -1,7 +1,7 @@
 package com.gmail.KostiaBorozdyh.model.utils;
 
-import com.gmail.KostiaBorozdyh.model.entity.InfoTable;
-import com.gmail.KostiaBorozdyh.model.entity.Point;
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
+import com.gmail.KostiaBorozdyh.model.dto.PointDTO;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -19,9 +19,9 @@ public class GoogleMaps {
     public static final String DESTINATIONS = "&destinations=";
     public static final String LANGUAGE = "&language=uk&departure_time=now";
 
-    public static List<InfoTable> getDistance(String cityFrom, String cityTo) throws ParseException {
+    public static List<InfoTableDTO> getDistance(String cityFrom, String cityTo) throws ParseException {
         log.info("Дистанція між двома містами");
-        List<InfoTable> distanceList = new ArrayList<>();
+        List<InfoTableDTO> distanceList = new ArrayList<>();
         try {
             OkHttpClient client = new OkHttpClient();
             String url = HTTP_MAPS + cityFrom + DESTINATIONS + cityTo + LANGUAGE + API_KEY;
@@ -40,8 +40,8 @@ public class GoogleMaps {
         return distanceList;
     }
 
-    public static Point getCityCoordinates(String city) {
-        Point point = new Point();
+    public static PointDTO getCityCoordinates(String city) {
+        PointDTO point = new PointDTO();
         log.info("Координати міста");
         try {
             OkHttpClient client = new OkHttpClient();

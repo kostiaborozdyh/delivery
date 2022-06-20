@@ -1,5 +1,7 @@
 package com.gmail.KostiaBorozdyh.model.entity;
 
+import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
+
 import java.time.LocalDate;
 
 
@@ -11,6 +13,7 @@ public class Order {
     private Integer price;
     private String address;
     private LocalDate dateCreate;
+    private LocalDate dateOfSending;
     private LocalDate dateOfArrival;
     private String userLogin;
     private Integer userId;
@@ -18,7 +21,6 @@ public class Order {
     private String cityFrom;
     private String cityTo;
     private String paymentStatus;
-    private LocalDate dateOfSending;
     private String locationStatus;
 
     public LocalDate getDateOfSending() {
@@ -142,17 +144,6 @@ public class Order {
     public void setDistance(Integer distance) {this.distance = distance;}
 
     public Order() {
-    }
-    public Order(InfoTable infoTable, String description, String address, Integer userId){
-        this.description=description;
-        this.weight=infoTable.getWeight();
-        this.volume=infoTable.getVolume();
-        this.price=infoTable.getPrice();
-        this.cityFrom=infoTable.getCityFrom();
-        this.cityTo=infoTable.getCityTo();
-        this.address=address;
-        this.userId=userId;
-        this.distance=infoTable.getDistance();
     }
 
     @Override
