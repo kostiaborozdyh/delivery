@@ -1,7 +1,9 @@
 package com.gmail.KostiaBorozdyh.model.utils;
 
+import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 import com.gmail.KostiaBorozdyh.model.dto.PointDTO;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonParser {
-
+    private static final Logger log = Logger.getLogger(JsonParser.class);
     public static List<InfoTableDTO> parseGoogleApiDistance(String jsonStr) throws ParseException {
         int i = 0, j;
         List<InfoTableDTO> distanceList = new ArrayList<>();
@@ -81,8 +83,10 @@ public class JsonParser {
         List<InfoTableDTO> list=null;
         try {
             list = GoogleMaps.getDistance(city, city);
+            log.info("Get city from GoogleAPI - "+city);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error("problem with parsing data that we take from GoogleAPI");
+            log.error("Exception - "+ex);
         }
         return cutCityName(list.get(0).getCityFrom());
     }

@@ -58,7 +58,6 @@ public class OrderDao {
             "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.city_to=? and do.location_status_id=? and do.date_of_arrival <= ?";
 
     public static void createOrder(Order order) {
-        log.info("Добавлення замовлення");
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -79,9 +78,10 @@ public class OrderDao {
             pst.setInt(12, 1);
             pst.executeUpdate();
             connection.commit();
-            log.info("замовлення успішно додано");
+            log.info("add order to data base with description - "+order.getDescription());
         } catch (SQLException ex) {
-            log.error("Замовлення не було додано, причина: ", ex);
+            log.error("problem with adding order to data base with description -  "+order.getDescription());
+            log.error("Exception -  "+ex);
             rollback(connection);
         } finally {
             close(connection);
@@ -91,7 +91,6 @@ public class OrderDao {
     }
 
     public static List<Order> getUserOrders(User user) {
-        log.info("Вибірка ордерів юзера " + user.getLogin());
         List<Order> list = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_ORDERS)) {
@@ -102,9 +101,10 @@ public class OrderDao {
                     list.add(order);
                 }
             }
-            log.info("Вибірка ордерів юзера " + user.getLogin() + " успішно завершено");
+            log.info("get list order from data base by user login - " + user.getLogin());
         } catch (SQLException ex) {
-            log.error("Вибірка даних ордерів юзера " + user.getLogin() + ex);
+            log.error("problem with getting list order from data base by user login -  "+ user.getLogin());
+            log.error("Exception - "+ex);
         }
         return list;
     }
@@ -112,7 +112,6 @@ public class OrderDao {
     public static void changePayStatus(Integer id) {
         Connection connection = null;
         PreparedStatement pst = null;
-        log.info("Зміна статусу оплати посилки" + id);
         try {
             connection = DBHelper.getInstance().getConnection();
             pst = connection.prepareStatement(SQL_CHANGE_PAY_STATUS);
@@ -120,9 +119,10 @@ public class OrderDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("Зміна статусу оплати посилки завершено");
+            log.info("change pay status for order by orderId - "+id);
         } catch (SQLException ex) {
-            log.error("Зміна статусу оплати посилки " + id + ex);
+            log.error("problem with changing pay status for order by orderId -  "+id);
+            log.error("Exception - "+ ex);
             rollback(connection);
         } finally {
             close(connection);
@@ -131,7 +131,6 @@ public class OrderDao {
     }
 
     public static void changeOrderStatus(Integer id,LocalDate dateOfArrival) {
-        log.info("Зміна статусу посилки" + id);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -143,9 +142,10 @@ public class OrderDao {
             pst.setInt(3, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("Зміна статусу посилки завершено");
+            log.info("confirm order by orderId - "+id);
         } catch (SQLException ex) {
-            log.error("Зміна статусу посилки " + id + ex);
+            log.error("problem with confirming order by orderId - " + id);
+            log.error("Exception - "+ ex);
             rollback(connection);
         } finally {
             close(connection);
@@ -154,7 +154,6 @@ public class OrderDao {
     }
 
     public static void giveOrder(Integer id) {
-        log.info("Вибірка ордера з " + id);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -164,9 +163,10 @@ public class OrderDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("Вибірка ордера " + id + " завершено");
+            log.info("Give order to user by orderId - " + id);
         } catch (SQLException ex) {
-            log.info("Вибірка ордера " + id + ex);
+            log.error("problem with giving order to user by orderId - " + id);
+            log.error("Exception - "+ ex);
             rollback(connection);
         } finally {
             close(connection);
@@ -175,7 +175,6 @@ public class OrderDao {
     }
 
     public static void putOnRecord(Integer id) {
-        log.info("Поставити посилку з номером" + id + " на облік");
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -185,9 +184,10 @@ public class OrderDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("Поставити посилку з номером" + id + " на облік завершено");
+            log.info("Put on record order by orderId - " + id);
         } catch (SQLException ex) {
-            log.error("Помилка, поставити посилку з номером" + id + " на облік" + ex);
+            log.error("problem with putting on record order by orderId - " + id);
+            log.error("Exception - "+ ex);
             rollback(connection);
         } finally {
             close(connection);
@@ -197,7 +197,6 @@ public class OrderDao {
 
 
     public static List<Order> getOrderList() {
-        log.info("Вибірка всіх ордерів");
         List<Order> list = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_ORDER_LIST)) {
@@ -206,16 +205,16 @@ public class OrderDao {
                     Order order = getOneOrder(rs);
                     list.add(order);
                 }
-                log.info("Вибірка всіх ордерів завершено");
+                log.info("Get all orders from database");
             }
         } catch (SQLException ex) {
-            log.error("Помилка: вибірка всіх ордерів " + ex);
+            log.error("Problem with getting all orders from database");
+            log.error("Exception - "+ ex);
         }
         return list;
     }
 
     public static Order getOrder(Integer orderId) {
-        log.info("Дістати ордер по ід"+orderId);
         Order order = null;
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_ORDER)) {
@@ -224,16 +223,16 @@ public class OrderDao {
                 while (rs.next()) {
                     order = getOneOrder(rs);
                 }
-                log.info("Дістати ордер по ід"+orderId+" завершено");
+                log.info("Get order from database by orderId - "+orderId);
             }
         } catch (SQLException ex) {
-            log.error("Помилка, дістати ордер по ід"+orderId+ex);
+            log.error("Problem with getting order from database by orderId - "+orderId);
+            log.error("Exception - "+ ex);
         }
         return order;
     }
 
     public static void deleteOrderByUserId(Integer userId) {
-        log.info("Видалити ордер по ід юзера "+userId);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -243,9 +242,10 @@ public class OrderDao {
             pst.setInt(1, userId);
             pst.executeUpdate();
             connection.commit();
-            log.info("Видалити ордер по ід юзера "+userId+ "завершено");
+            log.info("Delete all orders from data base by userId - "+userId);
         } catch (SQLException ex) {
-            log.error("Помилка, видалити ордер по ід юзера "+userId+ex);
+            log.error("Problem with deleting orders from data base by userId - "+userId);
+            log.error("Exception - "+ ex);
             rollback(connection);
         } finally {
             close(pst);
@@ -254,7 +254,6 @@ public class OrderDao {
     }
 
     public static List<Order> getOrderList(String cityTo) {
-        log.info("Дістати ордери за критерієм місто:"+cityTo);
         List<Order> list = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_ORDER_LIST_BY_CITY)) {
@@ -265,16 +264,16 @@ public class OrderDao {
                     Order order = getOneOrder(rs);
                     list.add(order);
                 }
-                log.info("Дістати ордери за критерієм місто:"+cityTo+"завершено");
+                log.info("Get list order from data base by cityTo - "+cityTo);
             }
         } catch (SQLException ex) {
-            log.error("Помилка, дістати ордери за критерієм місто:"+cityTo+ex);
+            log.error("Problem with getting list order from data base by cityTo - "+cityTo);
+            log.error("Exception - "+ ex);
         }
         return list;
     }
 
     public static List<Order> getOrderListOnRecord(String cityTo) {
-        log.info("Дістати ордери які приїхали за критерієм місто:"+cityTo);
         List<Order> list = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_ORDER_LIST_BY_CITY_ON_RECORD)) {
@@ -287,9 +286,10 @@ public class OrderDao {
                     list.add(order);
                 }
             }
-            log.info("Дістати ордери які приїхали за критерієм місто:"+cityTo+"завершено");
+            log.info("Get orders from data base by cityTo - "+cityTo+", and dat eof arrival - "+LocalDate.now());
         } catch (SQLException ex) {
-            log.error("Помилка, дістати ордери які приїхали за критерієм місто:"+cityTo+ex);
+            log.error("Problem with getting orders  from data base by cityTo - "+cityTo+", and dat eof arrival - "+LocalDate.now());
+            log.error("Exception - "+ ex);
         }
         return list;
     }
@@ -323,7 +323,8 @@ public class OrderDao {
             try {
                 st.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Problem with closing preparedStatement");
+                log.error("Exception - "+ e);
             }
         }
     }
@@ -333,7 +334,8 @@ public class OrderDao {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Problem with closing connection");
+                log.error("Exception - "+ e);
             }
         }
     }
@@ -342,7 +344,8 @@ public class OrderDao {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error("Problem with rollback");
+            log.error("Exception - "+ ex);
         }
     }
 

@@ -18,7 +18,6 @@ public class ReviewDao {
     public static final String SQL_INSERT_REVIEW = "INSERT INTO delivery.reviews(user_id,response,date)  VALUES (?,?,?)";
 
     public static List<Review> getReviews() {
-        log.info("Вибірка всіх відгуків");
         List<Review> reviewList = new ArrayList<>();
         try (Connection con = DBHelper.getInstance().getConnection();
              PreparedStatement pst = con.prepareStatement(SQL_GET_REVIEWS)) {
@@ -31,16 +30,16 @@ public class ReviewDao {
                     review.setDate(rs.getDate("date").toLocalDate());
                     reviewList.add(review);
                 }
-                log.info("Вибірка всіх відгуків завершена");
+                log.info("Get list review from data base");
             }
         } catch (SQLException ex) {
-            log.error("Помилка вибірки всіх відгуків " + ex);
+            log.error("Problem with getting list review from data base");
+            log.error("Exception - "+ ex);
         }
         return reviewList;
     }
 
     public static void addReview(Integer id, String response, LocalDate date) {
-        log.info("Додавання відгуку");
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -52,9 +51,10 @@ public class ReviewDao {
             pst.setDate(3, Date.valueOf(date));
             pst.executeUpdate();
             connection.commit();
-            log.info("Додавання відгуку завершено");
+            log.info("Add review to data base with userId - "+id);
         } catch (SQLException ex) {
-            log.error("Помилка, додавання відгуку "+ex);
+            log.error("Problem with adding review to data base with userId - "+id);
+            log.error("Exception - "+ ex);
             rollback(connection);
         } finally {
             close(pst);
@@ -67,7 +67,8 @@ public class ReviewDao {
             try {
                 st.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Problem with closing preparedStatement");
+                log.error("Exception - "+ e);
             }
         }
     }
@@ -77,7 +78,8 @@ public class ReviewDao {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Problem with closing connection");
+                log.error("Exception - "+ e);
             }
         }
     }
@@ -86,7 +88,8 @@ public class ReviewDao {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error("Problem with rollback");
+            log.error("Exception - "+ ex);
         }
     }
 }

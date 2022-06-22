@@ -10,7 +10,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class FiltrationOrder {
-    private static final Logger log = Logger.getLogger(FiltrationOrder.class);
     private static List<Order> orderList;
 
     public static List<Order> doFilter(List<Order> orders, FilterOrderDTO filterOrderDTO) {

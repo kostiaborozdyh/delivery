@@ -20,7 +20,6 @@ public class GoogleMaps {
     public static final String LANGUAGE = "&language=uk&departure_time=now";
 
     public static List<InfoTableDTO> getDistance(String cityFrom, String cityTo) throws ParseException {
-        log.info("Дистанція між двома містами");
         List<InfoTableDTO> distanceList = new ArrayList<>();
         try {
             OkHttpClient client = new OkHttpClient();
@@ -33,16 +32,16 @@ public class GoogleMaps {
             String js = googleResponse.body().string();
             distanceList = JsonParser.parseGoogleApiDistance(js);
             googleResponse.close();
-            log.info("Дистанція між двома містами завершено");
+            log.info("Calculating distance between cityFrom - "+cityFrom+" and cityTo - "+cityTo+", with GoogleAPI");
         } catch (Exception ex) {
-            log.error("Помилка дистанція між двома містами "+ex);
+            log.error("problem with connection that we take from GoogleAPI distance");
+            log.error("Exception - "+ex);
         }
         return distanceList;
     }
 
     public static PointDTO getCityCoordinates(String city) {
         PointDTO point = new PointDTO();
-        log.info("Координати міста");
         try {
             OkHttpClient client = new OkHttpClient();
             String url = HTTP_GEOCODE + city + API_KEY;
@@ -54,10 +53,11 @@ public class GoogleMaps {
             String js = googleResponse.body().string();
              point = JsonParser.parseGoogleApiGeocode(js);
             googleResponse.close();
-            log.info("Координати міста завершено");
+            log.info("Calculating current point city - "+city+", with GoogleAPI");
         }
         catch (Exception ex) {
-            log.error("Помилка, координати міста "+ex);
+            log.error("problem with connection that we take from GoogleAPI geocode");
+            log.error("Exception - "+ex);
         }
         return point;
     }

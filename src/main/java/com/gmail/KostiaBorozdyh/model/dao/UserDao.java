@@ -7,6 +7,7 @@ import com.gmail.KostiaBorozdyh.security.Security;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,6 @@ public class UserDao {
             "WHERE d.id=?";
 
     public static User userValid(String login, String password) {
-        log.info("Перевірка користувача " + login);
         User user = null;
         PreparedStatement pst = null;
         try (Connection con = DBHelper.getInstance().getConnection()) {
@@ -64,9 +64,10 @@ public class UserDao {
                     user.setBan(rs.getString("ban"));
                 }
             }
-            log.info("Перевірка користувача " + login + " завершено");
+            log.info("Get user from data base by login - "+login);
         } catch (Exception ex) {
-            log.error("Помилка, перевірка користувача" + ex);
+            log.error("Problem with getting user from data base by login - "+login);
+            log.error("Exception - "+ ex);
         } finally {
             close(pst);
         }
@@ -74,7 +75,6 @@ public class UserDao {
     }
 
     public static boolean getUserNotify(Integer id) {
-        log.info("Перевірка користувача з id " + id + " на підписку");
         String notify = null;
         try (Connection con = DBHelper.getInstance().getConnection();
              PreparedStatement pst = con.prepareStatement(SQL_GET_USER_FROM_ID)) {
@@ -84,15 +84,15 @@ public class UserDao {
                     notify = rs.getString("notify");
                 }
             }
-            log.info("Перевірка користувача з id " + id + " на підписку завершено");
+            log.info("Check that user with id - "+id+", has notify");
         } catch (SQLException ex) {
-            log.error("Помилка,Перевірка користувача з id " + id + " на підписку" + ex);
+            log.error("Problem with checking that user with id - "+id+", has notify");
+            log.error("Exception - "+ ex);
         }
         return (notify.equals("yes"));
     }
 
     public static Integer getUserIdByOrderId(Integer orderId) {
-        log.info("Вибрати ід юзера по ід посилки " + orderId);
         int id = 0;
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_ID)) {
@@ -102,15 +102,15 @@ public class UserDao {
                     id = rs.getInt("user_id");
                 }
             }
-            log.info("Вибрати ід юзера по ід посилки " + orderId+"завершено");
+            log.info("Get userId from data base by orderId - "+orderId);
         } catch (SQLException ex) {
-            log.error("Помилка, вибрати ід юзера по ід посилки " + orderId+ex);
+            log.error("Problem with getting userId from data base by orderId - "+orderId);
+            log.error("Exception - "+ ex);
         }
         return id;
     }
 
     public static boolean loginIsValid(String login) {
-        log.info("Перевріка чи існує логін " + login);
         String userLogin = null;
         try (Connection con = DBHelper.getInstance().getConnection();
              PreparedStatement pst = con.prepareStatement(SQL_GET_USER)) {
@@ -120,15 +120,15 @@ public class UserDao {
                     userLogin = rs.getString("login");
                 }
             }
-            log.info("Перевріка чи існує логін " + login + " завершено");
+            log.info("Check that user with login - "+login+", consist in data base");
         } catch (SQLException ex) {
-            log.error("Помилка, перевріка чи існує логін " + login + ex);
+            log.error("Problem with checking that user with login - "+login+", consist in data base");
+            log.error("Exception - "+ ex);
         }
         return (userLogin == null);
     }
 
     public static boolean emailIsValid(String email) {
-        log.info("Перевріка чи існує email " + email);
         String userEmail = null;
         try (Connection con = DBHelper.getInstance().getConnection();
              PreparedStatement pst = con.prepareStatement(SQL_GET_EMAIL)) {
@@ -138,16 +138,16 @@ public class UserDao {
                     userEmail = rs.getString("email");
                 }
             }
-            log.info("Перевріка чи існує email " + email + " завершено");
+            log.info("Check that user with email - "+email+", consist in data base");
         } catch (SQLException ex) {
-            log.error("Помилка, перевріка чи існує email " + email + ex);
+            log.error("Problem with checking that user with email - "+email+", consist in data base");
+            log.error("Exception - "+ ex);
         }
         return (userEmail == null);
     }
 
 
     public static boolean insertUser(User user) {
-        log.info("Вставлення юзера " + user.getLogin());
         int count = 0;
         Connection connection = null;
         PreparedStatement pst = null;
@@ -166,10 +166,11 @@ public class UserDao {
             pst.setString(9, "no");
             count = pst.executeUpdate();
             connection.commit();
-            log.info("Вставлення юзера " + user.getLogin() + " завершено");
+            log.info("Add user with login - "+user.getLogin()+", into data base");
         } catch (Exception ex) {
             rollback(connection);
-            log.error("Помилка, вставлення юзера " + user.getLogin() + ex);
+            log.error("Problem with adding user with login - "+user.getLogin()+", into data base");
+            log.error("Exception - "+ ex);
         } finally {
             close(connection);
             close(pst);
@@ -178,7 +179,6 @@ public class UserDao {
     }
 
     public static void changeMoney(String login, Integer money) {
-        log.info("Зняття грошей у юзера з login " + login);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -189,10 +189,11 @@ public class UserDao {
             pst.setString(2, login);
             pst.executeUpdate();
             connection.commit();
-            log.info("Зняття грошей у юзера з login " + login + " завершено");
+            log.info("Change money for user with login - "+login+", in data base, on - "+money+"$");
         } catch (SQLException ex) {
             rollback(connection);
-            log.error("Помилка, зняття грошей у юзера з login " + login + ex);
+            log.error("Problem with changing money for user with login - "+login+", in data base, on - "+money+"$");
+            log.error("Exception - "+ ex);
         } finally {
             close(connection);
             close(pst);
@@ -200,7 +201,6 @@ public class UserDao {
     }
 
     public static boolean changePassword(String email, String password) {
-        log.info("Заміна паролю для юзера " + email);
         int count = 0;
         Connection connection = null;
         PreparedStatement pst = null;
@@ -212,10 +212,11 @@ public class UserDao {
             pst.setString(2, email);
             count = pst.executeUpdate();
             connection.commit();
-            log.info("Заміна паролю для юзера " + email + " завершено");
+            log.info("Change password for user with email - "+email+", in data base");
         } catch (Exception ex) {
             rollback(connection);
-            log.error("Помилка, заміна паролю для юзера " + email + ex);
+            log.error("Problem with changing password for user with email - "+email+", in data base");
+            log.error("Exception - "+ ex);
         } finally {
             close(connection);
             close(pst);
@@ -224,7 +225,6 @@ public class UserDao {
     }
 
     public static User editUser(User user) {
-        log.info("Редагування користувача з логіном " + user.getLogin());
         int count = 0, k = 1;
         Connection connection = null;
         PreparedStatement pst = null;
@@ -247,10 +247,11 @@ public class UserDao {
             count = pst.executeUpdate();
             user.setPassword("");
             connection.commit();
-            log.info("Редагування користувача з логіном " + user.getLogin() + " завершено");
+            log.info("Edit user with email - "+user.getEmail()+", in data base");
         } catch (Exception ex) {
             rollback(connection);
-            log.error("Помилка, редагування користувача з логіном " + user.getLogin() + ex);
+            log.error("Problem with editing user with email - "+user.getEmail()+", in data base");
+            log.error("Exception - "+ ex);
         } finally {
             close(connection);
             close(pst);
@@ -262,7 +263,6 @@ public class UserDao {
     }
 
     public static String getUserEmailByUserLogin(String login) {
-        log.info("Вибірка email юзера по логіну " + login);
         String email = null;
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_EMAIL)) {
@@ -273,15 +273,15 @@ public class UserDao {
                 }
 
             }
-            log.info("Вибірка email юзера по логіну " + login + " завершено");
+            log.info("Get user email from data base by user login - "+login);
         } catch (SQLException ex) {
-            log.error("Помилка, вибірка email юзера по логіну " + login + ex);
+            log.error("Problem with getting user email from data base by user login - "+login);
+            log.error("Exception - "+ ex);
         }
         return email;
     }
 
     public static String getUserEmailByUserId(Integer id) {
-        log.info("Вибірка email юзера по id " + id);
         String email = null;
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_EMAIL_BY_ID)) {
@@ -291,15 +291,15 @@ public class UserDao {
                     email = rs.getString("email");
                 }
             }
-            log.info("Вибірка email юзера по id " + id + " завершено");
+            log.info("Get user email from data base by user id - "+id);
         } catch (SQLException ex) {
-            log.error("Помилка, вибірка email юзера по id " + id + ex);
+            log.error("Problem with getting user email from data base by user id - "+id);
+            log.error("Exception - "+ ex);
         }
         return email;
     }
 
     public static List<User> getUsers(int skip) {
-        log.info("Вибірка всіх юзерів");
         List<User> userList = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USERS)) {
@@ -316,15 +316,15 @@ public class UserDao {
                     userList.add(user);
                 }
             }
-            log.info("Вибірка всіх юзерів зевершено");
+            log.info("Get all users from data base with offset - "+skip);
         } catch (SQLException ex) {
-            log.error("Помилка, вибірка всіх юзерів" + ex);
+            log.error("Problem with getting all users from data base with offset - "+skip);
+            log.error("Exception - "+ ex);
         }
         return userList;
     }
 
     public static Integer getUserCount() {
-        log.info("Вибірка кількості юзерів");
         int count = 0;
         try (Connection connection = DBHelper.getInstance().getConnection();
              PreparedStatement pst = connection.prepareStatement(SQL_GET_USER_COUNT)) {
@@ -333,16 +333,16 @@ public class UserDao {
                     count = rs.getInt("count(1)");
                 }
             }
-            log.info("Вибірка кількості юзерів зевершено");
+            log.info("Get user count from data base");
         } catch (SQLException ex) {
-            log.error("Помилка, вибірка кількості юзерів" + ex);
+            log.error("Problem with getting user count from data base");
+            log.error("Exception - "+ ex);
         }
         return count;
     }
 
 
     public static void blockUser(Integer id) {
-        log.info("Блокування юзера по id " + id);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -352,10 +352,11 @@ public class UserDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("Блокування юзера по id " + id + " завершено");
+            log.info("Block user in data base by user id - "+id);
         } catch (SQLException ex) {
             rollback(connection);
-            log.error("Помилка, блокування юзера по id" + id + ex);
+            log.error("Problem with blocking user in data base by user id - "+id);
+            log.error("Exception - "+ ex);
         } finally {
             close(connection);
             close(pst);
@@ -363,7 +364,6 @@ public class UserDao {
     }
 
     public static void unBlockUser(Integer id){
-        log.info("Розблокування юзера по id " + id);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -373,10 +373,11 @@ public class UserDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("Розблокування юзера по id " + id + " завершено");
+            log.info("Unblock user in data base by user id - "+id);
         } catch (SQLException ex) {
             rollback(connection);
-            log.error("Помилка, розблокування юзера по id" + id + ex);
+            log.error("Problem with unblocking user in data base by user id - "+id);
+            log.error("Exception - "+ ex);
         } finally {
             close(connection);
             close(pst);
@@ -384,7 +385,6 @@ public class UserDao {
     }
 
     public static void deleteUser(Integer id) {
-        log.info("Видалення юзера по id " + id);
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -394,10 +394,11 @@ public class UserDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("Видалення юзера по id " + id + " завершено");
+            log.info("Delete user in data base by user id - "+id);
         } catch (SQLException ex) {
             rollback(connection);
-            log.error("Помилка, видалення юзера по id" + id + ex);
+            log.error("Problem with deleting user in data base by user id - "+id);
+            log.error("Exception - "+ ex);
         } finally {
             close(connection);
             close(pst);
@@ -409,7 +410,8 @@ public class UserDao {
             try {
                 st.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Problem with closing preparedStatement");
+                log.error("Exception - "+ e);
             }
         }
     }
@@ -419,7 +421,8 @@ public class UserDao {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Problem with closing connection");
+                log.error("Exception - "+ e);
             }
         }
     }
@@ -428,7 +431,8 @@ public class UserDao {
         try {
             connection.rollback();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error("Problem with rollback");
+            log.error("Exception - "+ ex);
         }
     }
 
