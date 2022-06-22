@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet(name = "InfoOrderServlet", value = "/info")
 public class InfoOrderServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final Integer orderId = Integer.parseInt(request.getParameter("id"));
         request.getSession().setAttribute("infoOrder", OrderService.getOrderById(orderId));
         if (request.getSession().getAttribute("role").equals("user")) {

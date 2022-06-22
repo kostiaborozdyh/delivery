@@ -11,7 +11,7 @@ import java.io.IOException;
 @WebServlet(name = "RefillServlet", value = "/refill")
 public class RefillServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final int value = Integer.parseInt(request.getParameter("value"));
         User user = (User) request.getSession().getAttribute("user");
         int money=0;

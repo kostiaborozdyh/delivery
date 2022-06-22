@@ -268,9 +268,9 @@
                         </c:if>
 
                         <c:if test = "${(sessionScope.money>=order.price) && (order.paymentStatus == 'Очікує оплату') }">
-                            <abbr title="Оплатити зявку" >
-                                <a href="/pay?id=${order.id}&value=${order.price}&money=${sessionScope.money}" class="btn btn-success"><fmt:message key="pay"/></a>
-                            </abbr>
+                            <form method="post" action="/pay?id=${order.id}&value=${order.price}&money=${sessionScope.money}">
+                                <p><input type="submit" class="btn btn-success" value="<fmt:message key="pay"/>"></p>
+                            </form>
                         </c:if>
                         <c:if test="${order.paymentStatus == 'Оплачено'}">
                             <abbr title="Заявка вже оплачена" >

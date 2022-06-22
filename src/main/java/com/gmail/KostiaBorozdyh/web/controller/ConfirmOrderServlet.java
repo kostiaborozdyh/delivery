@@ -11,7 +11,7 @@ import java.io.IOException;
 @WebServlet(name = "ConfirmOrderServlet", value = "/confirmOrder")
 public class ConfirmOrderServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final Integer orderId = Integer.parseInt(request.getParameter("id"));
 
         OrderService.changeOrderPaymentStatusAfterConfirmByManager(orderId);

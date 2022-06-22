@@ -8,7 +8,7 @@ import java.io.IOException;
 @WebServlet(name = "RestorePasswordServlet", value = "/restorePassword")
 public class RestorePasswordServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String code = request.getParameter("code");
         String trueCode = (String) request.getSession().getAttribute("code");
         if (code.equals(trueCode)) {

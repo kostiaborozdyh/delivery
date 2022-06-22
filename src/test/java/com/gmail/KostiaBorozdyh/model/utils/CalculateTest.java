@@ -1,9 +1,10 @@
+package com.gmail.KostiaBorozdyh.model.utils;
+
 import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 import com.gmail.KostiaBorozdyh.model.dto.PointDTO;
-import com.gmail.KostiaBorozdyh.model.utils.Calculate;
-import com.gmail.KostiaBorozdyh.model.utils.JsonParser;
+
 import org.json.simple.parser.ParseException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,8 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class CalculateTest {
     @Test
@@ -39,15 +41,15 @@ public class CalculateTest {
     }
     @Test
     public void arrivalTimeTest() {
-        assertEquals("2022-06-01", Calculate.arrivalTime(500).toString());
-        assertEquals("2022-05-31", Calculate.arrivalTime(245).toString());
-        assertEquals("2022-06-03", Calculate.arrivalTime(1300).toString());
+        assertEquals(LocalDate.now().plusDays(2), Calculate.arrivalTime(500));
+        assertEquals(LocalDate.now().plusDays(1), Calculate.arrivalTime(245));
+        assertEquals(LocalDate.now().plusDays(4), Calculate.arrivalTime(1300));
     }
     @Test
     public void newArrivalTimeTest() {
-        assertEquals("2022-06-04", Calculate.newArrivalTime(LocalDate.parse("2022-05-25"),LocalDate.parse("2022-05-30")).toString());
-        assertEquals("2022-05-31", Calculate.newArrivalTime(LocalDate.parse("2022-05-23"),LocalDate.parse("2022-05-24")).toString());
-        assertEquals("2022-06-06", Calculate.newArrivalTime(LocalDate.parse("2022-05-25"),LocalDate.parse("2022-06-01")).toString());
+        assertEquals(LocalDate.now().plusDays(5), Calculate.newArrivalTime(LocalDate.parse("2022-05-25"),LocalDate.parse("2022-05-30")));
+        assertEquals(LocalDate.now().plusDays(1), Calculate.newArrivalTime(LocalDate.parse("2022-05-23"),LocalDate.parse("2022-05-24")));
+        assertEquals(LocalDate.now().plusDays(7), Calculate.newArrivalTime(LocalDate.parse("2022-05-25"),LocalDate.parse("2022-06-01")));
     }
     @Test
     public void getPaginationListTest() throws FileNotFoundException, ParseException {

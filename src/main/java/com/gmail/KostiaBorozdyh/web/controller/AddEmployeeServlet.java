@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet(name = "AddEmployeeServlet", value = "/addEmployee")
 public class AddEmployeeServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().removeAttribute("validList");
 
         User user = new User();

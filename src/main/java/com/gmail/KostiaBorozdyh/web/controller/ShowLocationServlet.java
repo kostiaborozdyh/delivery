@@ -11,7 +11,7 @@ import java.io.IOException;
 @WebServlet(name = "ShowLocationServlet", value = "/showLocation")
 public class ShowLocationServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
 
         PointDTO currentPoint = Calculate.getPointAtTheMoment(id);

@@ -11,9 +11,10 @@ import java.io.IOException;
 @WebServlet(name = "AddReviewServlet", value = "/addReview")
 public class AddReviewServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userResponse = request.getParameter("response");
-        ReviewService.save((User) request.getSession().getAttribute("user"),userResponse);
+        User user = (User) request.getSession().getAttribute("user");
+        ReviewService.save(user,userResponse);
         response.sendRedirect("/reviews.jsp");
     }
 }

@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet(name = "SendEmailOrderServlet", value = "/sendEmailOrder")
 public class SendEmailOrderServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = Integer.valueOf(request.getParameter("idOrder"));
 
         UserService.sendEmailByOrderId(id, 3);

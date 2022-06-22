@@ -1,15 +1,17 @@
+package com.gmail.KostiaBorozdyh.model.utils;
+
 import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 import com.gmail.KostiaBorozdyh.model.dto.PointDTO;
-import com.gmail.KostiaBorozdyh.model.utils.JsonParser;
+
 import org.json.simple.parser.ParseException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonParserTest {
 

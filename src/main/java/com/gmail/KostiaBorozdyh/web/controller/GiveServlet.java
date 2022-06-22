@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet(name = "GiveServlet", value = "/give")
 public class GiveServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = (Integer) request.getSession().getAttribute("id");
         String code = request.getParameter("code");
         String trueCode = (String) request.getSession().getAttribute("code");

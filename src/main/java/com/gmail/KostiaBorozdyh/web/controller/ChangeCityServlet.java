@@ -8,7 +8,7 @@ import java.io.IOException;
 @WebServlet(name = "ChangeCityServlet", value = "/changeCity")
 public class ChangeCityServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("city");
         session.removeAttribute("orders");

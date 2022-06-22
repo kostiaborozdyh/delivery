@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet(name = "DeleteUserServlet", value = "/deleteUser")
 public class DeleteUserServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
         UserService.deleteUser(id);
         request.getSession().removeAttribute("pageNumberUser");

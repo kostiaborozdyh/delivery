@@ -12,7 +12,7 @@ import java.io.IOException;
 @WebServlet(name = "PayServlet", value = "/pay")
 public class PayServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final Integer orderId = Integer.parseInt(request.getParameter("id"));
         final Integer value = Integer.parseInt(request.getParameter("value"));
         final Integer money = Integer.parseInt(request.getParameter("money"));

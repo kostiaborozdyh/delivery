@@ -8,7 +8,7 @@ import java.io.IOException;
 @WebServlet(name = "LogOutServlet", value = "/lout")
 public class LogOutServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
         response.sendRedirect("/index.jsp");

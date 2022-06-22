@@ -13,6 +13,7 @@ public class ReviewService {
         ReviewDao.addReview(user.getId(), response, LocalDate.now());
     }
 
+
     public static List<Review> getAllReviews(){
         return ReviewDao.getReviews();
     }

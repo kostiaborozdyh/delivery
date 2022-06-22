@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet(name = "BlockUserServlet", value = "/blockUser")
 public class BlockUserServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
         UserService.blockUser(id);
         request.getSession().removeAttribute("pageNumberUser");

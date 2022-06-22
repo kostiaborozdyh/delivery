@@ -11,7 +11,7 @@ import java.io.IOException;
 @WebServlet(name = "GiveOrderServlet", value = "/giveOrder")
 public class GiveOrderServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
         String userEmail = UserService.getUserEmailByOrderId(id);
         String code = Security.sendCode(userEmail);
