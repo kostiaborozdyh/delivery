@@ -1,8 +1,4 @@
-2022-06-22 14:26:05 INFO  UserDao:113 - Перевріка чи існує логін user256
-2022-06-22 14:26:06 INFO  UserDao:123 - Перевріка чи існує логін user256 завершено
-2022-06-22 14:26:06 INFO  UserDao:131 - Перевріка чи існує email kostiaborozdyh@gmail.com
-2022-06-22 14:26:06 INFO  UserDao:141 - Перевріка чи існує email kostiaborozdyh@gmail.com завершено
-2022-06-22 14:26:06 INFO  UserDao:113 - Перевріка чи існує логін user256
-2022-06-22 14:26:06 INFO  UserDao:123 - Перевріка чи існує логін user256 завершено
-2022-06-22 14:26:06 INFO  UserDao:131 - Перевріка чи існує email kotikm@gmail.com
-2022-06-22 14:26:06 INFO  UserDao:141 - Перевріка чи існує email kotikm@gmail.com завершено
+2022-06-24 14:38:09 INFO  UserDao:123 - Check that user with login - user256, consist in data base
+2022-06-24 14:38:09 INFO  UserDao:141 - Check that user with email - kostiaborozdyh@gmail.com, consist in data base
+2022-06-24 14:38:09 INFO  UserDao:123 - Check that user with login - user256, consist in data base
+2022-06-24 14:38:09 INFO  UserDao:141 - Check that user with email - kotikm@gmail.com, consist in data base
