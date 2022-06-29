@@ -4,8 +4,7 @@ import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 import com.gmail.KostiaBorozdyh.model.dto.OrderDTO;
 import com.gmail.KostiaBorozdyh.model.service.InfoTableService;
 import com.gmail.KostiaBorozdyh.model.utils.Calculate;
-import com.gmail.KostiaBorozdyh.model.utils.GoogleMaps;
-import org.json.simple.parser.ParseException;
+
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -13,6 +12,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for Calculating price for user order
+ */
 @WebServlet("/calculateBag")
 public class CalculateServlet extends HttpServlet {
     @Override
@@ -50,8 +52,6 @@ public class CalculateServlet extends HttpServlet {
                 .volume(volume)
                 .distance(distanceList.get(0).getDistance())
                 .build();
-
-        System.out.println(address);
 
         if (address != null) {
             session.setAttribute("newOrder", orderDTO);

@@ -8,6 +8,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Refilling User money
+ */
 @WebServlet(name = "RefillServlet", value = "/refill")
 public class RefillServlet extends HttpServlet {
     @Override

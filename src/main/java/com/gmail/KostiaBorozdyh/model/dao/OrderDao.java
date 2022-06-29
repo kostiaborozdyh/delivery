@@ -11,7 +11,9 @@ import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
-
+/**
+ * Data access object for Order entity
+ */
 public class OrderDao {
     private static final Logger log = Logger.getLogger(OrderDao.class);
 
@@ -57,6 +59,11 @@ public class OrderDao {
             "join delivery.location_status as dl on  do.location_status_id = dl.id \n" +
             "join delivery.payment_status as dp  on  do.payment_status_id = dp.id and do.city_to=? and do.location_status_id=? and do.date_of_arrival <= ?";
 
+    /**
+     * Creating new order
+     *
+     * @param order Order
+     */
     public static void createOrder(Order order) {
         Connection connection = null;
         PreparedStatement pst = null;
@@ -90,6 +97,12 @@ public class OrderDao {
 
     }
 
+    /**
+     * Return orderList by User identifier
+     *
+     * @param user
+     * @return List of Order items. If any problems returns empty list.
+     */
     public static List<Order> getUserOrders(User user) {
         List<Order> list = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -109,6 +122,11 @@ public class OrderDao {
         return list;
     }
 
+    /**
+     * Update order Pay Status by Order identifier
+     *
+     * @param id Order identifier
+     */
     public static void changePayStatus(Integer id) {
         Connection connection = null;
         PreparedStatement pst = null;
@@ -130,6 +148,12 @@ public class OrderDao {
         }
     }
 
+    /**
+     * Update order Pay Status, Location Status, Date of Sending, Date of arrival by Order identifier
+     *
+     * @param id Order identifier
+     * @param dateOfArrival LocalDate
+     */
     public static void changeOrderStatus(Integer id,LocalDate dateOfArrival) {
         Connection connection = null;
         PreparedStatement pst = null;
@@ -153,6 +177,11 @@ public class OrderDao {
         }
     }
 
+    /**
+     * Update order Location Status by Order identifier(order.location_status_id=4)
+     *
+     * @param id Order identifier
+     */
     public static void giveOrder(Integer id) {
         Connection connection = null;
         PreparedStatement pst = null;
@@ -174,6 +203,11 @@ public class OrderDao {
         }
     }
 
+    /**
+     * Update order Location Status by Order identifier(order.location_status_id=3)
+     *
+     * @param id Order identifier
+     */
     public static void putOnRecord(Integer id) {
         Connection connection = null;
         PreparedStatement pst = null;
@@ -195,7 +229,11 @@ public class OrderDao {
         }
     }
 
-
+    /**
+     * Return all orders
+     *
+     * @return List of Order items. If any problems returns empty list.
+     */
     public static List<Order> getOrderList() {
         List<Order> list = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -214,6 +252,13 @@ public class OrderDao {
         return list;
     }
 
+    /**
+     * Return order by Order identifier
+     *
+     * @param orderId Order identifier
+     *
+     * @return Order entity or null if wasn't found
+     */
     public static Order getOrder(Integer orderId) {
         Order order = null;
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -232,6 +277,12 @@ public class OrderDao {
         return order;
     }
 
+    /**
+     * Delete order by User identifier
+     *
+     * @param userId User identifier
+     *
+     */
     public static void deleteOrderByUserId(Integer userId) {
         Connection connection = null;
         PreparedStatement pst = null;
@@ -253,6 +304,12 @@ public class OrderDao {
         }
     }
 
+    /**
+     * Return orderList by cityTo
+     *
+     * @param cityTo
+     * @return List of Order items. If any problems returns empty list.
+     */
     public static List<Order> getOrderList(String cityTo) {
         List<Order> list = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -273,6 +330,12 @@ public class OrderDao {
         return list;
     }
 
+    /**
+     * Return orderList by cityTo and LocaleDate.now() and Location Status
+     *
+     * @param cityTo
+     * @return List of Order items. If any problems returns empty list.
+     */
     public static List<Order> getOrderListOnRecord(String cityTo) {
         List<Order> list = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -294,6 +357,9 @@ public class OrderDao {
         return list;
     }
 
+    /**
+     * Extracts Order.Record from the result set row.
+     */
     public static Order getOneOrder(ResultSet rs) throws SQLException {
         Order order = new Order();
         order.setId(rs.getInt("id"));
@@ -318,6 +384,11 @@ public class OrderDao {
         return order;
     }
 
+    /**
+     * Closing PreparedStatement
+     *
+     * @param st PreparedStatement
+     */
     private static void close(PreparedStatement st) {
         if (st != null) {
             try {
@@ -329,6 +400,11 @@ public class OrderDao {
         }
     }
 
+    /**
+     * Closing Connection
+     *
+     * @param connection Connection
+     */
     private static void close(Connection connection) {
         if (connection != null) {
             try {
@@ -340,6 +416,11 @@ public class OrderDao {
         }
     }
 
+    /**
+     * Rollback
+     *
+     * @param connection Connection
+     */
     private static void rollback(Connection connection) {
         try {
             connection.rollback();

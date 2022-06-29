@@ -7,6 +7,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Sending email to user
+ */
 @WebServlet(name = "SendEmailOrderServlet", value = "/sendEmailOrder")
 public class SendEmailOrderServlet extends HttpServlet {
     @Override

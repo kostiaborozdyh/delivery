@@ -1,9 +1,11 @@
 package com.gmail.KostiaBorozdyh.model.utils;
 
-import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 import com.gmail.KostiaBorozdyh.model.dto.OrderDTO;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
 
+/**
+ * CreateMessage utils
+ */
 public class CreateMessage {
     public static final String THEME_CREATE_ORDER ="Створення заявки";
     public static final String THEME_CHANGE_PAYMENT_STATUS ="Підтвердження заявки";

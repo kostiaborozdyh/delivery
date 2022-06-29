@@ -4,10 +4,10 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+
 /**
  * Util for sending email to user, using UserEmail and array of message
  */
-
 public class SendEmail {
     public static void send(String email, String[] message)
     {
@@ -40,9 +40,11 @@ public class SendEmail {
             throw new RuntimeException(e);
         }
 
-
-       /* System.out.println("Email to: "+email);
+        // If API for sending email has been broken use this code
+       /*
+        System.out.println("Email to: "+email);
         System.out.println("Subject: "+message[0]);
-        System.out.println("Content: "+message[1]);*/
+        System.out.println("Content: "+message[1]);
+        */
     }
 }

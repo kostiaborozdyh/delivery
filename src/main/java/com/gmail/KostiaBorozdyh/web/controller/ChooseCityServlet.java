@@ -11,6 +11,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for Choosing city for Employee role
+ */
 @WebServlet(name = "ChooseCityServlet", value = "/chooseCity")
 public class ChooseCityServlet extends HttpServlet {
     @Override

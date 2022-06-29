@@ -12,6 +12,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for Filter Order
+ */
 @WebServlet(name = "FiltrationOrderServlet", value = "/filtrationOrder")
 public class FiltrationOrderServlet extends HttpServlet {
     @Override

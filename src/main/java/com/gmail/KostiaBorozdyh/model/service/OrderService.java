@@ -8,6 +8,9 @@ import com.gmail.KostiaBorozdyh.model.utils.Calculate;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Order service
+ */
 public class OrderService {
 
     public static List<Order> getOrderListByCityOfArrival(String city) {

@@ -5,6 +5,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Resetting filtration fields
+ */
 @WebServlet(name = "ResetOrderServlet", value = "/resetOrder")
 public class ResetOrderServlet extends HttpServlet {
     @Override

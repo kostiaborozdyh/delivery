@@ -10,6 +10,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Adding Employee
+ */
 @WebServlet(name = "AddEmployeeServlet", value = "/addEmployee")
 public class AddEmployeeServlet extends HttpServlet {
     @Override

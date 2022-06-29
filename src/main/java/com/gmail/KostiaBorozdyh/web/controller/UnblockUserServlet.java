@@ -7,6 +7,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Unblocking User
+ */
 @WebServlet(name = "UnblockUserServlet", value = "/unblockUser")
 public class UnblockUserServlet extends HttpServlet {
     @Override

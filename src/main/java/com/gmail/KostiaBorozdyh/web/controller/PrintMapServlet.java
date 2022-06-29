@@ -8,6 +8,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for Printing GoogleMap
+ */
 @WebServlet(name = "PrintMapServlet", value = "/printMap")
 public class PrintMapServlet extends HttpServlet {
     @Override

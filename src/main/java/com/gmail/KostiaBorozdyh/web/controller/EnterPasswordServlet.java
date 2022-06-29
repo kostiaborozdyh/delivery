@@ -8,6 +8,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Enter password for restoring password
+ */
 @WebServlet(name = "EnterPasswordServlet", value = "/enterPassword")
 public class EnterPasswordServlet extends HttpServlet {
     @Override

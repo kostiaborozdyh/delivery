@@ -9,6 +9,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Paying Order
+ */
 @WebServlet(name = "PayServlet", value = "/pay")
 public class PayServlet extends HttpServlet {
     @Override

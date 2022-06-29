@@ -1,5 +1,8 @@
 package com.gmail.KostiaBorozdyh.model.entity;
 
+/**
+ * Describes User's entity
+ */
 public class User {
     private Integer id;
     private String login;

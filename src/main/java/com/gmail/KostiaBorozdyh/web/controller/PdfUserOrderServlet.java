@@ -17,6 +17,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * Controller for Generate PDF file with Order for User role
+ */
 @WebServlet(name = "PdfUserOrderServlet", value = "/pdfUserOrder")
 public class PdfUserOrderServlet extends HttpServlet {
 

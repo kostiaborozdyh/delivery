@@ -7,6 +7,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Getting info about Order
+ */
 @WebServlet(name = "InfoOrderServlet", value = "/info")
 public class InfoOrderServlet extends HttpServlet {
     @Override

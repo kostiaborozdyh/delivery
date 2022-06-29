@@ -11,6 +11,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data access object for User entity
+ */
 public class UserDao {
     private static final Logger log = Logger.getLogger(UserDao.class);
     public static final String SQL_GET_USER_VALID = "SELECT * FROM user u WHERE u.login=? AND u.password=?";
@@ -38,6 +41,14 @@ public class UserDao {
             "d.phone_number = ?, d.email = ?,  d.notify = ?\n" +
             "WHERE d.id=?";
 
+    /**
+     * Return User by User Login and User Password
+     *
+     * @param login User Login
+     * @param password User Password
+     *
+     * @return User entity or null if wasn't found
+     */
     public static User userValid(String login, String password) {
         User user = null;
         PreparedStatement pst = null;
@@ -74,6 +85,13 @@ public class UserDao {
         return user;
     }
 
+    /**
+     * Return User has Notify by User identifier
+     *
+     * @param id User identifier
+     *
+     * @return true if User has notified, false otherwise
+     */
     public static boolean getUserNotify(Integer id) {
         String notify = null;
         try (Connection con = DBHelper.getInstance().getConnection();
@@ -92,6 +110,13 @@ public class UserDao {
         return (notify.equals("yes"));
     }
 
+    /**
+     * Return User identifier by Order identifier
+     *
+     * @param orderId Order identifier
+     *
+     * @return User identifier or 0 if wasn't found
+     */
     public static Integer getUserIdByOrderId(Integer orderId) {
         int id = 0;
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -110,6 +135,13 @@ public class UserDao {
         return id;
     }
 
+    /**
+     * Return whether the User Login is unique
+     *
+     * @param login User Login
+     *
+     * @return true if User has unique Login, false otherwise
+     */
     public static boolean loginIsValid(String login) {
         String userLogin = null;
         try (Connection con = DBHelper.getInstance().getConnection();
@@ -128,6 +160,13 @@ public class UserDao {
         return (userLogin == null);
     }
 
+    /**
+     * Return whether the User Email is unique
+     *
+     * @param email User Email
+     *
+     * @return true if User has unique Email, false otherwise
+     */
     public static boolean emailIsValid(String email) {
         String userEmail = null;
         try (Connection con = DBHelper.getInstance().getConnection();
@@ -146,7 +185,13 @@ public class UserDao {
         return (userEmail == null);
     }
 
-
+    /**
+     * Insert new User
+     *
+     * @param user User
+     *
+     * @return true if User has added to dateBase, false otherwise
+     */
     public static boolean insertUser(User user) {
         int count = 0;
         Connection connection = null;
@@ -178,6 +223,12 @@ public class UserDao {
         return count > 0;
     }
 
+    /**
+     * Change User money by User Login
+     *
+     * @param login User Login
+     * @param money User Money
+     */
     public static void changeMoney(String login, Integer money) {
         Connection connection = null;
         PreparedStatement pst = null;
@@ -200,6 +251,14 @@ public class UserDao {
         }
     }
 
+    /**
+     * Change User password by User Email
+     *
+     * @param email User Email
+     * @param password User password
+     *
+     * @return true if User has changed password in dateBase, false otherwise
+     */
     public static boolean changePassword(String email, String password) {
         int count = 0;
         Connection connection = null;
@@ -224,6 +283,13 @@ public class UserDao {
         return count > 0;
     }
 
+    /**
+     * Update User
+     *
+     * @param user User
+     *
+     * @return user if User updated in dateBase, null otherwise
+     */
     public static User editUser(User user) {
         int count = 0, k = 1;
         Connection connection = null;
@@ -262,6 +328,13 @@ public class UserDao {
         return null;
     }
 
+    /**
+     * Return User Email by User Login
+     *
+     * @param login User Login
+     *
+     * @return User Email if User was in dateBase, null otherwise
+     */
     public static String getUserEmailByUserLogin(String login) {
         String email = null;
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -281,6 +354,13 @@ public class UserDao {
         return email;
     }
 
+    /**
+     * Return User Email by User identifier
+     *
+     * @param id User identifier
+     *
+     * @return User Email if User was in dateBase, null otherwise
+     */
     public static String getUserEmailByUserId(Integer id) {
         String email = null;
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -299,6 +379,13 @@ public class UserDao {
         return email;
     }
 
+    /**
+     * Return userList by offset with limit 5
+     *
+     * @param skip int offset
+     *
+     * @return List of User items. If any problems returns empty list.
+     */
     public static List<User> getUsers(int skip) {
         List<User> userList = new ArrayList<>();
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -324,6 +411,11 @@ public class UserDao {
         return userList;
     }
 
+    /**
+     * Return number of all users
+     *
+     * @return number of all users or 0 if wasn't count
+     */
     public static Integer getUserCount() {
         int count = 0;
         try (Connection connection = DBHelper.getInstance().getConnection();
@@ -341,7 +433,12 @@ public class UserDao {
         return count;
     }
 
-
+    /**
+     * Blocking User by User identifier
+     *
+     * @param id User identifier
+     *
+     */
     public static void blockUser(Integer id) {
         Connection connection = null;
         PreparedStatement pst = null;
@@ -363,6 +460,12 @@ public class UserDao {
         }
     }
 
+    /**
+     * Unblocking User by User identifier
+     *
+     * @param id User identifier
+     *
+     */
     public static void unBlockUser(Integer id){
         Connection connection = null;
         PreparedStatement pst = null;
@@ -384,6 +487,12 @@ public class UserDao {
         }
     }
 
+    /**
+     * Delete User by User identifier
+     *
+     * @param id User identifier
+     *
+     */
     public static void deleteUser(Integer id) {
         Connection connection = null;
         PreparedStatement pst = null;
@@ -405,6 +514,11 @@ public class UserDao {
         }
     }
 
+    /**
+     * Closing PreparedStatement
+     *
+     * @param st PreparedStatement
+     */
     private static void close(PreparedStatement st) {
         if (st != null) {
             try {
@@ -416,6 +530,11 @@ public class UserDao {
         }
     }
 
+    /**
+     * Closing Connection
+     *
+     * @param connection Connection
+     */
     private static void close(Connection connection) {
         if (connection != null) {
             try {
@@ -427,6 +546,11 @@ public class UserDao {
         }
     }
 
+    /**
+     * Rollback
+     *
+     * @param connection Connection
+     */
     private static void rollback(Connection connection) {
         try {
             connection.rollback();

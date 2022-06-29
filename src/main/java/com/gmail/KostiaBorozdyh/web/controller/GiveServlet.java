@@ -7,6 +7,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Giving Order to user for Employee role
+ */
 @WebServlet(name = "GiveServlet", value = "/give")
 public class GiveServlet extends HttpServlet {
     @Override

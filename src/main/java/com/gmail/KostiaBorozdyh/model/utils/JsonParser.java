@@ -1,6 +1,5 @@
 package com.gmail.KostiaBorozdyh.model.utils;
 
-import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 import com.gmail.KostiaBorozdyh.model.dto.PointDTO;
 import org.apache.log4j.Logger;
@@ -11,9 +10,18 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * JsonParser utils
+ */
 public class JsonParser {
     private static final Logger log = Logger.getLogger(JsonParser.class);
+
+    /**
+     * Return List InfoTableDTO from parse JSON string GoogleMapsAPI matrix distance
+     *
+     * @param jsonStr   String JSON
+     * @return List InfoTableDTO
+     */
     public static List<InfoTableDTO> parseGoogleApiDistance(String jsonStr) throws ParseException {
         int i = 0, j;
         List<InfoTableDTO> distanceList = new ArrayList<>();
@@ -43,6 +51,12 @@ public class JsonParser {
         return distanceList;
     }
 
+    /**
+     * Return PointDTO from parse JSON string GoogleMapsAPI geocode
+     *
+     * @param jsonStr   String JSON
+     * @return PointDTO
+     */
     public static PointDTO parseGoogleApiGeocode(String jsonStr) throws ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(jsonStr);
@@ -56,6 +70,12 @@ public class JsonParser {
         return new PointDTO(lat, lng);
     }
 
+    /**
+     * Auxiliary utility for parsing an array of cities
+     *
+     * @param city   String JSONArray
+     * @return ArrayList of String
+     */
     private static ArrayList<String> parseCity(JSONArray city) {
         ArrayList<String> arrayList = new ArrayList<>();
         for (Object o : city) {
@@ -64,6 +84,15 @@ public class JsonParser {
         return arrayList;
     }
 
+    /**
+     * Utility for cutting city Name
+     * <p>
+     * Before cutCityName: Черкаси, Черкаська область, Україна
+     * <p>
+     * After cutCityName: Черкаси, Україна
+     * @param city   String city for cutting
+     * @return new city Name
+     */
     public static String cutCityName(String city) {
         long count = city.chars().filter(ch -> ch == ',').count();
         if (count == 1) {
@@ -79,6 +108,13 @@ public class JsonParser {
         }
 
     }
+
+    /**
+     * Utility for cutting city Name for Employee role
+     *
+     * @param city   String city for cutting
+     * @return new city Name
+     */
     public static String cutCityNameForEmployee(String city)  {
         List<InfoTableDTO> list=null;
         try {

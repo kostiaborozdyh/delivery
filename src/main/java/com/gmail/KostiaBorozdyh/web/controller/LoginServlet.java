@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
+/**
+ * Controller for User Login
+ */
 @WebServlet("/loginUser")
 public class LoginServlet extends HttpServlet {
     @Override

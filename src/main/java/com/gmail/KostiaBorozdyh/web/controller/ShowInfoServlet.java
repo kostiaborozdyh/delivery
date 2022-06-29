@@ -9,6 +9,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for Showing info about distance between cities
+ */
 @WebServlet(name = "ShowInfoServlet", value = "/showInfo")
 public class ShowInfoServlet extends HttpServlet {
     @Override

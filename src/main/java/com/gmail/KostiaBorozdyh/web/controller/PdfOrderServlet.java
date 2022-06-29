@@ -24,6 +24,9 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.itextpdf.layout.property.VerticalAlignment;
 
+/**
+ * Controller for Generate PDF file with Order List for User role
+ */
 @WebServlet(name = "PdfServlet", value = "/pdfOrder")
 public class PdfOrderServlet extends HttpServlet {
     public final String FONT = "font/FreeSans.ttf";

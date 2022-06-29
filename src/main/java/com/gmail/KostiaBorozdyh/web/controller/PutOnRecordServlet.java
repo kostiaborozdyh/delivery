@@ -8,6 +8,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Putting on record User order
+ */
 @WebServlet(name = "PutOnRecordServlet", value = "/putOnRecord")
 public class PutOnRecordServlet extends HttpServlet {
     @Override

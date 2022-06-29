@@ -5,6 +5,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Changing city for Employee role
+ */
 @WebServlet(name = "ChangeCityServlet", value = "/changeCity")
 public class ChangeCityServlet extends HttpServlet {
     @Override

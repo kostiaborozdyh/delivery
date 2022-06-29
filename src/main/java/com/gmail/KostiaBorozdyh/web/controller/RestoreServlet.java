@@ -8,6 +8,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Restoring password
+ */
 @WebServlet(name = "RestoreServlet", value = "/restore")
 public class RestoreServlet extends HttpServlet {
     @Override

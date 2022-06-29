@@ -10,6 +10,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for Sorting InfoTableDTO
+ */
 @WebServlet(name = "SortingTableServlet", value = "/sortingTable")
 public class SortingTableServlet extends HttpServlet {
     @Override

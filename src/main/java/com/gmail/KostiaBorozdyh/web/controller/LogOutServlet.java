@@ -5,6 +5,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for User Logout
+ */
 @WebServlet(name = "LogOutServlet", value = "/lout")
 public class LogOutServlet extends HttpServlet {
     @Override

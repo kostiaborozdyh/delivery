@@ -8,6 +8,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Showing GoogleMap
+ */
 @WebServlet(name = "ShowLocationServlet", value = "/showLocation")
 public class ShowLocationServlet extends HttpServlet {
     @Override

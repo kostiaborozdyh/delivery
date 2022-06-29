@@ -5,6 +5,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Checking code equals for restoring password
+ */
 @WebServlet(name = "RestorePasswordServlet", value = "/restorePassword")
 public class RestorePasswordServlet extends HttpServlet {
     @Override

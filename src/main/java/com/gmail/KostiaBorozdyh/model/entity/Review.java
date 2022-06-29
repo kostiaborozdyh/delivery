@@ -2,6 +2,9 @@ package com.gmail.KostiaBorozdyh.model.entity;
 
 import java.time.LocalDate;
 
+/**
+ * Describes Review's entity
+ */
 public class Review {
     private Integer id;
     private String firstName;

@@ -10,6 +10,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Creating order
+ */
 @WebServlet(name = "CreateOrderServlet", value = "/createOrder")
 public class CreateOrderServlet extends HttpServlet {
     @Override

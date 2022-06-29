@@ -7,7 +7,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-
+/**
+ * Controller for Adding Review
+ */
 @WebServlet(name = "AddReviewServlet", value = "/addReview")
 public class AddReviewServlet extends HttpServlet {
     @Override

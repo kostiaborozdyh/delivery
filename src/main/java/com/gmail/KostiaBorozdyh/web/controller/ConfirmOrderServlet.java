@@ -8,6 +8,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Confirm order for Manager role
+ */
 @WebServlet(name = "ConfirmOrderServlet", value = "/confirmOrder")
 public class ConfirmOrderServlet extends HttpServlet {
     @Override

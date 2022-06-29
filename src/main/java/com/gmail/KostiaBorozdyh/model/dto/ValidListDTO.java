@@ -1,5 +1,8 @@
 package com.gmail.KostiaBorozdyh.model.dto;
 
+/**
+ * Describes ValidList's DTO
+ */
 public class ValidListDTO {
 
     private String validLogin;

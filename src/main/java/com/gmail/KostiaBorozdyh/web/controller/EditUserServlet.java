@@ -10,6 +10,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Edit User
+ */
 @WebServlet(name = "EditUserServlet", value = "/editUser")
 public class EditUserServlet extends HttpServlet {
     @Override

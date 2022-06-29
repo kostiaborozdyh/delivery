@@ -8,7 +8,9 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Data access object for Review entity
+ */
 public class ReviewDao {
     private static final Logger log = Logger.getLogger(ReviewDao.class);
 
@@ -17,6 +19,11 @@ public class ReviewDao {
             "join delivery.user as u on  d.user_id = u.id";
     public static final String SQL_INSERT_REVIEW = "INSERT INTO delivery.reviews(user_id,response,date)  VALUES (?,?,?)";
 
+    /**
+     * Return all reviews
+     *
+     * @return List of Review items. If any problems returns empty list.
+     */
     public static List<Review> getReviews() {
         List<Review> reviewList = new ArrayList<>();
         try (Connection con = DBHelper.getInstance().getConnection();
@@ -39,6 +46,13 @@ public class ReviewDao {
         return reviewList;
     }
 
+    /**
+     * Creating new review
+     *
+     * @param id User identifier
+     * @param response User response
+     * @param date LocalDate.now()
+     */
     public static void addReview(Integer id, String response, LocalDate date) {
         Connection connection = null;
         PreparedStatement pst = null;
@@ -62,6 +76,11 @@ public class ReviewDao {
         }
     }
 
+    /**
+     * Closing PreparedStatement
+     *
+     * @param st PreparedStatement
+     */
     private static void close(PreparedStatement st) {
         if (st != null) {
             try {
@@ -73,6 +92,11 @@ public class ReviewDao {
         }
     }
 
+    /**
+     * Closing Connection
+     *
+     * @param connection Connection
+     */
     private static void close(Connection connection) {
         if (connection != null) {
             try {
@@ -84,6 +108,11 @@ public class ReviewDao {
         }
     }
 
+    /**
+     * Rollback
+     *
+     * @param connection Connection
+     */
     private static void rollback(Connection connection) {
         try {
             connection.rollback();

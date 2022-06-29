@@ -5,6 +5,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Changing language
+ */
 @WebServlet(name = "ChangeLanguageServlet", value = "/changeLanguage")
 public class ChangeLanguageServlet extends HttpServlet {
     @Override

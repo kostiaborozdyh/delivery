@@ -3,15 +3,24 @@ package com.gmail.KostiaBorozdyh.model.utils;
 import com.gmail.KostiaBorozdyh.model.dto.FilterOrderDTO;
 import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
 import com.gmail.KostiaBorozdyh.model.entity.Order;
-import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * FiltrationOrder utils
+ */
 public class FiltrationOrder {
     private static List<Order> orderList;
 
+    /**
+     * Filter order List by filterOrderDTO
+     *
+     * @param orders         order List
+     * @param filterOrderDTO order List
+     * @return price delivery
+     */
     public static List<Order> doFilter(List<Order> orders, FilterOrderDTO filterOrderDTO) {
         orderList = orders;
 
@@ -27,7 +36,12 @@ public class FiltrationOrder {
         return orderList;
     }
 
-
+    /**
+     * Filter price
+     *
+     * @param minPrice order Price
+     * @param maxPrice order Price
+     */
     private static void priceFilter(String minPrice, String maxPrice) {
         Integer minimalPrice = null;
         Integer maximalPrice = null;
@@ -63,6 +77,11 @@ public class FiltrationOrder {
 
     }
 
+    /**
+     * Filter Payment Status
+     *
+     * @param paymentStatus order paymentStatus
+     */
     private static void paymentStatusFilter(String[] paymentStatus) {
 
         if (paymentStatus != null) {
@@ -72,6 +91,11 @@ public class FiltrationOrder {
         }
     }
 
+    /**
+     * Filter Location
+     *
+     * @param location order location
+     */
     private static void locationFilter(String[] location) {
 
         if (location != null) {
@@ -81,6 +105,12 @@ public class FiltrationOrder {
         }
     }
 
+    /**
+     * Filter date Create
+     *
+     * @param minDateCreate order DateCreate
+     * @param maxDateCreate order DateCreate
+     */
     private static void dateCreateFilter(String minDateCreate, String maxDateCreate) {
         LocalDate minimalDateCreate = null;
         LocalDate maximalDateCreate = null;
@@ -115,7 +145,12 @@ public class FiltrationOrder {
 
     }
 
-
+    /**
+     * Filter date of Arrival
+     *
+     * @param minDateOfArrival order dateOfArrival
+     * @param maxDateOfArrival order dateOfArrival
+     */
     private static void dateOfArrivalFilter(String minDateOfArrival, String maxDateOfArrival) {
         LocalDate minimalDateOfArrival = null;
         LocalDate maximalDateOfArrival = null;
@@ -149,6 +184,11 @@ public class FiltrationOrder {
         }
     }
 
+    /**
+     * Filter city From
+     *
+     * @param cityFrom order city From
+     */
     private static void cityFromFilter(String[] cityFrom) {
 
         if (cityFrom != null) {
@@ -158,6 +198,11 @@ public class FiltrationOrder {
         }
     }
 
+    /**
+     * Filter city To
+     *
+     * @param cityTo order city To
+     */
     private static void cityToFilter(String[] cityTo) {
 
         if (cityTo != null) {
@@ -167,8 +212,13 @@ public class FiltrationOrder {
         }
     }
 
+    /**
+     * Sorting Order List by  sorting criterion
+     *
+     * @param sort sorting criterion
+     */
     private static void sorting(String sort) {
-        if(sort!=null) {
+        if (sort != null) {
             switch (sort) {
                 case "sortByMinPrice": {
                     orderList = orderList.stream()
@@ -199,6 +249,12 @@ public class FiltrationOrder {
         }
     }
 
+    /**
+     * Sorting InfoTableDTO List by  sorting criterion
+     *
+     * @param sort      sorting criterion
+     * @param infoTable InfoTableDTO List
+     */
     public static List<InfoTableDTO> sortingTable(String sort, List<InfoTableDTO> infoTable) {
         switch (sort) {
             case "sortByMinPriceTable": {

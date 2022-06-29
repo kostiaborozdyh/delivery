@@ -1,5 +1,8 @@
 package com.gmail.KostiaBorozdyh.model.dto;
 
+/**
+ * Describes FilterOrder's DTO
+ */
 public class FilterOrderDTO {
     private String minPrice;
     private String maxPrice;

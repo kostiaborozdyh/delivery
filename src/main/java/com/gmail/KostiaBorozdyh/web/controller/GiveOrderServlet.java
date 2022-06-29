@@ -8,6 +8,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Giving Order to user for Employee role and generating code
+ */
 @WebServlet(name = "GiveOrderServlet", value = "/giveOrder")
 public class GiveOrderServlet extends HttpServlet {
     @Override

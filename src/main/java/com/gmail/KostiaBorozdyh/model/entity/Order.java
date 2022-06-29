@@ -1,10 +1,10 @@
 package com.gmail.KostiaBorozdyh.model.entity;
 
-import com.gmail.KostiaBorozdyh.model.dto.InfoTableDTO;
-
 import java.time.LocalDate;
 
-
+/**
+ * Describes Order's entity
+ */
 public class Order {
     private Integer id;
     private String description;

@@ -11,12 +11,14 @@ import com.gmail.KostiaBorozdyh.model.utils.SendEmail;
 
 import java.util.List;
 
+/**
+ * User service
+ */
 public class UserService {
 
     public static void save(User user) {
         UserDao.insertUser(user);
     }
-
     public static void blockUser(Integer userId) {
         UserDao.blockUser(userId);
         String email = UserDao.getUserEmailByUserId(userId);

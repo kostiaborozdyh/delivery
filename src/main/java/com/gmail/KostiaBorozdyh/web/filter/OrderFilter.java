@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Filter for Order List
+ */
 public class OrderFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {

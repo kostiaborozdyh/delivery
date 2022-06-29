@@ -11,6 +11,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for Changing page
+ */
 @WebServlet(name = "ChangePageServlet", value = "/changePage")
 public class ChangePageServlet extends HttpServlet {
     @Override

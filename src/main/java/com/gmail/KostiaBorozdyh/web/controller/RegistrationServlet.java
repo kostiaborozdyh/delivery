@@ -10,6 +10,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+/**
+ * Controller for Registration new User
+ */
 @WebServlet(name = "RegistrationServlet", value = "/registrationUser")
 public class RegistrationServlet extends HttpServlet {
     @Override

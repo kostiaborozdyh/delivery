@@ -1,5 +1,8 @@
 package com.gmail.KostiaBorozdyh.model.dto;
 
+/**
+ * Describes Point's DTO
+ */
 public class PointDTO {
     private String longitude;
     private String latitude;

@@ -1,6 +1,8 @@
 package com.gmail.KostiaBorozdyh.model.dto;
 
-
+/**
+ * Describes Order's DTO
+ */
 public class OrderDTO {
     private Integer id;
     private String description;

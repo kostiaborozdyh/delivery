@@ -4,10 +4,21 @@ import com.gmail.KostiaBorozdyh.model.dao.UserDao;
 import com.gmail.KostiaBorozdyh.model.entity.User;
 import com.gmail.KostiaBorozdyh.model.dto.ValidListDTO;
 
+/**
+ * Validation utils
+ */
 public class Validation {
     private static ValidListDTO validList;
     private static User user;
 
+    /**
+     * Valid user
+     *
+     * @param userCheck  User for validation
+     * @param checkLogin boolean whether to check the login
+     * @param checkEmail boolean whether to check the email
+     * @return ValidListDTO
+     */
     public static ValidListDTO valid(User userCheck, boolean checkLogin, boolean checkEmail) {
         validList = new ValidListDTO();
         user = userCheck;
@@ -29,6 +40,11 @@ public class Validation {
         return validList;
     }
 
+    /**
+     * Check password
+     * <p>
+     * checking passwords to see if they are the same and valid
+     */
     private static void checkPassword() {
         if (user.getPassword().equals(user.getSecondPassword())) {
             if (passwordValid(user.getPassword()) && !user.getPassword().equals("")) {
@@ -39,6 +55,11 @@ public class Validation {
         }
     }
 
+    /**
+     * Check phoneNumber
+     * <p>
+     * if the phone is not empty then check it for validity otherwise it is valid
+     */
     private static void checkPhoneNumber() {
         if (phoneNumberValid(user.getPhoneNumber()) || user.getPhoneNumber().equals("")) {
             validList.setValidPhoneNumber(user.getPhoneNumber());
@@ -47,6 +68,11 @@ public class Validation {
         }
     }
 
+    /**
+     * Check firstName
+     * <p>
+     * checking first name for validity
+     */
     private static void checkFirstName() {
         if (nameValid(user.getFirstName())) {
             validList.setValidFirstName(user.getFirstName());
@@ -55,6 +81,11 @@ public class Validation {
         }
     }
 
+    /**
+     * Check lastName
+     * <p>
+     * checking last name for validity
+     */
     private static void checkLastName() {
         if (nameValid(user.getLastName())) {
             validList.setValidLastName(user.getLastName());
@@ -63,7 +94,11 @@ public class Validation {
         }
     }
 
-
+    /**
+     * Check login
+     * <p>
+     * checking login for validity and uniqueness
+     */
     private static void checkLogin() {
         if (UserDao.loginIsValid(user.getLogin())) {
             if (loginNameValid(user.getLogin())) {
@@ -76,6 +111,11 @@ public class Validation {
         }
     }
 
+    /**
+     * Check email
+     * <p>
+     * checking email for validity and uniqueness
+     */
     private static void checkEmail() {
         if (UserDao.emailIsValid(user.getEmail())) {
             if (emailNameValid(user.getEmail())) {
@@ -88,6 +128,12 @@ public class Validation {
         }
     }
 
+    /**
+     * Count invalid fields
+     *
+     * @param validList ValidListDTO userValidList
+     * @return true if all user fields are valid, otherwise false
+     */
     public static boolean count(ValidListDTO validList) {
         int count = 0;
         if (validList.getInvalidEmail() != null) count++;
@@ -105,7 +151,6 @@ public class Validation {
     public static boolean nameValid(String firstName) {
         return firstName.matches("^[a-zA-ZА-Яа-яЇїіІ]{4,20}");
     }
-
 
     public static boolean phoneNumberValid(String phoneNumber) {
         return phoneNumber.matches("\\+380\\d{9}") || phoneNumber.matches("0\\d{9}$");

@@ -1,6 +1,8 @@
 package com.gmail.KostiaBorozdyh.model.dto;
 
-
+/**
+ * Describes InfoTable's DTO
+ */
 public class InfoTableDTO {
     private Integer id;
     private String cityFrom;

@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
+/**
+ * Controller for Generate PDF file with Order List for Manager role
+ */
 @WebServlet(name = "PdfOrderListServlet", value = "/pdfOrderList")
 public class PdfOrderListServlet extends HttpServlet {
 
