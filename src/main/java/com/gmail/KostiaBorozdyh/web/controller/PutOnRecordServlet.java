@@ -17,7 +17,7 @@ public class PutOnRecordServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
         OrderService.putOrderOnRecord(id);
-        UserService.sendEmailByOrderId(id,2);
+        UserService.sendEmailByOrderId(id, 2);
         response.sendRedirect("/employee/acceptOrder.jsp");
     }
 }

@@ -28,10 +28,11 @@ public class GiveServletTest {
         when(session.getAttribute("code")).thenReturn("123456");
         when(request.getSession()).thenReturn(session);
         servlet.doPost(request, response);
-        verify(request,times(2)).getSession();
+        verify(request, times(2)).getSession();
         verify(response).sendRedirect("/chooseCity");
         mockedSettings.close();
     }
+
     @Test
     public void giveCodNotEqualsTest() throws IOException, ServletException {
 
@@ -45,8 +46,8 @@ public class GiveServletTest {
         when(session.getAttribute("code")).thenReturn("123456");
         when(request.getSession()).thenReturn(session);
         servlet.doPost(request, response);
-        verify(request,times(3)).getSession();
-        verify(session,times(1)).setAttribute("invalidCode","invalidCode");
+        verify(request, times(3)).getSession();
+        verify(session, times(1)).setAttribute("invalidCode", "invalidCode");
         verify(response).sendRedirect("/employee/enterCode.jsp");
     }
 }

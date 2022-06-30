@@ -24,7 +24,7 @@ public class EnterPasswordServlet extends HttpServlet {
                 request.getSession().setAttribute("passwordNameInvalid", "pass");
                 response.sendRedirect("/restore/enterPassword.jsp");
             } else {
-                UserService.changePassword(emailUser,password);
+                UserService.changePassword(emailUser, password);
                 request.getSession().setAttribute("changePassword", "yes");
                 response.sendRedirect("/login.jsp");
             }

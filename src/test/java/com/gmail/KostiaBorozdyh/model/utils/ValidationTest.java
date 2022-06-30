@@ -19,13 +19,13 @@ public class ValidationTest {
         user.setSecondPassword("qazwsxedcA7");
         user.setEmail("kostiaborozdyh@gmail.com");
         user.setPhoneNumber("+380938988645");
-        assertTrue(Validation.count(Validation.valid(user, false,false)));
+        assertTrue(Validation.count(Validation.valid(user, false, false)));
         User user2 = user.cloneUser();
         user2.setPassword("qazwsxedcA7");
         user2.setSecondPassword("qazwsxedcA7");
         user2.setLogin("user256");
-        assertFalse(Validation.count(Validation.valid(user2, true,true)));
+        assertFalse(Validation.count(Validation.valid(user2, true, true)));
         user2.setEmail("kotikm@gmail.com");
-        assertTrue(Validation.count(Validation.valid(user2, true,true)));
+        assertTrue(Validation.count(Validation.valid(user2, true, true)));
     }
 }

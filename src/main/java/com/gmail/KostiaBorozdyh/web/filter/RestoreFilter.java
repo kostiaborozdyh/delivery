@@ -21,7 +21,7 @@ public class RestoreFilter implements Filter {
             response.sendRedirect("/info.jsp");
         } else {
             if (session.getAttribute("first") == null) {
-                String email = (String)  session.getAttribute("email");
+                String email = (String) session.getAttribute("email");
                 session.setAttribute("code", Security.restorePassword(email));
                 session.setAttribute("first", "invalid");
             }

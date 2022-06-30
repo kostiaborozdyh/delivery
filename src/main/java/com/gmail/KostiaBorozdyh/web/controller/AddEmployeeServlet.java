@@ -36,9 +36,9 @@ public class AddEmployeeServlet extends HttpServlet {
             user.setRoleId(2);
         }
 
-        ValidListDTO validList = Validation.valid(user, true,true);
+        ValidListDTO validList = Validation.valid(user, true, true);
 
-        boolean userIsValid=Validation.count(validList);
+        boolean userIsValid = Validation.count(validList);
 
         if (userIsValid) {
             UserService.save(user);

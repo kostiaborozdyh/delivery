@@ -9,7 +9,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 
 /**
- * Controller for Showing GoogleMap
+ * Controller for Showing parcel in GoogleMap
  */
 @WebServlet(name = "ShowLocationServlet", value = "/showLocation")
 public class ShowLocationServlet extends HttpServlet {

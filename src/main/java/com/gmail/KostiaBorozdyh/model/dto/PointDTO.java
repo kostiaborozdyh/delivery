@@ -22,7 +22,8 @@ public class PointDTO {
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
-    public PointDTO(){
+
+    public PointDTO() {
 
     }
 

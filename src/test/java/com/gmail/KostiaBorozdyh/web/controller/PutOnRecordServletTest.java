@@ -21,11 +21,11 @@ public class PutOnRecordServletTest {
         MockedStatic<OrderService> mockedSettings2;
         final HttpServletRequest request = mock(HttpServletRequest.class);
         final HttpServletResponse response = mock(HttpServletResponse.class);
-        mockedSettings2 =  mockStatic(OrderService.class);
+        mockedSettings2 = mockStatic(OrderService.class);
         mockedSettings = mockStatic(UserService.class);
         when(request.getParameter("id")).thenReturn("1000");
         servlet.doPost(request, response);
-        verify(request,times(0)).getSession();
+        verify(request, times(0)).getSession();
         verify(response).sendRedirect("/employee/acceptOrder.jsp");
         mockedSettings.close();
         mockedSettings2.close();

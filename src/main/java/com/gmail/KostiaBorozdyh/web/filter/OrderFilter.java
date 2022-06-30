@@ -25,7 +25,7 @@ public class OrderFilter implements Filter {
         if (orderList == null) {
             User user = (User) request.getSession().getAttribute("user");
             boolean userHasRoleUser = user.getRoleId() == 1;
-           orderList = OrderService.getOrderListByUser(user,userHasRoleUser);
+            orderList = OrderService.getOrderListByUser(user, userHasRoleUser);
         }
 
         Set<String> cityFromSet = Calculate.cityFromSet(orderList);

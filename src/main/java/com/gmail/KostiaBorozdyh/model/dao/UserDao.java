@@ -44,9 +44,8 @@ public class UserDao {
     /**
      * Return User by User Login and User Password
      *
-     * @param login User Login
+     * @param login    User Login
      * @param password User Password
-     *
      * @return User entity or null if wasn't found
      */
     public static User userValid(String login, String password) {
@@ -75,10 +74,10 @@ public class UserDao {
                     user.setBan(rs.getString("ban"));
                 }
             }
-            log.info("Get user from data base by login - "+login);
+            log.info("Get user from data base by login - " + login);
         } catch (Exception ex) {
-            log.error("Problem with getting user from data base by login - "+login);
-            log.error("Exception - "+ ex);
+            log.error("Problem with getting user from data base by login - " + login);
+            log.error("Exception - " + ex);
         } finally {
             close(pst);
         }
@@ -89,7 +88,6 @@ public class UserDao {
      * Return User has Notify by User identifier
      *
      * @param id User identifier
-     *
      * @return true if User has notified, false otherwise
      */
     public static boolean getUserNotify(Integer id) {
@@ -102,10 +100,10 @@ public class UserDao {
                     notify = rs.getString("notify");
                 }
             }
-            log.info("Check that user with id - "+id+", has notify");
+            log.info("Check that user with id - " + id + ", has notify");
         } catch (SQLException ex) {
-            log.error("Problem with checking that user with id - "+id+", has notify");
-            log.error("Exception - "+ ex);
+            log.error("Problem with checking that user with id - " + id + ", has notify");
+            log.error("Exception - " + ex);
         }
         return (notify.equals("yes"));
     }
@@ -114,7 +112,6 @@ public class UserDao {
      * Return User identifier by Order identifier
      *
      * @param orderId Order identifier
-     *
      * @return User identifier or 0 if wasn't found
      */
     public static Integer getUserIdByOrderId(Integer orderId) {
@@ -127,10 +124,10 @@ public class UserDao {
                     id = rs.getInt("user_id");
                 }
             }
-            log.info("Get userId from data base by orderId - "+orderId);
+            log.info("Get userId from data base by orderId - " + orderId);
         } catch (SQLException ex) {
-            log.error("Problem with getting userId from data base by orderId - "+orderId);
-            log.error("Exception - "+ ex);
+            log.error("Problem with getting userId from data base by orderId - " + orderId);
+            log.error("Exception - " + ex);
         }
         return id;
     }
@@ -139,7 +136,6 @@ public class UserDao {
      * Return whether the User Login is unique
      *
      * @param login User Login
-     *
      * @return true if User has unique Login, false otherwise
      */
     public static boolean loginIsValid(String login) {
@@ -152,10 +148,10 @@ public class UserDao {
                     userLogin = rs.getString("login");
                 }
             }
-            log.info("Check that user with login - "+login+", consist in data base");
+            log.info("Check that user with login - " + login + ", consist in data base");
         } catch (SQLException ex) {
-            log.error("Problem with checking that user with login - "+login+", consist in data base");
-            log.error("Exception - "+ ex);
+            log.error("Problem with checking that user with login - " + login + ", consist in data base");
+            log.error("Exception - " + ex);
         }
         return (userLogin == null);
     }
@@ -164,7 +160,6 @@ public class UserDao {
      * Return whether the User Email is unique
      *
      * @param email User Email
-     *
      * @return true if User has unique Email, false otherwise
      */
     public static boolean emailIsValid(String email) {
@@ -177,10 +172,10 @@ public class UserDao {
                     userEmail = rs.getString("email");
                 }
             }
-            log.info("Check that user with email - "+email+", consist in data base");
+            log.info("Check that user with email - " + email + ", consist in data base");
         } catch (SQLException ex) {
-            log.error("Problem with checking that user with email - "+email+", consist in data base");
-            log.error("Exception - "+ ex);
+            log.error("Problem with checking that user with email - " + email + ", consist in data base");
+            log.error("Exception - " + ex);
         }
         return (userEmail == null);
     }
@@ -189,7 +184,6 @@ public class UserDao {
      * Insert new User
      *
      * @param user User
-     *
      * @return true if User has added to dateBase, false otherwise
      */
     public static boolean insertUser(User user) {
@@ -211,11 +205,11 @@ public class UserDao {
             pst.setString(9, "no");
             count = pst.executeUpdate();
             connection.commit();
-            log.info("Add user with login - "+user.getLogin()+", into data base");
+            log.info("Add user with login - " + user.getLogin() + ", into data base");
         } catch (Exception ex) {
             rollback(connection);
-            log.error("Problem with adding user with login - "+user.getLogin()+", into data base");
-            log.error("Exception - "+ ex);
+            log.error("Problem with adding user with login - " + user.getLogin() + ", into data base");
+            log.error("Exception - " + ex);
         } finally {
             close(connection);
             close(pst);
@@ -240,11 +234,11 @@ public class UserDao {
             pst.setString(2, login);
             pst.executeUpdate();
             connection.commit();
-            log.info("Change money for user with login - "+login+", in data base, on - "+money+"$");
+            log.info("Change money for user with login - " + login + ", in data base, on - " + money + "$");
         } catch (SQLException ex) {
             rollback(connection);
-            log.error("Problem with changing money for user with login - "+login+", in data base, on - "+money+"$");
-            log.error("Exception - "+ ex);
+            log.error("Problem with changing money for user with login - " + login + ", in data base, on - " + money + "$");
+            log.error("Exception - " + ex);
         } finally {
             close(connection);
             close(pst);
@@ -254,9 +248,8 @@ public class UserDao {
     /**
      * Change User password by User Email
      *
-     * @param email User Email
+     * @param email    User Email
      * @param password User password
-     *
      * @return true if User has changed password in dateBase, false otherwise
      */
     public static boolean changePassword(String email, String password) {
@@ -271,11 +264,11 @@ public class UserDao {
             pst.setString(2, email);
             count = pst.executeUpdate();
             connection.commit();
-            log.info("Change password for user with email - "+email+", in data base");
+            log.info("Change password for user with email - " + email + ", in data base");
         } catch (Exception ex) {
             rollback(connection);
-            log.error("Problem with changing password for user with email - "+email+", in data base");
-            log.error("Exception - "+ ex);
+            log.error("Problem with changing password for user with email - " + email + ", in data base");
+            log.error("Exception - " + ex);
         } finally {
             close(connection);
             close(pst);
@@ -287,7 +280,6 @@ public class UserDao {
      * Update User
      *
      * @param user User
-     *
      * @return user if User updated in dateBase, null otherwise
      */
     public static User editUser(User user) {
@@ -313,11 +305,11 @@ public class UserDao {
             count = pst.executeUpdate();
             user.setPassword("");
             connection.commit();
-            log.info("Edit user with email - "+user.getEmail()+", in data base");
+            log.info("Edit user with email - " + user.getEmail() + ", in data base");
         } catch (Exception ex) {
             rollback(connection);
-            log.error("Problem with editing user with email - "+user.getEmail()+", in data base");
-            log.error("Exception - "+ ex);
+            log.error("Problem with editing user with email - " + user.getEmail() + ", in data base");
+            log.error("Exception - " + ex);
         } finally {
             close(connection);
             close(pst);
@@ -332,7 +324,6 @@ public class UserDao {
      * Return User Email by User Login
      *
      * @param login User Login
-     *
      * @return User Email if User was in dateBase, null otherwise
      */
     public static String getUserEmailByUserLogin(String login) {
@@ -346,10 +337,10 @@ public class UserDao {
                 }
 
             }
-            log.info("Get user email from data base by user login - "+login);
+            log.info("Get user email from data base by user login - " + login);
         } catch (SQLException ex) {
-            log.error("Problem with getting user email from data base by user login - "+login);
-            log.error("Exception - "+ ex);
+            log.error("Problem with getting user email from data base by user login - " + login);
+            log.error("Exception - " + ex);
         }
         return email;
     }
@@ -358,7 +349,6 @@ public class UserDao {
      * Return User Email by User identifier
      *
      * @param id User identifier
-     *
      * @return User Email if User was in dateBase, null otherwise
      */
     public static String getUserEmailByUserId(Integer id) {
@@ -371,10 +361,10 @@ public class UserDao {
                     email = rs.getString("email");
                 }
             }
-            log.info("Get user email from data base by user id - "+id);
+            log.info("Get user email from data base by user id - " + id);
         } catch (SQLException ex) {
-            log.error("Problem with getting user email from data base by user id - "+id);
-            log.error("Exception - "+ ex);
+            log.error("Problem with getting user email from data base by user id - " + id);
+            log.error("Exception - " + ex);
         }
         return email;
     }
@@ -383,7 +373,6 @@ public class UserDao {
      * Return userList by offset with limit 5
      *
      * @param skip int offset
-     *
      * @return List of User items. If any problems returns empty list.
      */
     public static List<User> getUsers(int skip) {
@@ -403,10 +392,10 @@ public class UserDao {
                     userList.add(user);
                 }
             }
-            log.info("Get all users from data base with offset - "+skip);
+            log.info("Get all users from data base with offset - " + skip);
         } catch (SQLException ex) {
-            log.error("Problem with getting all users from data base with offset - "+skip);
-            log.error("Exception - "+ ex);
+            log.error("Problem with getting all users from data base with offset - " + skip);
+            log.error("Exception - " + ex);
         }
         return userList;
     }
@@ -428,7 +417,7 @@ public class UserDao {
             log.info("Get user count from data base");
         } catch (SQLException ex) {
             log.error("Problem with getting user count from data base");
-            log.error("Exception - "+ ex);
+            log.error("Exception - " + ex);
         }
         return count;
     }
@@ -437,7 +426,6 @@ public class UserDao {
      * Blocking User by User identifier
      *
      * @param id User identifier
-     *
      */
     public static void blockUser(Integer id) {
         Connection connection = null;
@@ -449,11 +437,11 @@ public class UserDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("Block user in data base by user id - "+id);
+            log.info("Block user in data base by user id - " + id);
         } catch (SQLException ex) {
             rollback(connection);
-            log.error("Problem with blocking user in data base by user id - "+id);
-            log.error("Exception - "+ ex);
+            log.error("Problem with blocking user in data base by user id - " + id);
+            log.error("Exception - " + ex);
         } finally {
             close(connection);
             close(pst);
@@ -464,9 +452,8 @@ public class UserDao {
      * Unblocking User by User identifier
      *
      * @param id User identifier
-     *
      */
-    public static void unBlockUser(Integer id){
+    public static void unBlockUser(Integer id) {
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -476,11 +463,11 @@ public class UserDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("Unblock user in data base by user id - "+id);
+            log.info("Unblock user in data base by user id - " + id);
         } catch (SQLException ex) {
             rollback(connection);
-            log.error("Problem with unblocking user in data base by user id - "+id);
-            log.error("Exception - "+ ex);
+            log.error("Problem with unblocking user in data base by user id - " + id);
+            log.error("Exception - " + ex);
         } finally {
             close(connection);
             close(pst);
@@ -491,7 +478,6 @@ public class UserDao {
      * Delete User by User identifier
      *
      * @param id User identifier
-     *
      */
     public static void deleteUser(Integer id) {
         Connection connection = null;
@@ -503,11 +489,11 @@ public class UserDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("Delete user in data base by user id - "+id);
+            log.info("Delete user in data base by user id - " + id);
         } catch (SQLException ex) {
             rollback(connection);
-            log.error("Problem with deleting user in data base by user id - "+id);
-            log.error("Exception - "+ ex);
+            log.error("Problem with deleting user in data base by user id - " + id);
+            log.error("Exception - " + ex);
         } finally {
             close(connection);
             close(pst);
@@ -525,7 +511,7 @@ public class UserDao {
                 st.close();
             } catch (SQLException e) {
                 log.error("Problem with closing preparedStatement");
-                log.error("Exception - "+ e);
+                log.error("Exception - " + e);
             }
         }
     }
@@ -541,7 +527,7 @@ public class UserDao {
                 connection.close();
             } catch (SQLException e) {
                 log.error("Problem with closing connection");
-                log.error("Exception - "+ e);
+                log.error("Exception - " + e);
             }
         }
     }
@@ -556,7 +542,7 @@ public class UserDao {
             connection.rollback();
         } catch (SQLException ex) {
             log.error("Problem with rollback");
-            log.error("Exception - "+ ex);
+            log.error("Exception - " + ex);
         }
     }
 

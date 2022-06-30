@@ -21,7 +21,7 @@ public class ChangeCityServletTest {
         final HttpSession session = mock(HttpSession.class);
         when(request.getSession()).thenReturn(session);
         servlet.doPost(request, response);
-        verify(request,times(1)).getSession();
+        verify(request, times(1)).getSession();
         verify(response).sendRedirect("/employee/ordersTable.jsp");
     }
 }

@@ -135,13 +135,21 @@ public class Order {
         this.cityTo = cityTo;
     }
 
-    public Integer getUserId() { return userId;}
+    public Integer getUserId() {
+        return userId;
+    }
 
-    public void setUserId(Integer userId) {this.userId = userId;}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-    public Integer getDistance() {return distance;}
+    public Integer getDistance() {
+        return distance;
+    }
 
-    public void setDistance(Integer distance) {this.distance = distance;}
+    public void setDistance(Integer distance) {
+        this.distance = distance;
+    }
 
     public Order() {
     }

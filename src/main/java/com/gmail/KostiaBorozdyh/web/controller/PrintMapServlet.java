@@ -15,11 +15,11 @@ import java.util.List;
 public class PrintMapServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt( request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         List<InfoTableDTO> infoTable = (List<InfoTableDTO>) request.getSession().getAttribute("infoTable");
         for (InfoTableDTO table :
                 infoTable) {
-            if(table.getId()==id) request.getSession().setAttribute("table",table);
+            if (table.getId() == id) request.getSession().setAttribute("table", table);
         }
         response.sendRedirect("/info.jsp");
     }

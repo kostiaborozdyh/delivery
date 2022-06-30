@@ -29,9 +29,9 @@ public class ShowLocationServletTest {
         when(request.getSession()).thenReturn(session);
         when(Calculate.getPointAtTheMoment(1000)).thenReturn(pointDTO);
         servlet.doGet(request, response);
-        verify(request,times(2)).getSession();
-        verify(session,times(1)).setAttribute("latitude",pointDTO.getLatitude());
-        verify(session,times(1)).setAttribute("longitude",pointDTO.getLongitude());
+        verify(request, times(2)).getSession();
+        verify(session, times(1)).setAttribute("latitude", pointDTO.getLatitude());
+        verify(session, times(1)).setAttribute("longitude", pointDTO.getLongitude());
         verify(response).sendRedirect("/user/location.jsp");
         mockedSettings.close();
     }

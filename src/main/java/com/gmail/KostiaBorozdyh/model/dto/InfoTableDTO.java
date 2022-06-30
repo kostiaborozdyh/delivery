@@ -60,12 +60,13 @@ public class InfoTableDTO {
                 '}';
     }
 
-    public InfoTableDTO(String cityFrom, String cityTo, Integer distance){
+    public InfoTableDTO(String cityFrom, String cityTo, Integer distance) {
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
         this.distance = distance;
     }
-    public InfoTableDTO(){
+
+    public InfoTableDTO() {
 
     }
 }

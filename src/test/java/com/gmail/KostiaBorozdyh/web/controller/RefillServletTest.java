@@ -28,8 +28,8 @@ public class RefillServletTest {
         when(request.getParameter("value")).thenReturn("123456");
         when(request.getSession()).thenReturn(session);
         servlet.doPost(request, response);
-        verify(request,times(2)).getSession();
-        verify(session,times(1)).setAttribute("money",user.getMoney());
+        verify(request, times(2)).getSession();
+        verify(session, times(1)).setAttribute("money", user.getMoney());
         verify(response).sendRedirect("/user/refill.jsp");
         mockedSettings.close();
     }

@@ -21,8 +21,8 @@ public class LogOutServletTest {
         final HttpSession session = mock(HttpSession.class);
         when(request.getSession()).thenReturn(session);
         servlet.doGet(request, response);
-        verify(request,times(1)).getSession();
-        verify(session,times(1)).invalidate();
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).invalidate();
         verify(response).sendRedirect("/index.jsp");
     }
 }

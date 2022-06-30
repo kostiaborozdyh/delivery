@@ -17,7 +17,7 @@ public class RefillServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final int value = Integer.parseInt(request.getParameter("value"));
         User user = (User) request.getSession().getAttribute("user");
-        int money=0;
+        int money = 0;
 
         if (user.getMoney() != null) {
             money = user.getMoney();

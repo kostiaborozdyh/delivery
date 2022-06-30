@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 
 public class CreateOrderServletTest {
     @Test
-    public void createOrderTest() throws  IOException {
+    public void createOrderTest() throws IOException {
 
         final CreateOrderServlet servlet = new CreateOrderServlet();
         MockedStatic<UserService> mockedSettings;
@@ -28,16 +28,16 @@ public class CreateOrderServletTest {
         final HttpSession session = mock(HttpSession.class);
         final User user = mock(User.class);
         final OrderDTO order = mock(OrderDTO.class);
-        mockedSettings2 =  mockStatic(OrderService.class);
-        mockedSettings =  mockStatic(UserService.class);
+        mockedSettings2 = mockStatic(OrderService.class);
+        mockedSettings = mockStatic(UserService.class);
         mockedSettings3 = mockStatic(Convert.class);
         when(session.getAttribute("user")).thenReturn(user);
         when(session.getAttribute("newOrder")).thenReturn(order);
         when(request.getSession()).thenReturn(session);
         servlet.doPost(request, response);
-        verify(request,times(1)).getSession();
-        verify(session,times(1)).removeAttribute("newOrder");
-        verify(session,times(1)).removeAttribute("btn");
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).removeAttribute("newOrder");
+        verify(session, times(1)).removeAttribute("btn");
         verify(response).sendRedirect("/user/order.jsp");
         mockedSettings.close();
         mockedSettings2.close();

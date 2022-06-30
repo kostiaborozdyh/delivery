@@ -12,7 +12,7 @@ import java.io.IOException;
 public class ResetOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    doPost(request,response);
+        doPost(request, response);
     }
 
     @Override
@@ -22,10 +22,9 @@ public class ResetOrderServlet extends HttpServlet {
         session.removeAttribute("pageNumberOrder");
         session.removeAttribute("orders");
 
-        if(session.getAttribute("role").equals("user")) {
+        if (session.getAttribute("role").equals("user")) {
             response.sendRedirect("/user/order.jsp");
-        }
-        else {
+        } else {
             response.sendRedirect("/man/orderList.jsp");
         }
 

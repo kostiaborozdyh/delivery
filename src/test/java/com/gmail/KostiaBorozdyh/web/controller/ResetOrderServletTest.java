@@ -23,12 +23,13 @@ public class ResetOrderServletTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("role")).thenReturn("user");
         servlet.doPost(request, response);
-        verify(request,times(1)).getSession();
-        verify(session,times(1)).removeAttribute("filter");
-        verify(session,times(1)).removeAttribute("pageNumberOrder");
-        verify(session,times(1)).removeAttribute("orders");
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).removeAttribute("filter");
+        verify(session, times(1)).removeAttribute("pageNumberOrder");
+        verify(session, times(1)).removeAttribute("orders");
         verify(response).sendRedirect("/user/order.jsp");
     }
+
     @Test
     public void resetOrderForManagerTest() throws IOException, ServletException {
 
@@ -40,10 +41,10 @@ public class ResetOrderServletTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("role")).thenReturn("manager");
         servlet.doPost(request, response);
-        verify(request,times(1)).getSession();
-        verify(session,times(1)).removeAttribute("filter");
-        verify(session,times(1)).removeAttribute("pageNumberOrder");
-        verify(session,times(1)).removeAttribute("orders");
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).removeAttribute("filter");
+        verify(session, times(1)).removeAttribute("pageNumberOrder");
+        verify(session, times(1)).removeAttribute("orders");
         verify(response).sendRedirect("/man/orderList.jsp");
     }
 }

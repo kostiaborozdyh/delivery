@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * JsonParser utils
  */
@@ -19,7 +20,7 @@ public class JsonParser {
     /**
      * Return List InfoTableDTO from parse JSON string GoogleMapsAPI matrix distance
      *
-     * @param jsonStr   String JSON
+     * @param jsonStr String JSON
      * @return List InfoTableDTO
      */
     public static List<InfoTableDTO> parseGoogleApiDistance(String jsonStr) throws ParseException {
@@ -54,7 +55,7 @@ public class JsonParser {
     /**
      * Return PointDTO from parse JSON string GoogleMapsAPI geocode
      *
-     * @param jsonStr   String JSON
+     * @param jsonStr String JSON
      * @return PointDTO
      */
     public static PointDTO parseGoogleApiGeocode(String jsonStr) throws ParseException {
@@ -73,7 +74,7 @@ public class JsonParser {
     /**
      * Auxiliary utility for parsing an array of cities
      *
-     * @param city   String JSONArray
+     * @param city String JSONArray
      * @return ArrayList of String
      */
     private static ArrayList<String> parseCity(JSONArray city) {
@@ -90,7 +91,8 @@ public class JsonParser {
      * Before cutCityName: Черкаси, Черкаська область, Україна
      * <p>
      * After cutCityName: Черкаси, Україна
-     * @param city   String city for cutting
+     *
+     * @param city String city for cutting
      * @return new city Name
      */
     public static String cutCityName(String city) {
@@ -112,17 +114,17 @@ public class JsonParser {
     /**
      * Utility for cutting city Name for Employee role
      *
-     * @param city   String city for cutting
+     * @param city String city for cutting
      * @return new city Name
      */
-    public static String cutCityNameForEmployee(String city)  {
-        List<InfoTableDTO> list=null;
+    public static String cutCityNameForEmployee(String city) {
+        List<InfoTableDTO> list = null;
         try {
             list = GoogleMaps.getDistance(city, city);
-            log.info("Get city from GoogleAPI - "+city);
+            log.info("Get city from GoogleAPI - " + city);
         } catch (Exception ex) {
             log.error("problem with parsing data that we take from GoogleAPI");
-            log.error("Exception - "+ex);
+            log.error("Exception - " + ex);
         }
         return cutCityName(list.get(0).getCityFrom());
     }

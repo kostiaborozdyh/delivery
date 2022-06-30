@@ -23,26 +23,27 @@ public class OrderService {
         OrderDao.changeOrderStatus(orderId, dateOfArrival);
     }
 
-    public static void changeOrderPaymentStatusAfterUserPay(Integer orderId){
+    public static void changeOrderPaymentStatusAfterUserPay(Integer orderId) {
         OrderDao.changePayStatus(orderId);
     }
 
-    public static void putOrderOnRecord(Integer orderId){
+    public static void putOrderOnRecord(Integer orderId) {
         OrderDao.putOnRecord(orderId);
     }
 
-    public static void giveOrder(Integer orderId){
+    public static void giveOrder(Integer orderId) {
         OrderDao.giveOrder(orderId);
     }
 
-    public static Order getOrderById(Integer orderId){
+    public static Order getOrderById(Integer orderId) {
         return OrderDao.getOrder(orderId);
     }
 
-    public static List<Order> getOrderListByUser(User user,boolean userHasRoleUser) {
+    public static List<Order> getOrderListByUser(User user, boolean userHasRoleUser) {
         return (userHasRoleUser) ? OrderDao.getUserOrders(user) : OrderDao.getOrderList();
     }
-    public static List<Order> getOrderListOnRecord(String city){
+
+    public static List<Order> getOrderListOnRecord(String city) {
         return OrderDao.getOrderListOnRecord(city);
     }
 

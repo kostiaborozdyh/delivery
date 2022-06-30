@@ -18,7 +18,7 @@ public class ConfirmOrderServlet extends HttpServlet {
         final Integer orderId = Integer.parseInt(request.getParameter("id"));
 
         OrderService.changeOrderPaymentStatusAfterConfirmByManager(orderId);
-        UserService.sendEmailByOrderId(orderId,1);
+        UserService.sendEmailByOrderId(orderId, 1);
 
         request.setAttribute("id", orderId);
         request.getSession().removeAttribute("orderList");

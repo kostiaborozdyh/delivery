@@ -17,8 +17,8 @@ public class Table {
      * @param cityTo   String city To
      * @return List InfoTableDTO
      */
-    public static List<InfoTableDTO> getInfoTable(String cityFrom, String cityTo) throws  ParseException {
-        List<InfoTableDTO> distances = GoogleMaps.getDistance(cityFrom,cityTo);
+    public static List<InfoTableDTO> getInfoTable(String cityFrom, String cityTo) throws ParseException {
+        List<InfoTableDTO> distances = GoogleMaps.getDistance(cityFrom, cityTo);
         int index = 0;
         for (InfoTableDTO distance :
                 distances) {

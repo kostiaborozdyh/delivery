@@ -23,9 +23,10 @@ public class RestorePasswordServletTest {
         when(session.getAttribute("code")).thenReturn("123456");
         when(request.getSession()).thenReturn(session);
         servlet.doPost(request, response);
-        verify(request,times(1)).getSession();
+        verify(request, times(1)).getSession();
         verify(response).sendRedirect("/restore/enterPassword.jsp");
     }
+
     @Test
     public void restorePasswordCodNotEqualsTest() throws IOException, ServletException {
 
@@ -38,8 +39,8 @@ public class RestorePasswordServletTest {
         when(session.getAttribute("code")).thenReturn("123426");
         when(request.getSession()).thenReturn(session);
         servlet.doPost(request, response);
-        verify(request,times(2)).getSession();
-        verify(session,times(1)).setAttribute("invalidCode","invalidCode");
+        verify(request, times(2)).getSession();
+        verify(session, times(1)).setAttribute("invalidCode", "invalidCode");
         verify(response).sendRedirect("/restore/restorePassword.jsp");
     }
 }

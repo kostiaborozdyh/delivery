@@ -8,6 +8,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Data access object for Review entity
  */
@@ -41,7 +42,7 @@ public class ReviewDao {
             }
         } catch (SQLException ex) {
             log.error("Problem with getting list review from data base");
-            log.error("Exception - "+ ex);
+            log.error("Exception - " + ex);
         }
         return reviewList;
     }
@@ -49,9 +50,9 @@ public class ReviewDao {
     /**
      * Creating new review
      *
-     * @param id User identifier
+     * @param id       User identifier
      * @param response User response
-     * @param date LocalDate.now()
+     * @param date     LocalDate.now()
      */
     public static void addReview(Integer id, String response, LocalDate date) {
         Connection connection = null;
@@ -65,10 +66,10 @@ public class ReviewDao {
             pst.setDate(3, Date.valueOf(date));
             pst.executeUpdate();
             connection.commit();
-            log.info("Add review to data base with userId - "+id);
+            log.info("Add review to data base with userId - " + id);
         } catch (SQLException ex) {
-            log.error("Problem with adding review to data base with userId - "+id);
-            log.error("Exception - "+ ex);
+            log.error("Problem with adding review to data base with userId - " + id);
+            log.error("Exception - " + ex);
             rollback(connection);
         } finally {
             close(pst);
@@ -87,7 +88,7 @@ public class ReviewDao {
                 st.close();
             } catch (SQLException e) {
                 log.error("Problem with closing preparedStatement");
-                log.error("Exception - "+ e);
+                log.error("Exception - " + e);
             }
         }
     }
@@ -103,7 +104,7 @@ public class ReviewDao {
                 connection.close();
             } catch (SQLException e) {
                 log.error("Problem with closing connection");
-                log.error("Exception - "+ e);
+                log.error("Exception - " + e);
             }
         }
     }
@@ -118,7 +119,7 @@ public class ReviewDao {
             connection.rollback();
         } catch (SQLException ex) {
             log.error("Problem with rollback");
-            log.error("Exception - "+ ex);
+            log.error("Exception - " + ex);
         }
     }
 }

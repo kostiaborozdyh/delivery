@@ -9,8 +9,7 @@ import java.util.Properties;
  * Util for sending email to user, using UserEmail and array of message
  */
 public class SendEmail {
-    public static void send(String email, String[] message)
-    {
+    public static void send(String email, String[] message) {
         //Set Mail properties
         Properties props = System.getProperties();
         props.setProperty("mail.smtp.starttls.enable", "true");

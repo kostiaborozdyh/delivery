@@ -25,7 +25,7 @@ public class UnblockUserServletTest {
         when(request.getSession()).thenReturn(session);
         when(request.getParameter("id")).thenReturn("100");
         servlet.doPost(request, response);
-        verify(session,times(1)).removeAttribute("pageNumberUser");
+        verify(session, times(1)).removeAttribute("pageNumberUser");
         verify(response).sendRedirect("/adm/usersTable.jsp");
         mockedSettings.close();
     }

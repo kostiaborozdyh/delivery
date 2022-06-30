@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 public class BlockUserServletTest {
     @Test
     public void blockUserTest() throws ServletException, IOException {
-         MockedStatic<UserService> mockedSettings;
+        MockedStatic<UserService> mockedSettings;
         final BlockUserServlet servlet = new BlockUserServlet();
 
         final HttpServletRequest request = mock(HttpServletRequest.class);

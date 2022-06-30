@@ -6,6 +6,7 @@ import com.gmail.KostiaBorozdyh.model.utils.SendEmail;
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+
 /**
  * Security class
  */
@@ -31,7 +32,6 @@ public class Security {
      * Sending mail to user for restoring password by User Email
      *
      * @param email User Email
-     *
      * @return code that we're sending to user
      */
     public static String restorePassword(String email) {
@@ -44,7 +44,6 @@ public class Security {
      * Sending mail to user for taking parcel in post office by User Email
      *
      * @param email User Email
-     *
      * @return code that we're sending to user
      */
     public static String sendCode(String email) {

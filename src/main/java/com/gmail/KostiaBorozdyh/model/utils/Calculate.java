@@ -166,8 +166,8 @@ public class Calculate {
     /**
      * Check if the page number is outside the list
      *
-     * @param id Index page Number
-     * @param list     Input list
+     * @param id   Index page Number
+     * @param list Input list
      * @return page number. If any problems returns id.
      */
     public static <T> int pageId(int id, List<T> list) {
@@ -208,9 +208,9 @@ public class Calculate {
      * Calculate PointDTO between cityFromPoint and cityToPoint  at the moment
      *
      * @param cityFromPoint PointDTO cityFromPoint
-     * @param cityToPoint PointDTO cityFromPoint
-     * @param days Integer parcel delivery time in days
-     * @param time Integer current time in hours
+     * @param cityToPoint   PointDTO cityFromPoint
+     * @param days          Integer parcel delivery time in days
+     * @param time          Integer current time in hours
      * @return PointDTO. If any problems returns null.
      */
     public static PointDTO currentPoint(PointDTO cityFromPoint, PointDTO cityToPoint, int days, int time) {

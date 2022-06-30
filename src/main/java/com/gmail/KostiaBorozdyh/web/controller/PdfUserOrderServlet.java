@@ -42,7 +42,7 @@ public class PdfUserOrderServlet extends HttpServlet {
                 "Дата створення: " + order.getDateCreate() + "\n" +
                 "Дата прибуття: " + order.getDateOfArrival() + "\n" +
                 "Статус: " + order.getPaymentStatus() + "\n";
-        String path = this.getServletContext().getRealPath("")+FONT;
+        String path = this.getServletContext().getRealPath("") + FONT;
         PdfFont font = PdfFontFactory.createFont(path, PdfEncodings.IDENTITY_H);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));

@@ -140,12 +140,14 @@ public class User {
         this.money = money;
         this.notify = notify;
     }
-    public User(){
+
+    public User() {
 
     }
+
     public User cloneUser() {
         return new User(this.id, this.login, this.firstName, this.lastName, this.phoneNumber,
-                        this.email, this.roleId, this.money, this.notify);
+                this.email, this.roleId, this.money, this.notify);
     }
 
 }

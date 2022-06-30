@@ -33,8 +33,8 @@ public class PayServletTest {
         when(session.getAttribute("user")).thenReturn(user);
         when(request.getSession()).thenReturn(session);
         servlet.doPost(request, response);
-        verify(request,times(2)).getSession();
-        verify(session,times(1)).setAttribute("money",user.getMoney());
+        verify(request, times(2)).getSession();
+        verify(session, times(1)).setAttribute("money", user.getMoney());
         verify(response).sendRedirect("/resetOrder");
         mockedSettings.close();
         mockedSettings2.close();

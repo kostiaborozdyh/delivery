@@ -35,7 +35,7 @@ public class PdfOrderServlet extends HttpServlet {
             throws IOException {
         // Get the text that will be added to the PDF
         String text = "Заявки на відправлення вантажу";
-        String path = this.getServletContext().getRealPath("")+FONT;
+        String path = this.getServletContext().getRealPath("") + FONT;
         PdfFont font = PdfFontFactory.createFont(path, PdfEncodings.IDENTITY_H);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));

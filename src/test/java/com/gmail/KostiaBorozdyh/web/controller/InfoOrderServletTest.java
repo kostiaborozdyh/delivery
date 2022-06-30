@@ -27,10 +27,11 @@ public class InfoOrderServletTest {
         when(session.getAttribute("role")).thenReturn("user");
         when(request.getSession()).thenReturn(session);
         servlet.doGet(request, response);
-        verify(request,times(2)).getSession();
+        verify(request, times(2)).getSession();
         verify(response).sendRedirect("/user/userOrder.jsp");
         mockedSettings.close();
     }
+
     @Test
     public void infoOrderManagerTest() throws IOException, ServletException {
 
@@ -44,7 +45,7 @@ public class InfoOrderServletTest {
         when(session.getAttribute("role")).thenReturn("manager");
         when(request.getSession()).thenReturn(session);
         servlet.doGet(request, response);
-        verify(request,times(2)).getSession();
+        verify(request, times(2)).getSession();
         verify(response).sendRedirect("/man/orderUser.jsp");
         mockedSettings.close();
     }

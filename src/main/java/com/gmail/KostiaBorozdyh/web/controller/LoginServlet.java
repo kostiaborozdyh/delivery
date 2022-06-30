@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         final String password = request.getParameter("password");
         session.removeAttribute("validList");
         User user;
-        user = UserService.getUserByLoginAndPassword(login,password);
+        user = UserService.getUserByLoginAndPassword(login, password);
         if (user == null) {
             session.setAttribute("invalid", "invalid");
             response.sendRedirect("/login.jsp");

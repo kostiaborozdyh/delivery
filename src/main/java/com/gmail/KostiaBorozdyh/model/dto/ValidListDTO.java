@@ -22,15 +22,16 @@ public class ValidListDTO {
     private String invalidLastName;
     private String invalidPhoneNumber;
 
-    public void init(){
-        this.validEmail ="";
-        this.validEmailName ="";
-        this.validLogin ="";
-        this.validLoginName ="";
-        this.validFirstName ="";
-        this.validLastName ="";
-        this.validPhoneNumber ="";
+    public void init() {
+        this.validEmail = "";
+        this.validEmailName = "";
+        this.validLogin = "";
+        this.validLoginName = "";
+        this.validFirstName = "";
+        this.validLastName = "";
+        this.validPhoneNumber = "";
     }
+
     public String getInvalidEmail() {
         return invalidEmail;
     }

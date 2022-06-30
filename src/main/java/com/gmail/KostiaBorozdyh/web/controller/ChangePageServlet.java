@@ -39,22 +39,16 @@ public class ChangePageServlet extends HttpServlet {
                 session.setAttribute("pageNumberOrder", id);
                 String role = (String) session.getAttribute("role");
                 switch (role) {
-                    case "user":
-                        response.sendRedirect("/user/order.jsp");
-                        break;
-                    case "manager":
-                        response.sendRedirect("/man/orderList.jsp");
-                        break;
-                    case "employee":
-                        response.sendRedirect("/employee/ordersTable.jsp");
-                        break;
+                    case "user":     response.sendRedirect("/user/order.jsp");           break;
+                    case "manager":  response.sendRedirect("/man/orderList.jsp");        break;
+                    case "employee": response.sendRedirect("/employee/ordersTable.jsp"); break;
                 }
                 break;
             }
             case 3: {
                 List<Integer> list = (List<Integer>) session.getAttribute("listNumberUser");
                 id = Calculate.pageId(id, list);
-                session.setAttribute("userList", UserService.getUsersWithLimit((id-1)*5));
+                session.setAttribute("userList", UserService.getUsersWithLimit((id - 1) * 5));
                 session.setAttribute("pageNumberUser", id);
                 response.sendRedirect("/adm/usersTable.jsp");
             }

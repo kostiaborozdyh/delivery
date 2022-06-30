@@ -12,11 +12,11 @@ import java.util.List;
  */
 public class ReviewService {
 
-    public static void save(User user, String response){
+    public static void save(User user, String response) {
         ReviewDao.addReview(user.getId(), response, LocalDate.now());
     }
 
-    public static List<Review> getAllReviews(){
+    public static List<Review> getAllReviews() {
         return ReviewDao.getReviews();
     }
 }

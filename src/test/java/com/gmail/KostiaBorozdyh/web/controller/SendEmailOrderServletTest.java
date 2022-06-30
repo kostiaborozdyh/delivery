@@ -22,7 +22,7 @@ public class SendEmailOrderServletTest {
         mockedSettings = mockStatic(UserService.class);
         when(request.getParameter("idOrder")).thenReturn("1000");
         servlet.doGet(request, response);
-        verify(request,times(0)).getSession();
+        verify(request, times(0)).getSession();
         verify(response).sendRedirect("/user/order.jsp");
         mockedSettings.close();
     }

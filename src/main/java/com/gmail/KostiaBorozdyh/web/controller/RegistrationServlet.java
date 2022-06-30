@@ -36,7 +36,7 @@ public class RegistrationServlet extends HttpServlet {
 
         ValidListDTO validList = Validation.valid(user, true, true);
 
-        boolean userIsValid=Validation.count(validList);
+        boolean userIsValid = Validation.count(validList);
 
         if (userIsValid) {
             UserService.save(user);

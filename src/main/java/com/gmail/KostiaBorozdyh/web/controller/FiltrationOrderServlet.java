@@ -35,9 +35,9 @@ public class FiltrationOrderServlet extends HttpServlet {
         filterOrderDTO.setCityTo(request.getParameterValues("cityTo[]"));
         filterOrderDTO.setSort(request.getParameter("sort"));
 
-        User user =(User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         boolean userHasRoleUser = user.getRoleId() == 1;
-        List<Order> orderList = OrderService.getOrderListByUser(user,userHasRoleUser);
+        List<Order> orderList = OrderService.getOrderListByUser(user, userHasRoleUser);
 
         orderList = FiltrationOrder.doFilter(orderList, filterOrderDTO);
 

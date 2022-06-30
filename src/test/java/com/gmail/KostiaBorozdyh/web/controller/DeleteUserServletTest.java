@@ -25,8 +25,8 @@ public class DeleteUserServletTest {
         when(request.getParameter("id")).thenReturn("1000");
         when(request.getSession()).thenReturn(session);
         servlet.doPost(request, response);
-        verify(request,times(1)).getSession();
-        verify(session,times(1)).removeAttribute("pageNumberUser");
+        verify(request, times(1)).getSession();
+        verify(session, times(1)).removeAttribute("pageNumberUser");
         verify(response).sendRedirect("/adm/usersTable.jsp");
         mockedSettings.close();
     }

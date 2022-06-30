@@ -25,7 +25,7 @@ public class CreateOrderServlet extends HttpServlet {
         orderDTO.setUserId(user.getId());
 
         OrderService.save(Convert.toOrderFromOrderDTO(orderDTO));
-        UserService.sendEmailAfterCreateOrder(user,orderDTO);
+        UserService.sendEmailAfterCreateOrder(user, orderDTO);
 
         session.removeAttribute("newOrder");
         session.removeAttribute("btn");

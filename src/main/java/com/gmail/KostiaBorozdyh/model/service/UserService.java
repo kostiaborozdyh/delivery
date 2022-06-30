@@ -19,11 +19,13 @@ public class UserService {
     public static void save(User user) {
         UserDao.insertUser(user);
     }
+
     public static void blockUser(Integer userId) {
         UserDao.blockUser(userId);
         String email = UserDao.getUserEmailByUserId(userId);
         SendEmail.send(email, CreateMessage.blockUser());
     }
+
     public static void unblockUser(Integer userId) {
         UserDao.unBlockUser(userId);
         String email = UserDao.getUserEmailByUserId(userId);
@@ -45,15 +47,15 @@ public class UserService {
         UserDao.changePassword(email, password);
     }
 
-    public static boolean emailIsValid(String email){
+    public static boolean emailIsValid(String email) {
         return UserDao.emailIsValid(email);
     }
 
-    public static boolean loginIsValid(String login){
+    public static boolean loginIsValid(String login) {
         return UserDao.loginIsValid(login);
     }
 
-    public static String getUserEmailByUserLogin(String login){
+    public static String getUserEmailByUserLogin(String login) {
         return UserDao.getUserEmailByUserLogin(login);
     }
 
@@ -71,10 +73,12 @@ public class UserService {
         Integer userId = UserDao.getUserIdByOrderId(orderId);
         return UserDao.getUserEmailByUserId(userId);
     }
-    public static Integer getUserCount(){
+
+    public static Integer getUserCount() {
         return UserDao.getUserCount();
     }
-    public static List<User> getUsersWithLimit(int skip){
+
+    public static List<User> getUsersWithLimit(int skip) {
         return UserDao.getUsers(skip);
     }
 
@@ -86,10 +90,16 @@ public class UserService {
             Order order = OrderDao.getOrder(orderId);
             String email = UserDao.getUserEmailByUserLogin(order.getUserLogin());
 
-            switch (function){
-                case 1: SendEmail.send(email, CreateMessage.messageChangePaymentStatus(order.getPrice())); break;
-                case 2: SendEmail.send(email, CreateMessage.putOnRecord(orderId)); break;
-                case 3: SendEmail.send(email, CreateMessage.messageSendOrder(order)); break;
+            switch (function) {
+                case 1:
+                    SendEmail.send(email, CreateMessage.messageChangePaymentStatus(order.getPrice()));
+                    break;
+                case 2:
+                    SendEmail.send(email, CreateMessage.putOnRecord(orderId));
+                    break;
+                case 3:
+                    SendEmail.send(email, CreateMessage.messageSendOrder(order));
+                    break;
             }
         }
     }

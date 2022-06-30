@@ -1,4 +1,4 @@
-2022-06-28 14:53:33 INFO  UserDao:123 - Check that user with login - user256, consist in data base
-2022-06-28 14:53:33 INFO  UserDao:141 - Check that user with email - kostiaborozdyh@gmail.com, consist in data base
-2022-06-28 14:53:33 INFO  UserDao:123 - Check that user with login - user256, consist in data base
-2022-06-28 14:53:33 INFO  UserDao:141 - Check that user with email - kotikm@gmail.com, consist in data base
+2022-06-30 13:09:09 INFO  UserDao:151 - Check that user with login - user256, consist in data base
+2022-06-30 13:09:09 INFO  UserDao:175 - Check that user with email - kostiaborozdyh@gmail.com, consist in data base
+2022-06-30 13:09:09 INFO  UserDao:151 - Check that user with login - user256, consist in data base
+2022-06-30 13:09:09 INFO  UserDao:175 - Check that user with email - kotikm@gmail.com, consist in data base

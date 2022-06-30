@@ -67,7 +67,7 @@ public class EditUserServlet extends HttpServlet {
             request.getSession().setAttribute("user", user);
             request.getSession().removeAttribute("validList");
 
-        } else{
+        } else {
             request.getSession().setAttribute("validList", validList);
         }
 

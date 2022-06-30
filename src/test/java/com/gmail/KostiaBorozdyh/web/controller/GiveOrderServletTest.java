@@ -24,12 +24,12 @@ public class GiveOrderServletTest {
         final HttpServletRequest request = mock(HttpServletRequest.class);
         final HttpServletResponse response = mock(HttpServletResponse.class);
         final HttpSession session = mock(HttpSession.class);
-        mockedSettings =  mockStatic(UserService.class);
+        mockedSettings = mockStatic(UserService.class);
         mockedSettings2 = mockStatic(Security.class);
         when(request.getParameter("id")).thenReturn("1000");
         when(request.getSession()).thenReturn(session);
         servlet.doPost(request, response);
-        verify(request,times(2)).getSession();
+        verify(request, times(2)).getSession();
         verify(response).sendRedirect("/employee/enterCode.jsp");
         mockedSettings.close();
         mockedSettings2.close();

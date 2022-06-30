@@ -11,6 +11,7 @@ import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
+
 /**
  * Data access object for Order entity
  */
@@ -85,10 +86,10 @@ public class OrderDao {
             pst.setInt(12, 1);
             pst.executeUpdate();
             connection.commit();
-            log.info("add order to data base with description - "+order.getDescription());
+            log.info("add order to data base with description - " + order.getDescription());
         } catch (SQLException ex) {
-            log.error("problem with adding order to data base with description -  "+order.getDescription());
-            log.error("Exception -  "+ex);
+            log.error("problem with adding order to data base with description -  " + order.getDescription());
+            log.error("Exception -  " + ex);
             rollback(connection);
         } finally {
             close(connection);
@@ -116,8 +117,8 @@ public class OrderDao {
             }
             log.info("get list order from data base by user login - " + user.getLogin());
         } catch (SQLException ex) {
-            log.error("problem with getting list order from data base by user login -  "+ user.getLogin());
-            log.error("Exception - "+ex);
+            log.error("problem with getting list order from data base by user login -  " + user.getLogin());
+            log.error("Exception - " + ex);
         }
         return list;
     }
@@ -137,10 +138,10 @@ public class OrderDao {
             pst.setInt(1, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("change pay status for order by orderId - "+id);
+            log.info("change pay status for order by orderId - " + id);
         } catch (SQLException ex) {
-            log.error("problem with changing pay status for order by orderId -  "+id);
-            log.error("Exception - "+ ex);
+            log.error("problem with changing pay status for order by orderId -  " + id);
+            log.error("Exception - " + ex);
             rollback(connection);
         } finally {
             close(connection);
@@ -151,10 +152,10 @@ public class OrderDao {
     /**
      * Update order Pay Status, Location Status, Date of Sending, Date of arrival by Order identifier
      *
-     * @param id Order identifier
+     * @param id            Order identifier
      * @param dateOfArrival LocalDate
      */
-    public static void changeOrderStatus(Integer id,LocalDate dateOfArrival) {
+    public static void changeOrderStatus(Integer id, LocalDate dateOfArrival) {
         Connection connection = null;
         PreparedStatement pst = null;
         try {
@@ -166,10 +167,10 @@ public class OrderDao {
             pst.setInt(3, id);
             pst.executeUpdate();
             connection.commit();
-            log.info("confirm order by orderId - "+id);
+            log.info("confirm order by orderId - " + id);
         } catch (SQLException ex) {
             log.error("problem with confirming order by orderId - " + id);
-            log.error("Exception - "+ ex);
+            log.error("Exception - " + ex);
             rollback(connection);
         } finally {
             close(connection);
@@ -195,7 +196,7 @@ public class OrderDao {
             log.info("Give order to user by orderId - " + id);
         } catch (SQLException ex) {
             log.error("problem with giving order to user by orderId - " + id);
-            log.error("Exception - "+ ex);
+            log.error("Exception - " + ex);
             rollback(connection);
         } finally {
             close(connection);
@@ -221,7 +222,7 @@ public class OrderDao {
             log.info("Put on record order by orderId - " + id);
         } catch (SQLException ex) {
             log.error("problem with putting on record order by orderId - " + id);
-            log.error("Exception - "+ ex);
+            log.error("Exception - " + ex);
             rollback(connection);
         } finally {
             close(connection);
@@ -247,7 +248,7 @@ public class OrderDao {
             }
         } catch (SQLException ex) {
             log.error("Problem with getting all orders from database");
-            log.error("Exception - "+ ex);
+            log.error("Exception - " + ex);
         }
         return list;
     }
@@ -256,7 +257,6 @@ public class OrderDao {
      * Return order by Order identifier
      *
      * @param orderId Order identifier
-     *
      * @return Order entity or null if wasn't found
      */
     public static Order getOrder(Integer orderId) {
@@ -268,11 +268,11 @@ public class OrderDao {
                 while (rs.next()) {
                     order = getOneOrder(rs);
                 }
-                log.info("Get order from database by orderId - "+orderId);
+                log.info("Get order from database by orderId - " + orderId);
             }
         } catch (SQLException ex) {
-            log.error("Problem with getting order from database by orderId - "+orderId);
-            log.error("Exception - "+ ex);
+            log.error("Problem with getting order from database by orderId - " + orderId);
+            log.error("Exception - " + ex);
         }
         return order;
     }
@@ -281,7 +281,6 @@ public class OrderDao {
      * Delete order by User identifier
      *
      * @param userId User identifier
-     *
      */
     public static void deleteOrderByUserId(Integer userId) {
         Connection connection = null;
@@ -293,10 +292,10 @@ public class OrderDao {
             pst.setInt(1, userId);
             pst.executeUpdate();
             connection.commit();
-            log.info("Delete all orders from data base by userId - "+userId);
+            log.info("Delete all orders from data base by userId - " + userId);
         } catch (SQLException ex) {
-            log.error("Problem with deleting orders from data base by userId - "+userId);
-            log.error("Exception - "+ ex);
+            log.error("Problem with deleting orders from data base by userId - " + userId);
+            log.error("Exception - " + ex);
             rollback(connection);
         } finally {
             close(pst);
@@ -321,11 +320,11 @@ public class OrderDao {
                     Order order = getOneOrder(rs);
                     list.add(order);
                 }
-                log.info("Get list order from data base by cityTo - "+cityTo);
+                log.info("Get list order from data base by cityTo - " + cityTo);
             }
         } catch (SQLException ex) {
-            log.error("Problem with getting list order from data base by cityTo - "+cityTo);
-            log.error("Exception - "+ ex);
+            log.error("Problem with getting list order from data base by cityTo - " + cityTo);
+            log.error("Exception - " + ex);
         }
         return list;
     }
@@ -349,10 +348,10 @@ public class OrderDao {
                     list.add(order);
                 }
             }
-            log.info("Get orders from data base by cityTo - "+cityTo+", and dat eof arrival - "+LocalDate.now());
+            log.info("Get orders from data base by cityTo - " + cityTo + ", and dat eof arrival - " + LocalDate.now());
         } catch (SQLException ex) {
-            log.error("Problem with getting orders  from data base by cityTo - "+cityTo+", and dat eof arrival - "+LocalDate.now());
-            log.error("Exception - "+ ex);
+            log.error("Problem with getting orders  from data base by cityTo - " + cityTo + ", and dat eof arrival - " + LocalDate.now());
+            log.error("Exception - " + ex);
         }
         return list;
     }
@@ -395,7 +394,7 @@ public class OrderDao {
                 st.close();
             } catch (SQLException e) {
                 log.error("Problem with closing preparedStatement");
-                log.error("Exception - "+ e);
+                log.error("Exception - " + e);
             }
         }
     }
@@ -411,7 +410,7 @@ public class OrderDao {
                 connection.close();
             } catch (SQLException e) {
                 log.error("Problem with closing connection");
-                log.error("Exception - "+ e);
+                log.error("Exception - " + e);
             }
         }
     }
@@ -426,7 +425,7 @@ public class OrderDao {
             connection.rollback();
         } catch (SQLException ex) {
             log.error("Problem with rollback");
-            log.error("Exception - "+ ex);
+            log.error("Exception - " + ex);
         }
     }
 

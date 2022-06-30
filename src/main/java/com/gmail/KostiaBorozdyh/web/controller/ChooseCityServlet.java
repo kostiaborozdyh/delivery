@@ -26,7 +26,7 @@ public class ChooseCityServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String on = request.getParameter("on");
 
-        if(on!=null) {
+        if (on != null) {
             session.removeAttribute("pageNumberOrder");
         }
 
